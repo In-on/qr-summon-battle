@@ -567,6 +567,16 @@ button{font-family:inherit;cursor:pointer}
 .rkb i{display:block;height:100%;background:linear-gradient(90deg,#c08cff,#ffd76a)}
 .prk{display:flex;align-items:center;gap:calc(1.2*var(--vh));margin:calc(-.6*var(--vh)) 0 calc(1.4*var(--vh));font:700 calc(2.6*var(--vh)) 'Shippori Mincho B1';color:#e8dcc0;flex-wrap:wrap}
 .prk b{font:700 calc(3.4*var(--vh)) 'Cinzel';color:#ffe9a8}.prk .rkb{width:calc(22*var(--vh));height:calc(1.2*var(--vh))}.prk small{font:500 calc(2*var(--vh)) 'Zen Kaku Gothic New';color:#bbb;width:100%}
+#boxL .slot{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:none}
+#boxL .slot.dragging{opacity:.3}
+#boxL .slot.dropto{box-shadow:0 0 0 3px #f6e2a8,0 0 18px rgba(246,226,168,.6)!important;transform:scale(1.06)}
+.bxghost{position:absolute;width:calc(13*var(--vh));height:calc(13*var(--vh));transform:translate(-50%,-60%) scale(1.15);pointer-events:none;z-index:60;filter:drop-shadow(0 8px 14px rgba(0,0,0,.6)) drop-shadow(0 0 10px rgba(246,226,168,.5))}
+.bxghost img{width:100%;height:100%;object-fit:contain}
+#boxL .slot .lkb{position:absolute;right:6%;bottom:6%;width:calc(2.6*var(--vh));height:calc(2.6*var(--vh));color:#f6e2a8;z-index:3;filter:drop-shadow(0 1px 2px #000)}
+#boxL .slot .lkb svg{width:100%;height:100%}
+#boxR .lockb{position:absolute;top:calc(1.8*var(--vh));left:calc(1.8*var(--vh));width:calc(6.4*var(--vh));height:calc(6.4*var(--vh));border-radius:50%;border:1.5px solid #c9a058;background:radial-gradient(circle at 35% 30%,#3d3020,#0e0b08);color:#bba98a;display:grid;place-items:center;padding:0;z-index:6}
+#boxR .lockb svg{width:58%;height:58%}#boxR .lockb.on{color:#ffd76a;box-shadow:0 0 12px rgba(255,215,106,.55)}
+#boxR .btns .dis{opacity:.4;filter:grayscale(.6)}
 </style>
 </head>
 <body>
@@ -1971,14 +1981,36 @@ function closeBox(){$('#box').classList.remove('on','solo');}
 document.addEventListener('click',e=>{const b=$('#box');if(b&&b.classList.contains('solo')&&(e.target===b||e.target.classList.contains('boxW'))){sfx('tap');closeBox();}});
 function openRoomDet(o){let i=save.box.indexOf(o.src);if(i<0)i=save.box.findIndex(x=>x&&urBase(x)===o.src);if(i<0){showCard(o.m,{mode:o.special?'special':'room'});return;}
   closeMenu();sfx('open');BX.mode='view';BX.who=0;BX.sel=i;BX.rel=false;BX.page=Math.floor(i/PER);renderBox();$('#box').classList.add('on','solo');}
+/* ---- ロック ---- */
+function isLocked(s){return !!(s&&save.mon[s]&&save.mon[s].lock);}
+function toggleLock(){const s=save.box[BX.sel];if(!s)return;const d=mst(s);d.lock=!d.lock;persist();sfx('tap');toast(d.lock?'ロックしました（逃がす・素材にできません）':'ロックを外しました');BX.rel=false;renderBox();}
+/* ---- 長押しで移動 ---- */
+function boxPress(e,el){const i=+el.dataset.i;if(!save.box[i]||BX.drag)return;const sx=e.clientX,sy=e.clientY;let moved=false;
+  const mv=ev=>{if(Math.hypot(ev.clientX-sx,ev.clientY-sy)>10)moved=true;},cl=()=>{clearTimeout(BX.lpT);removeEventListener('pointermove',mv);removeEventListener('pointerup',cl);removeEventListener('pointercancel',cl);};
+  addEventListener('pointermove',mv);addEventListener('pointerup',cl);addEventListener('pointercancel',cl);
+  BX.lpT=setTimeout(()=>{cl();if(moved)return;boxDragStart(i,e);},380);}
+function boxDragStart(i,e){sfx('swap');if(navigator.vibrate)navigator.vibrate(15);const s=save.box[i],m=gen(s);BX.drag={from:i,over:-1};BX.noClick=1;
+  const gh=document.createElement('div');gh.className='bxghost';gh.innerHTML=`<img src="${m.img}" alt="">`;$('#box').appendChild(gh);BX.drag.gh=gh;
+  const sl=$('#boxL').querySelector(`.slot[data-i="${i}"]`);if(sl)sl.classList.add('dragging');
+  const mv=ev=>boxDragMove(ev),up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);boxDragEnd(ev);};
+  addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up);boxDragMove(e);}
+function boxDragMove(e){const D=BX.drag;if(!D)return;const p=gp(e);D.gh.style.left=p.x+'px';D.gh.style.top=p.y+'px';
+  const t=document.elementFromPoint(e.clientX,e.clientY);const sl=t&&t.closest&&t.closest('#boxL .slot'),nv=t&&t.closest&&t.closest('#boxL .nav');
+  $('#boxL').querySelectorAll('.slot.dropto').forEach(x=>x.classList.remove('dropto'));D.over=-1;
+  if(sl){D.over=+sl.dataset.i;if(D.over!==D.from)sl.classList.add('dropto');}
+  if(nv){if(!D.navT)D.navT=setTimeout(()=>{D.navT=0;const dir=nv===$('#boxL').querySelectorAll('.nav')[0]?-1:1;BX.page=(BX.page+dir+NBOX)%NBOX;sfx('tap');renderBox();const f=$('#boxL').querySelector(`.slot[data-i="${D.from}"]`);if(f)f.classList.add('dragging');},550);}
+  else if(D.navT){clearTimeout(D.navT);D.navT=0;}}
+function boxDragEnd(){const D=BX.drag;if(!D)return;BX.drag=null;if(D.navT)clearTimeout(D.navT);D.gh.remove();setTimeout(()=>{BX.noClick=0;},50);
+  if(D.over>=0&&D.over!==D.from){const a=save.box[D.from];save.box[D.from]=save.box[D.over];save.box[D.over]=a;if(BX.sel===D.from)BX.sel=D.over;else if(BX.sel===D.over)BX.sel=D.from;persist();sfx('swap');}
+  renderBox();}
 function boxPage(d){BX.page=(BX.page+d+NBOX)%NBOX;sfx('tap');renderBox();}
 function renderBox(){
   const p=BX.page,cnt=save.box.slice(p*PER,p*PER+PER).filter(Boolean).length;
   const np=(BX.picks||[]).length,mt=BX.mode==='view'?'':BX.mode==='adv'?`冒険に連れていく3体を選んでください（${np}/3）`:BX.mode==='solo'?`チームの3体を選んでください（${np}/3）`:`${BX.who?'P2':'P1'} のチーム3体を選んでください（${np}/3）`;
-  let g='';for(let i=0;i<PER;i++){const idx=p*PER+i,s=save.box[idx];if(s){const m=gen(s);const pk=BX.mode!=='view'?(BX.picks||[]).indexOf(s):-1;g+=`<div class="slot${BX.sel===idx?' sel':''}${save.room.includes(s)?' inroom':''}${isTraining(s)?' trng':''}${pk>=0?' pk':''}" data-i="${idx}"${pk>=0?` data-n="${pk+1}"`:''}><i class="rd" style="--c:${m.rar.c}"></i><img src="${m.img}" alt="" loading="lazy">${(save.mon[s]||{}).fz?'<i class="fzb"><b class="pls">+</b><i class="rbs">★</i></i>':''}</div>`;}else g+=`<div class="slot" data-i="${idx}"></div>`;}
+  let g='';for(let i=0;i<PER;i++){const idx=p*PER+i,s=save.box[idx];if(s){const m=gen(s);const pk=BX.mode!=='view'?(BX.picks||[]).indexOf(s):-1;g+=`<div class="slot${BX.sel===idx?' sel':''}${save.room.includes(s)?' inroom':''}${isTraining(s)?' trng':''}${pk>=0?' pk':''}" data-i="${idx}"${pk>=0?` data-n="${pk+1}"`:''}><i class="rd" style="--c:${m.rar.c}"></i><img src="${m.img}" alt="" loading="lazy">${(save.mon[s]||{}).fz?'<i class="fzb"><b class="pls">+</b><i class="rbs">★</i></i>':''}${isLocked(s)?'<i class="lkb"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"10\" rx=\"2\" fill=\"currentColor\" fill-opacity=\".25\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg></i>':''}</div>`;}else g+=`<div class="slot" data-i="${idx}"></div>`;}
   let dots='';for(let b=0;b<NBOX;b++)dots+=`<i class="${b===p?'on':save.box.slice(b*PER,b*PER+PER).some(Boolean)?'has':''}" data-b="${b}"></i>`;
   $('#boxL').innerHTML=`<div class="bh"><button class="nav" onclick="boxPage(-1)">◀</button><div class="bt"><b class="gt">BOX ${p+1}</b><small>${cnt} / ${PER}　・　TOTAL ${owned()} / ${NBOX*PER}</small></div><button class="nav" onclick="boxPage(1)">▶</button></div>${mt?`<div class="bmode">${mt}</div>`:''}<div class="grid">${g}</div><div class="dots">${dots}</div>`;
-  $('#boxL').querySelectorAll('.slot').forEach(el=>el.onclick=()=>{const i=+el.dataset.i;if(!save.box[i])return;sfx('tap');BX.sel=i;BX.rel=false;renderBox();});
+  $('#boxL').querySelectorAll('.slot').forEach(el=>{el.onclick=()=>{if(BX.noClick){BX.noClick=0;return;}const i=+el.dataset.i;if(!save.box[i])return;sfx('tap');BX.sel=i;BX.rel=false;renderBox();};el.onpointerdown=e=>boxPress(e,el);});
   $('#boxL').querySelectorAll('.dots i').forEach(el=>el.onclick=()=>{BX.page=+el.dataset.b;sfx('tap');renderBox();});
   renderDetail();
 }
@@ -1997,18 +2029,18 @@ function renderDetail(){{const q=$('#box .skpop');if(q)q.remove();}
   if(!s){el.style.removeProperty('--c');el.innerHTML=`<button class="x" onclick="closeBox()">×</button><div class="empty">モンスターをタップすると<br>ここに詳細が表示されます${owned()?'':'<br><br>まだモンスターがいません<br>メニューの「QRスキャン」で召喚しよう'}</div>`;return;}
   const m=monStat(s),inR=save.room.includes(s);el.style.setProperty('--c',m.rar.c);const dd=mst(s),eqi=dd.eq?itemOf(dd.eq):null;
   let b;
-  if(BX.mode==='view'&&m.special)b=`<button class="obtn" onclick="toggleUR()">${spVis().includes(urBase(s))?'部屋からしまう':'部屋に出す'}</button><button class="obtn red" onclick="releaseSel()">${BX.rel?'本当に逃がす？':'逃がす'}</button>`;
-  else if(BX.mode==='view')b=`<button class="obtn" onclick="toggleRoom()">${inR?'部屋からしまう':'部屋に出す'}</button><button class="obtn red" onclick="releaseSel()">${BX.rel?'本当に逃がす？':'逃がす'}</button>`;
+  if(BX.mode==='view'&&m.special)b=`<button class="obtn" onclick="toggleUR()">${spVis().includes(urBase(s))?'部屋からしまう':'部屋に出す'}</button><button class="obtn red${isLocked(s)?' dis':''}" onclick="releaseSel()">${BX.rel?'本当に逃がす？':'逃がす'}</button>`;
+  else if(BX.mode==='view')b=`<button class="obtn" onclick="toggleRoom()">${inR?'部屋からしまう':'部屋に出す'}</button><button class="obtn red${isLocked(s)?' dis':''}" onclick="releaseSel()">${BX.rel?'本当に逃がす？':'逃がす'}</button>`;
   else{const pk=(BX.picks||[]).includes(s);b=`<button class="${pk?'obtn':'gbtn'}" onclick="pickForBattle()">${pk?'チームから外す':`チームに入れる（${(BX.picks||[]).length+1}/3）`}</button>`;}
   setTimeout(()=>{const w=el.querySelector('.v3w');if(w)view3D(w,m);},0);
   b=b.replace(/(部屋からしまう|部屋に出す)/g,m=>icn('cube','#f6e2a8')+m);
-  el.innerHTML=`<button class="x" onclick="closeBox()">×</button><div class="bimg ped">${monArt(m)}<div class="v3w"></div><div class="v3h">ドラッグで回転</div></div><div class="rin">${boxHead(m)}${boxStats(m)}<div class="eqr"><span class="eqlb">携帯品</span>${eqi?itemChip(eqi):'<span class="none">なし</span>'}<button class="mini" onclick="openEquip()">変更</button></div>${isTraining(s)?'<div class="trn">育成中</div>':''}<div class="divi"></div>${boxSkills(m)}</div><div class="btns">${b}</div>`;
+  el.innerHTML=`<button class="x" onclick="closeBox()">×</button><button class="lockb${isLocked(s)?' on':''}" onclick="toggleLock()" aria-label="ロック">${isLocked(s)?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" fill="currentColor" fill-opacity=".25"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.5-2"/></svg>'}</button><div class="bimg ped">${monArt(m)}<div class="v3w"></div><div class="v3h">ドラッグで回転</div></div><div class="rin">${boxHead(m)}${boxStats(m)}<div class="eqr"><span class="eqlb">携帯品</span>${eqi?itemChip(eqi):'<span class="none">なし</span>'}<button class="mini" onclick="openEquip()">変更</button></div>${isTraining(s)?'<div class="trn">育成中</div>':''}<div class="divi"></div>${boxSkills(m)}</div><div class="btns">${b}</div>`;
 }
 function toggleRoom(){const s=save.box[BX.sel];if(!s)return;sfx('tap');
   if(save.room.includes(s))save.room=save.room.filter(x=>x!==s);else{save.room=roomList();if(roomCount()>=ROOM_MAX){toast('部屋に出せるのは3体までです');return;}save.room.push(s);}
   persist();syncRoom();renderBox();}
 function toggleUR(){let s=save.box[BX.sel];if(!s)return;s=urBase(s);sfx('tap');const L=save.urOff||(save.urOff=[]);if(L.includes(s)||!spVis().includes(s)){if(roomCount()>=ROOM_MAX){toast('部屋に出せるのは3体までです');return;}save.urOff=L.filter(x=>x!==s);}else L.push(s);persist();applyUR();try{syncRoom();}catch(_){}renderBox();}
-function releaseSel(){if(!BX.rel){BX.rel=true;renderDetail();return;}const s=save.box[BX.sel];save.box[BX.sel]=null;save.room=save.room.filter(x=>x!==s&&save.box.includes(x));delete save.mon[s];save.train=save.train.filter(t=>t.s!==s);persist();syncRoom();try{applyUR();}catch(_){}updHud();BX.sel=-1;BX.rel=false;renderBox();toast('モンスターを逃がしました');}
+function releaseSel(){if(isLocked(save.box[BX.sel])){toast('ロック中のモンスターは逃がせません');sfx('tap');return;}if(!BX.rel){BX.rel=true;renderDetail();return;}const s=save.box[BX.sel];save.box[BX.sel]=null;save.room=save.room.filter(x=>x!==s&&save.box.includes(x));delete save.mon[s];save.train=save.train.filter(t=>t.s!==s);persist();syncRoom();try{applyUR();}catch(_){}updHud();BX.sel=-1;BX.rel=false;renderBox();toast('モンスターを逃がしました');}
 
 /* ================= 育成・錬成・携帯品 ================= */
 save.mon=save.mon||{};save.items=save.items||[];save.train=save.train||[];
@@ -2061,7 +2093,7 @@ function renderFuse(){const slot=(s,lab,fn)=>s?`<div class="fslot" onclick="${fn
   let info='';if(FU.main){const d=mst(FU.main);info='<div class="fst">'+STK.map(k=>`<span>${STL[k]} <em>${pips(d.pl[k])}</em></span>`).join('')+'</div>';}
   modal(pnl('錬成','SRはSR同士、URはUR同士で合わせると、メインのモンスターの体力・攻撃・防御・会心率の4つすべてが0〜3段階で抽選されます。錬成前と錬成後のどちらにするか選べます。素材のモンスターはいなくなります。',`<div class="frow">${slot(FU.main,'メイン','fuseMain')}<div class="fplus">＋</div>${slot(FU.mat,'素材','fuseMat')}</div>${info}`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" onclick="doFuse()" ${FU.main&&FU.mat?'':'disabled style="opacity:.4"'}>錬成する</button>`));}
 function fuseMain(){sfx('tap');pickMon('メインにするモンスター（SR・UR）',s=>['SR','UR'].includes(gen(s).rar.k)&&s!==FU.mat&&!isTraining(s),s=>{FU.main=s;if(FU.mat&&gen(FU.mat).rar.k!==gen(s).rar.k)FU.mat=null;renderFuse();},renderFuse);}
-function fuseMat(){sfx('tap');const rk=FU.main?gen(FU.main).rar.k:null;pickMon(`素材にするモンスター（${rk||'SR・UR'}）`,s=>(rk?gen(s).rar.k===rk:['SR','UR'].includes(gen(s).rar.k))&&s!==FU.main&&!isTraining(s),s=>{FU.mat=s;renderFuse();},renderFuse);}
+function fuseMat(){sfx('tap');const rk=FU.main?gen(FU.main).rar.k:null;pickMon(`素材にするモンスター（${rk||'SR・UR'}）`,s=>!isLocked(s)&&(rk?gen(s).rar.k===rk:['SR','UR'].includes(gen(s).rar.k))&&s!==FU.main&&!isTraining(s),s=>{FU.mat=s;renderFuse();},renderFuse);}
 function doFuse(){if(!FU.main||!FU.mat)return;if(gen(FU.main).rar.k!==gen(FU.mat).rar.k){toast('同じレアリティどうしで錬成してください');return;}const d=mst(FU.main);
   const old={...d.pl},roll={};for(const k of STK)roll[k]=Math.floor(Math.random()*4);
   const mat=FU.mat,i=save.box.indexOf(mat);if(i>=0)save.box[i]=null;save.room=save.room.filter(x=>x!==mat);delete save.mon[mat];save.train=save.train.filter(t=>t.s!==mat);FU.mat=null;FU.pend={s:FU.main,old,roll};persist();try{syncRoom();applyUR();}catch(_){}updHud();sfx('summon');
