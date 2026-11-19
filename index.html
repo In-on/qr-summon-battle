@@ -4,7 +4,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<title>QR召喚バトル</title>
+<title>QR召喚バトル</title><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1"><meta name="apple-mobile-web-app-title" content="QR召喚バトル">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Shippori+Mincho+B1:wght@500;700;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
@@ -734,6 +734,21 @@ button{font-family:inherit;cursor:pointer}
 .hlv b{font-size:calc(2.3*var(--vh))!important}.hlv small,.hst small{font-size:calc(1.7*var(--vh))!important}
 .gbar,.pbar{height:calc(.9*var(--vh))!important}
 .hcor{width:calc(5.2*var(--vh))!important;height:calc(5.2*var(--vh))!important}
+
+/* ステージ選択 */
+.stgl{display:flex;flex-direction:column;gap:calc(1.4*var(--vh));margin-top:calc(1.5*var(--vh))}
+.stg{display:flex;align-items:center;gap:calc(2*var(--vh));padding:calc(1*var(--vh));border-radius:12px;background:linear-gradient(90deg,rgba(40,28,52,.9),rgba(20,14,28,.9));border:1px solid rgba(217,180,106,.55);text-align:left;color:#f3ead8;cursor:pointer}
+.stg img{width:calc(26*var(--vh));aspect-ratio:16/9;border-radius:8px;object-fit:cover;box-shadow:0 0 0 1px rgba(217,180,106,.6);flex:none}
+.stg span{display:flex;flex-direction:column;gap:calc(.5*var(--vh))}.stg b{font:700 calc(3.2*var(--vh)) 'Shippori Mincho B1';color:#f3dca0}.stg small{font-size:calc(2.1*var(--vh));opacity:.85}.stg em{font-style:normal;font-size:calc(2*var(--vh));color:#e9b0ff}
+.stg.lk{opacity:.45;cursor:default}.stg.lk i{width:calc(26*var(--vh));aspect-ratio:16/9;display:grid;place-items:center;border-radius:8px;background:#120c18;font-style:normal;font-size:calc(4*var(--vh));flex:none}
+.sdt{display:flex;gap:calc(2*var(--vh));align-items:flex-start;text-align:left;margin:calc(1.5*var(--vh)) 0}.sdt img{width:calc(40*var(--vh));aspect-ratio:16/9;border-radius:10px;box-shadow:0 0 0 1.5px #b88c44;flex:none}
+.sdt p{margin:0 0 calc(1*var(--vh));font-size:calc(2.3*var(--vh));color:#f3ead8;line-height:1.55}.sdt .sdm{font-size:calc(2.1*var(--vh));opacity:.85}
+.sds{font:700 calc(2.5*var(--vh)) 'Shippori Mincho B1';color:#f3dca0;margin:calc(1*var(--vh)) 0;text-align:left}
+.sdr{display:flex;align-items:center;gap:calc(1.5*var(--vh));padding:calc(.8*var(--vh)) 0;border-top:1px solid rgba(217,180,106,.25)}
+.sdh{width:calc(14*var(--vh));flex:none;font:700 calc(3*var(--vh)) 'Shippori Mincho B1';display:flex;flex-direction:column;text-align:left}.sdh small{font:500 calc(1.7*var(--vh)) sans-serif;color:#f3ead8;opacity:.8}
+.sdg{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(1*var(--vh));flex:1}
+.sdi{display:flex;flex-direction:column;align-items:center;gap:2px;padding:calc(.6*var(--vh));border-radius:8px;background:rgba(0,0,0,.3)}.sdi img{width:calc(8*var(--vh));height:calc(8*var(--vh));object-fit:contain}
+.sdi b{font-size:calc(1.9*var(--vh));color:#f3ead8}.sdi small{font-size:calc(2*var(--vh));color:#ffe9a8;font-weight:700}
 </style>
 </head>
 <body>
@@ -782,7 +797,7 @@ button{font-family:inherit;cursor:pointer}
     <button class="mi" onclick="openFuse()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><circle cx="8" cy="12" r="4.5"/><circle cx="16" cy="12" r="4.5"/><path d="M12 2v3M12 19v3"/></svg><span><b>錬成</b><small>2体を合わせて能力を強化</small></span></button>
   </div>
   <div class="menu glass sub" id="advMenu">
-    <button class="mi" onclick="startAdv()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 20l5-9 4 6 3-4 6 7z"/><circle cx="17" cy="6" r="2"/></svg><span><b>冒険</b><small>秘宝の洞窟でボスを倒して宝箱を獲得</small></span></button>
+    <button class="mi" onclick="closeMenu();openStages()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 20l5-9 4 6 3-4 6 7z"/><circle cx="17" cy="6" r="2"/></svg><span><b>冒険</b><small>秘宝の洞窟でボスを倒して宝箱を獲得</small></span></button>
     <button class="mi" onclick="openVersus()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M4 20L14 10M14 10l2-6 4 4-6 2M20 20L10 10M10 10L8 4 4 8l6 2"/></svg><span><b>対戦</b><small>ひとりで／ふたりで対戦</small></span></button>
   </div>
   <button class="menuBtn gearB" id="menuBtn" aria-label="メニュー"><svg viewBox="0 0 32 32"><defs><linearGradient id="gearG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c0"/><stop offset=".5" stop-color="#e2b660"/><stop offset="1" stop-color="#9a6a24"/></linearGradient></defs><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="url(#gearG)" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button>
@@ -1923,7 +1938,7 @@ function radialTex(col){return ctex(128,128,(c,w,h)=>{const g=c.createRadialGrad
 
 
 /* ---- アバター（部屋で操作） ---- */
-const AV_H=1.95,AV_SP=2.4;
+const AV_H=1.95*1.2,AV_SP=2.4*1.2;
 const AV={obj:null,mix:null,walkA:null,idleA:null,x:0,z:3,ang:0,joy:null,keys:{},g:null,loading:false,wW:0,idleT:{f:.032,m:.017}};
 function avGender(){return save.gender==='m'?'m':'f';}
 function avLoadLib(cb){if(THREE.GLTFLoader)return cb();const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';sc.onload=cb;sc.onerror=()=>{AV.loading=false;avErr('部品(GLTFLoader)の読み込みに失敗');};document.head.appendChild(sc);}
@@ -1999,15 +2014,6 @@ function buildFurniture(sc){
   for(const y of sy.slice(0,5)){let x=-W/2+.08;const e=W/2-.08;while(x<e-.04){if(Math.random()<.05){x+=frnd(.1,.25);continue;}const t=frnd(.045,.1),hh=frnd(.48,.66);if(x+t>e)break;books.push([x+t/2,y+.025+hh/2,t,hh,frnd(.4,.5),pal[Math.floor(Math.random()*pal.length)]]);x+=t+.004;}}
   const im=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),M({map:ctex(64,256,drawSpineF),roughness:.65}),books.length),o3=new THREE.Object3D();
   books.forEach((k,i)=>{o3.position.set(k[0],k[1],.03);o3.scale.set(k[2],k[3],k[4]);o3.updateMatrix();im.setMatrixAt(i,o3.matrix);im.setColorAt(i,new THREE.Color(k[5]));});im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;bs.add(im);
-  // 棚の上：クリスタルと小物入れ
-  const cry=mk(new THREE.OctahedronGeometry(.16,0),M({color:0xd9b8ff,emissive:0x9a5af0,emissiveIntensity:.9,roughness:.15,transparent:true,opacity:.9}),-1.15,H+.38,0,bs);cry.scale.set(1,1.7,1);
-  mk(new THREE.CylinderGeometry(.08,.11,.1,12),brass,-1.15,H+.17,0,bs);const cl=new THREE.PointLight(0xc89aff,.5,3,2);cl.position.set(-1.15,H+.4,.2);bs.add(cl);
-  mk(new THREE.CylinderGeometry(.11,.11,.14,16),M({color:0xd8c8b0,roughness:.5}),-.75,H+.19,0,bs);mk(new THREE.SphereGeometry(.07,12,8),M({color:0xd8c8b0,roughness:.5}),-.75,H+.27,0,bs);
-  // 垂れ下がるつる植物（ポトス）
-  const lfS=new THREE.Shape();lfS.moveTo(0,0);lfS.bezierCurveTo(.07,.04,.08,.12,0,.17);lfS.bezierCurveTo(-.08,.12,-.07,.04,0,0);const lfG=new THREE.ShapeGeometry(lfS,6);
-  const lfMs=[M({color:0x4a8a2a,roughness:.55,side:THREE.DoubleSide}),M({color:0x6aa83a,roughness:.55,side:THREE.DoubleSide}),M({color:0x3a7024,roughness:.6,side:THREE.DoubleSide})];
-  mk(new THREE.CylinderGeometry(.16,.12,.2,16),M({color:0xd8c8b0,roughness:.5}),.95,H+.22,0,bs);
-  for(let v=0;v<9;v++){const x0=.95+frnd(-.12,.12),len=frnd(.8,2.6),zz=frnd(.25,.4);for(let k=0;k<len/.11;k++){const y=H+.3-k*.11,l=new THREE.Mesh(lfG,lfMs[(v+k)%3]);l.position.set(x0+Math.sin(k*.9+v)*.08,y,y>H?frnd(-.1,.15):zz+Math.sin(k+v)*.04);l.rotation.set(frnd(-.6,.3),frnd(-1,1),frnd(-2.2,-.9)*(k%2?1:-1));l.scale.setScalar(frnd(.8,1.2));bs.add(l);}}
   // --- ソファ（右の壁ぞい、赤いファブリック） ---
   const so=new THREE.Group();so.position.set(9.0,0,1.3);so.rotation.y=-Math.PI/2;G.add(so);
   const red=M({color:0xc4504a,roughness:.9,map:fab}),redD=M({color:0xa8403c,roughness:.92,map:fab});const SW=3.6;
@@ -2039,7 +2045,7 @@ function buildFurniture(sc){
   mk(new THREE.CylinderGeometry(.28,.48,.55,32,1,true),M({color:0xfff0c8,emissive:0xffc070,emissiveIntensity:.95,side:THREE.DoubleSide,roughness:.9}),0,2.55,0,fl);
   const lp=new THREE.PointLight(0xffa850,1.2,10,1.6);lp.position.set(0,2.35,0);fl.add(lp);
   // --- 観葉植物（左手前の角） ---
-  const pl=new THREE.Group();pl.position.set(-8.6,0,8);G.add(pl);
+  const pl=new THREE.Group();pl.position.set(8.6,0,8);G.add(pl);
   const vp=[];for(let i=0;i<=16;i++){const t=i/16;vp.push(new THREE.Vector2(.3+.14*Math.sin(t*Math.PI*.9)+(t>.9?.04:0),t*.85));}
   mk(new THREE.LatheGeometry(vp,32),M({color:0xe8dcc6,roughness:.5}),0,0,0,pl,{cs:1});mk(new THREE.CircleGeometry(.4,24),M({color:0x3a2614,roughness:1}),0,.8,0,pl,{rx:-Math.PI/2});
   const bS=new THREE.Shape();bS.moveTo(0,0);bS.bezierCurveTo(.16,.12,.2,.45,0,.8);bS.bezierCurveTo(-.2,.45,-.16,.12,0,0);const bG=new THREE.ShapeGeometry(bS,10);{const p=bG.attributes.position;for(let i=0;i<p.count;i++){const y=p.getY(i);p.setZ(i,Math.sin(y/.8*Math.PI)*.08+Math.abs(p.getX(i))*.35);}bG.computeVertexNormals();}
@@ -2050,7 +2056,65 @@ function buildFurniture(sc){
   return G;}
 // 家具の当たり判定（x0,x1,z0,z1）見た目どおりの大きさ
 const FURN_COLS=[[-10,-9.15,-4.6,-1.0],[8.35,10,-.6,3.2],[6.85,7.85,.3,2.3]];
-const FURN_CIR=[[8.4,-2.4,.4],[-8.6,8,.55]];
+const FURN_CIR=[[8.4,-2.4,.4],[8.6,8,.55]];
+
+// ===== 冒険・対戦のドア =====
+function buildDoor(sc){
+  const M=o=>new THREE.MeshStandardMaterial(o),G=new THREE.Group();G.position.set(-6.2,0,9.92);G.rotation.y=Math.PI;sc.add(G);
+  const mk=(geo,mat,x,y,z,o={})=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);if(o.rx)m.rotation.x=o.rx;if(o.ry)m.rotation.y=o.ry;if(o.rz)m.rotation.z=o.rz;m.receiveShadow=true;(o.p||G).add(m);return m;};
+  const cream=M({color:0xe6dcc8,roughness:.55}),gold=M({color:0xe2b660,metalness:.95,roughness:.25});
+  const wT=ctex(256,512,drawWoodF);const dw=M({map:wT,color:0x7a5a48,roughness:.5});
+  const gem=M({color:0xd8b0ff,emissive:0x9a4af0,emissiveIntensity:1.1,roughness:.12,metalness:.1});
+  const W=1.7,H=2.6,R=W/2;
+  // 扉（上がアーチ）
+  const sh=new THREE.Shape();sh.moveTo(-R,0);sh.lineTo(R,0);sh.lineTo(R,H);sh.absarc(0,H,R,0,Math.PI,false);sh.lineTo(-R,0);
+  const dg=new THREE.ExtrudeGeometry(sh,{depth:.08,bevelEnabled:true,bevelSize:.02,bevelThickness:.02,bevelSegments:2,curveSegments:24});
+  {const p=dg.attributes.position,uv=dg.attributes.uv;for(let i=0;i<p.count;i++)uv.setXY(i,(p.getX(i)+R)/W,p.getY(i)/(H+R));}
+  const door=mk(dg,dw,0,0,.02);
+  // 扉の金の縁取りと横線
+  const tr=new THREE.Shape();tr.moveTo(-R+.14,.25);tr.lineTo(R-.14,.25);tr.lineTo(R-.14,H);tr.absarc(0,H,R-.14,0,Math.PI,false);tr.lineTo(-R+.14,.25);
+  const tl=new THREE.Line(new THREE.BufferGeometry().setFromPoints(tr.getPoints(48)),new THREE.LineBasicMaterial({color:0xe8c070}));tl.position.z=.13;G.add(tl);
+  for(const x of[-.28,.28])mk(new THREE.BoxGeometry(.035,H+R-.5,.02),M({color:0x2a160c,roughness:.7}),x,(H+R)/2+.05,.12);
+  mk(new THREE.BoxGeometry(W-.3,.03,.02),gold,0,.42,.13);
+  // 星の紋章
+  const st=new THREE.Shape();const n=4;for(let i=0;i<n*2;i++){const a=i/(n*2)*Math.PI*2+Math.PI/2,r=i%2?.11:.62;const x=Math.cos(a)*r,y=Math.sin(a)*r;i?st.lineTo(x,y):st.moveTo(x,y);}
+  mk(new THREE.ExtrudeGeometry(st,{depth:.03,bevelEnabled:true,bevelSize:.012,bevelThickness:.01,bevelSegments:1}),gold,0,1.95,.12);
+  const st2=st.clone();mk(new THREE.ExtrudeGeometry(st,{depth:.02,bevelEnabled:false}),gold,0,1.95,.12,{rz:Math.PI/4}).scale.setScalar(.55);
+  mk(new THREE.OctahedronGeometry(.12,0),gem,0,1.95,.2).scale.set(1,1.3,.6);
+  // 取っ手
+  mk(new THREE.BoxGeometry(.06,.36,.04),gold,R-.24,1.2,.14);mk(new THREE.CylinderGeometry(.025,.025,.2,8),gold,R-.32,1.26,.2,{rz:Math.PI/2});
+  // クリーム色のアーチ枠と柱
+  for(const sg of[-1,1]){mk(new THREE.BoxGeometry(.32,H,.3),cream,sg*(R+.18),H/2,.06);mk(new THREE.BoxGeometry(.42,.16,.36),cream,sg*(R+.18),.08,.06);mk(new THREE.BoxGeometry(.42,.12,.36),cream,sg*(R+.18),H-.02,.06);}
+  const ar=mk(new THREE.TorusGeometry(R+.18,.17,12,40,Math.PI),cream,0,H,.06);ar.scale.z=1;
+  const ar2=mk(new THREE.TorusGeometry(R+.36,.05,8,40,Math.PI),gold,0,H,.12);
+  // てっぺんの紫のクリスタル
+  mk(new THREE.BoxGeometry(.36,.36,.12),gold,0,H+R+.3,.16,{rz:Math.PI/4});mk(new THREE.OctahedronGeometry(.2,0),gem,0,H+R+.3,.26).scale.set(.85,1.15,.5);
+  // 両脇のクリスタル燭台
+  for(const sg of[-1,1]){const x=sg*(R+.9);mk(new THREE.CylinderGeometry(.06,.1,.12,12),gold,x,2.2,.08,{rx:Math.PI/2});mk(new THREE.CylinderGeometry(.03,.04,.5,8),gold,x,2.45,.18);mk(new THREE.CylinderGeometry(.11,.05,.12,12),gold,x,2.72,.18);
+    mk(new THREE.OctahedronGeometry(.18,0),gem,x,3.0,.18).scale.set(.8,1.4,.8);const L=new THREE.PointLight(0xb070ff,.7,4.5,2);L.position.set(x,3.0,.5);G.add(L);}
+  const fl=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('#c89aff'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:.55}));fl.scale.set(1.2,1.2,1);fl.position.set(0,1.95,.3);G.add(fl);R.doorGlow=fl;
+  R.door=G;return G;}
+function openDoor(){sfx('open');modal(pnl('どこへ行く？','',`<div class="vsel"><button class="mi" onclick="closeModal();openStages()"><b>冒険</b><small>ステージを選んでボスに挑む</small></button><button class="mi" onclick="closeModal();openVersus()"><b>対戦</b><small>ひとりで／ふたりで対戦</small></button></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
+/* ---- ステージ選択 ---- */
+function drawCaveThumb(c,w,h){let g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'#06142a');g.addColorStop(.6,'#0d3050');g.addColorStop(1,'#071a2c');c.fillStyle=g;c.fillRect(0,0,w,h);
+  g=c.createRadialGradient(w*.55,h*.1,5,w*.55,h*.3,w*.45);g.addColorStop(0,'rgba(170,230,255,.55)');g.addColorStop(1,'rgba(170,230,255,0)');c.fillStyle=g;c.beginPath();c.moveTo(w*.45,0);c.lineTo(w*.66,0);c.lineTo(w*.8,h);c.lineTo(w*.32,h);c.fill();
+  c.fillStyle='#04101e';c.beginPath();c.moveTo(0,0);for(let x=0;x<=w;x+=w/14)c.lineTo(x,h*.08+Math.sin(x*.05)*h*.05+Math.random()*h*.05);c.lineTo(w,0);c.fill();
+  c.beginPath();c.moveTo(0,h*.2);c.quadraticCurveTo(w*.18,h*.45,w*.12,h);c.lineTo(0,h);c.fill();c.beginPath();c.moveTo(w,h*.15);c.quadraticCurveTo(w*.84,h*.5,w*.9,h);c.lineTo(w,h);c.fill();
+  g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'rgba(210,245,255,.95)');g.addColorStop(1,'rgba(150,220,255,.6)');c.fillStyle=g;c.fillRect(w*.7,h*.12,w*.06,h*.6);
+  for(let i=0;i<14;i++){c.strokeStyle=`rgba(255,255,255,${.3+Math.random()*.5})`;c.lineWidth=1;const x=w*(.7+Math.random()*.06);c.beginPath();c.moveTo(x,h*.12);c.lineTo(x,h*.72);c.stroke();}
+  g=c.createRadialGradient(w*.6,h*.82,4,w*.6,h*.82,w*.35);g.addColorStop(0,'#3ab0e0');g.addColorStop(1,'#0a3050');c.fillStyle=g;c.beginPath();c.ellipse(w*.6,h*.82,w*.32,h*.1,0,0,7);c.fill();
+  const cry=(x,y,s,col)=>{c.fillStyle=col;c.beginPath();c.moveTo(x,y-s);c.lineTo(x+s*.35,y-s*.2);c.lineTo(x+s*.25,y);c.lineTo(x-s*.25,y);c.lineTo(x-s*.35,y-s*.2);c.fill();c.fillStyle='rgba(255,255,255,.45)';c.beginPath();c.moveTo(x,y-s);c.lineTo(x+s*.35,y-s*.2);c.lineTo(x,y-s*.3);c.fill();};
+  for(const[x,y,s,col] of[[.18,.92,.22,'#7ae0ff'],[.24,.95,.14,'#b08aff'],[.86,.9,.2,'#b08aff'],[.92,.95,.12,'#7ae0ff'],[.38,.97,.1,'#7ae0ff']]){const gg=c.createRadialGradient(w*x,h*(y-.1),2,w*x,h*(y-.1),w*s*.8);gg.addColorStop(0,'rgba(150,220,255,.5)');gg.addColorStop(1,'rgba(150,220,255,0)');c.fillStyle=gg;c.fillRect(w*(x-s),h*(y-.4),w*s*2,h*.5);cry(w*x,h*y,h*s*1.6,col);}
+  c.fillStyle='rgba(255,170,80,.9)';c.beginPath();c.arc(w*.3,h*.62,5,0,7);c.fill();g=c.createRadialGradient(w*.3,h*.62,2,w*.3,h*.62,40);g.addColorStop(0,'rgba(255,170,80,.6)');g.addColorStop(1,'rgba(255,170,80,0)');c.fillStyle=g;c.fillRect(w*.3-40,h*.62-40,80,80);
+  for(let i=0;i<40;i++){c.fillStyle=`rgba(200,240,255,${Math.random()*.7})`;c.beginPath();c.arc(Math.random()*w,Math.random()*h,Math.random()*1.6+.3,0,7);c.fill();}}
+let CAVE_IMG=null;function caveImg(){if(!CAVE_IMG){const c=document.createElement('canvas');c.width=480;c.height=270;drawCaveThumb(c.getContext('2d'),480,270);CAVE_IMG=c.toDataURL('image/jpeg',.85);}return CAVE_IMG;}
+const STAGES=[{id:'cave',name:'秘宝の洞窟',desc:'青く光る水晶と滝が広がる洞窟。奥にはボスと宝箱が待っている。',diff:1},{id:null,name:'？？？',desc:'準備中'},{id:null,name:'？？？',desc:'準備中'}];
+function openStages(){sfx('open');const L=STAGES.map((s,i)=>s.id?`<button class="stg" onclick="openStage(${i})"><img src="${caveImg()}" alt=""><span><b>${s.name}</b><small>${s.desc}</small><em>⚡ スタミナ 1</em></span></button>`:`<div class="stg lk"><i>🔒</i><span><b>${s.name}</b><small>${s.desc}</small></span></div>`).join('');
+  modal(pnl('ステージ選択','',`<div class="stgl">${L}</div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
+function openStage(i){const s=STAGES[i];sfx('tap');
+  const rows=[[3,'虹','伝説の宝箱のみ（0.5%）'],[2,'金','2%'],[1,'銀','30%'],[0,'銅','68%']].map(([r,k,p])=>{const items=['atk','def','hp','crit'].map(t=>{const it={t,r,pv:0,pcv:0,lv:IT_MAX};const g=IRANGE[r];const v=t==='crit'?(g?`${g.cv[0]}〜${g.cv[1]}`:IRAR[r].cv):(g?`${g.v[0]}〜${g.v[1]}`:Math.round(IRAR[r].v*100));return `<div class="sdi"><img src="${ITIMG[t][r]}" alt=""><b>${STL[t]}</b><small>+${v}%</small></div>`;}).join('');
+    return `<div class="sdr"><div class="sdh" style="color:${IRAR[r].c}">${k}<small>${p}</small></div><div class="sdg">${items}</div></div>`;}).join('');
+  modal(pnl(s.name,'',`<div class="sdt"><img src="${caveImg()}" alt=""><div><p>${s.desc}</p><p class="sdm">・ザコ敵は近づくと襲ってくる<br>・ボスは3体のチームで挑む<br>・ボスを倒すと宝箱から携帯品が2〜3個</p><p class="sdm">⚡ スタミナ 1 を使います</p></div></div><div class="sds">ドロップする携帯品（Lv10のときの効果）</div>${rows}`,`<button class="obtn" onclick="openStages()">もどる</button><button class="gbtn" onclick="closeModal();startAdv()">出発する</button>`));}
 
 function initRoom(){
   if(R.ready)return;R.ready=true;
@@ -2093,6 +2157,7 @@ function initRoom(){
   box(2.5,2.1,.12,gold,3.2,3.6,-9.92);
   R.portrait=add(new THREE.PlaneGeometry(2.15,1.75),new THREE.MeshStandardMaterial({map:ctex(512,416,drawPortraitBg),roughness:.7}),3.2,3.6,-9.85,false);
   try{buildFurniture(sc);}catch(e){console.warn(e);toast('家具エラー：'+e.message);}
+  try{buildDoor(sc);}catch(e){console.warn(e);toast('ドアエラー：'+e.message);}
   // シャンデリア
   const ch=new THREE.Group();ch.position.set(0,5.6,0);sc.add(ch);
   const tor=new THREE.Mesh(new THREE.TorusGeometry(1,.05,12,64),gold);tor.rotation.x=Math.PI/2;ch.add(tor);
@@ -2144,7 +2209,7 @@ function loop(){
   {let dx=Math.sin(R.yaw)*Math.sin(phi),dy=Math.cos(phi),dz=Math.cos(R.yaw)*Math.sin(phi),k=rad;const L=9.5,lim=(p,d,b)=>{if(d>1e-4)k=Math.min(k,(b-p)/d);else if(d<-1e-4)k=Math.min(k,(-b-p)/d);};lim(TX,dx,L);lim(TZ,dz,L);if(dy>1e-4)k=Math.min(k,(6.6-tgY)/dy);k=Math.max(.6,k);R.cam.position.set(TX+dx*k,tgY+dy*k,TZ+dz*k);}
   R.cam.lookAt(TX,tgY,TZ);
   R.boostV=(R.boostV||0)+((R.boost)-(R.boostV||0))*.06;const b=R.boostV;
-  R.magic.rotation.z+=dt*(.25+b*4);R.magic.material.opacity=.45+b*.55+Math.sin(t*2)*.08;R.magic.scale.setScalar(1+b*.25);
+  R.magic.rotation.z+=dt*(.25+b*4);if(R.doorGlow)R.doorGlow.material.opacity=.4+Math.sin(t*2.2)*.2;R.magic.material.opacity=.45+b*.55+Math.sin(t*2)*.08;R.magic.scale.setScalar(1+b*.25);
   R.pillar.material.opacity=b*.55;R.pillar.rotation.y+=dt*2;R.pl.intensity=.6+b*5;
   for(const U of FXU)U.uTime.value=t;
   R.cl.intensity=1.6+Math.sin(t*7)*.03+Math.sin(t*13)*.02;if(R.fire)R.fire.intensity=1.1+Math.sin(t*11)*.15+Math.sin(t*17)*.1;
@@ -2181,6 +2246,7 @@ function bindInput(){
 }
 function tapAt(x,y){
   const r={left:0,top:0,width:GW(),height:GH()},v=new THREE.Vector2((x-r.left)/r.width*2-1,-((y-r.top)/r.height)*2+1),rc=new THREE.Raycaster();rc.setFromCamera(v,R.cam);
+  if(R.door){const dh=rc.intersectObject(R.door,true)[0];const mh=rc.intersectObjects(R.mons.filter(o=>!o.leave).map(o=>o.sp),true)[0];if(dh&&(!mh||dh.distance<mh.distance)){openDoor();return;}}
   const hit=rc.intersectObjects(R.mons.filter(o=>!o.leave).map(o=>o.sp),true)[0];
   if(hit){const o=R.mons.find(o=>{let p=hit.object;while(p){if(p===o.sp)return true;p=p.parent;}return false;});if(!o)return;o.jump=1;sfx('tap');setTimeout(()=>showCard(o.m,{mode:o.special?'special':'room'}),380);}
 }
@@ -3120,7 +3186,7 @@ function end(w){B.busy=true;let h;
 
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0815</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0835</div>
 <div id="avJoy"><i></i></div>
 </body>
 </html>
