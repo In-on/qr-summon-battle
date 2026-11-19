@@ -724,6 +724,16 @@ button{font-family:inherit;cursor:pointer}
 #shopBtn{bottom:calc(max(calc(3*var(--vh)),env(safe-area-inset-bottom)) + calc(23*var(--vh)))!important}
 #monMenu,#advMenu{right:calc(max(calc(2*var(--vw)),env(safe-area-inset-right)) + calc(11.5*var(--vh)))!important}
 #advMenu{bottom:calc(max(calc(3*var(--vh)),env(safe-area-inset-bottom)) + calc(11.5*var(--vh)))!important}
+
+/* HUD v2 slimmer */
+.hud2{padding:calc(.8*var(--vh)) calc(2.8*var(--vh)) calc(.8*var(--vh)) calc(1.6*var(--vh))!important;gap:calc(1.3*var(--vh))!important}
+.hav{width:calc(9.6*var(--vh))!important;height:calc(9.6*var(--vh))!important}
+.hav .laurel{left:calc(-2*var(--vh))!important;width:calc(3.8*var(--vh))!important;height:calc(10.8*var(--vh))!important}
+.hinfo{gap:calc(.45*var(--vh))!important;min-width:calc(24*var(--vh))!important}
+.hnm{font-size:calc(2.5*var(--vh))!important}.hed{width:calc(2.7*var(--vh))!important;height:calc(2.7*var(--vh))!important}
+.hlv b{font-size:calc(2.3*var(--vh))!important}.hlv small,.hst small{font-size:calc(1.7*var(--vh))!important}
+.gbar,.pbar{height:calc(.9*var(--vh))!important}
+.hcor{width:calc(5.2*var(--vh))!important;height:calc(5.2*var(--vh))!important}
 </style>
 </head>
 <body>
@@ -782,7 +792,6 @@ button{font-family:inherit;cursor:pointer}
     <button class="mi" id="bgmBtn" onclick="bgmToggle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span><b>BGM：ON</b><small>音楽のオン・オフ</small></span></button>
     <button class="mi" onclick="toTitle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b>タイトルへ</b><small>ログイン画面にもどる</small></span></button>
   </div>
-  <div class="hint">ドラッグで360°見まわす ・ ピンチでズーム ・ モンスターをタップ</div>
   <div class="toast glass" id="toast"></div>
 </section>
 
@@ -1951,8 +1960,9 @@ function avStep2(dt){
   // 当たり判定（壁・召喚台・暖炉・モンスター）
   AV.x=Math.max(-9.2,Math.min(9.2,AV.x));AV.z=Math.max(-9.2,Math.min(8.9,AV.z));
   if(AV.z>8.3&&Math.abs(AV.x)<2.2)AV.z=8.3;
-  {const d=Math.hypot(AV.x,AV.z);if(d<1.85){const k=1.85/(d||1);AV.x=(d?AV.x:0)*k;AV.z=(d?AV.z:1.85/k)*k;}}
-  if(mv)for(const o of R.mons||[]){if(o.leave||!o.sp||!o.sp.visible)continue;const dx=AV.x-o.x,dz=AV.z-o.z,d=Math.hypot(dx,dz);if(d<.75&&d>1e-4){AV.x=o.x+dx/d*.75;AV.z=o.z+dz/d*.75;}}
+  {const d=Math.hypot(AV.x,AV.z);if(d<1.75){const k=1.75/(d||1);AV.x=(d?AV.x:0)*k;AV.z=(d?AV.z:1.75/k)*k;}}
+  const r=.28;for(const[x0,x1,z0,z1] of FURN_COLS){if(AV.x>x0-r&&AV.x<x1+r&&AV.z>z0-r&&AV.z<z1+r){const p=[[AV.x-(x0-r),0],[(x1+r)-AV.x,1],[AV.z-(z0-r),2],[(z1+r)-AV.z,3]].sort((a,b)=>a[0]-b[0])[0][1];if(p==0)AV.x=x0-r;else if(p==1)AV.x=x1+r;else if(p==2)AV.z=z0-r;else AV.z=z1+r;}}
+  for(const[cx,cz,cr] of FURN_CIR){const dx=AV.x-cx,dz=AV.z-cz,d=Math.hypot(dx,dz),R2=cr+r;if(d<R2&&d>1e-4){AV.x=cx+dx/d*R2;AV.z=cz+dz/d*R2;}}
   AV.wW+=((mv?1:0)-AV.wW)*Math.min(1,dt*(mv?8:16));if(AV.wW<.01)AV.wW=0;AV.walkA.setEffectiveWeight(AV.wW);
   AV.mix.update(dt);if(AV.sw){const c=Math.cos((AV.walkA.time/AV.dur-.22)*Math.PI*2)*AV.wW*.3,tq=AV._tq||(AV._tq=new THREE.Quaternion());for(const w of AV.sw){tq.setFromAxisAngle(w.ax,c*w.sg);w.b.quaternion.copy(w.q0).premultiply(tq);}}AV.obj.position.set(AV.x,0,AV.z);AV.obj.rotation.y=AV.ang;
   R.tgx=(R.tgx||0)+(AV.x-(R.tgx||0))*Math.min(1,dt*3);R.tgz=(R.tgz||0)+(AV.z-(R.tgz||0))*Math.min(1,dt*3);}
@@ -1962,6 +1972,85 @@ function avBind(){{const b=$('#genBtn');if(b)b.querySelector('b').textContent='�
   J.addEventListener('pointermove',e=>{if(e.pointerId===id)mv(e);});
   const up=e=>{if(e.pointerId!==id)return;id=null;AV.joy=null;K.style.transform='';};J.addEventListener('pointerup',up);J.addEventListener('pointercancel',up);
   addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test((e.target||{}).tagName||''))return;AV.keys[e.key.toLowerCase()]=1;});addEventListener('keyup',e=>{AV.keys[e.key.toLowerCase()]=0;});}
+
+// ===== 家具（本棚・ソファ・ミニテーブル・ランプ・植物） =====
+function frnd(a,b){return a+Math.random()*(b-a);}
+function drawWoodF(c,w,h){c.fillStyle='#8a4f24';c.fillRect(0,0,w,h);for(let i=0;i<60;i++){c.strokeStyle=Math.random()<.6?`rgba(60,25,5,${frnd(.15,.35)})`:`rgba(255,200,140,${frnd(.05,.12)})`;c.lineWidth=frnd(.5,2.4);c.beginPath();const x=frnd(0,w),a=frnd(2,7),f=frnd(.006,.02),p=frnd(0,6);c.moveTo(x,0);for(let y=0;y<=h;y+=10)c.lineTo(x+Math.sin(y*f+p)*a,y);c.stroke();}}
+function drawSpineF(c,w,h){c.fillStyle='#fff';c.fillRect(0,0,w,h);const g=c.createLinearGradient(0,0,w,0);g.addColorStop(0,'rgba(0,0,0,.3)');g.addColorStop(.35,'rgba(255,255,255,0)');g.addColorStop(.7,'rgba(255,255,255,0)');g.addColorStop(1,'rgba(0,0,0,.3)');c.fillStyle=g;c.fillRect(0,0,w,h);
+  c.fillStyle='rgba(225,190,110,.9)';for(const y of[.1,.15,.84,.89])c.fillRect(0,h*y,w,h*.022);c.fillRect(w*.3,h*.42,w*.4,h*.12);}
+function drawFabric(c,w,h){c.fillStyle='#fff';c.fillRect(0,0,w,h);const id=c.getImageData(0,0,w,h),d=id.data;for(let i=0;i<d.length;i+=4){const x=(i/4)%w,y=Math.floor(i/4/w),n=(Math.random()-.5)*16+((x+y)%4<2?-4:4);d[i]+=n;d[i+1]+=n;d[i+2]+=n;}c.putImageData(id,0,0);}
+function drawRugB(c,w,h){c.fillStyle='#d8c4a4';c.fillRect(0,0,w,h);const id=c.getImageData(0,0,w,h),d=id.data;for(let i=0;i<d.length;i+=4){const n=(Math.random()-.5)*22;d[i]+=n;d[i+1]+=n;d[i+2]+=n;}c.putImageData(id,0,0);c.strokeStyle='rgba(150,120,85,.5)';c.lineWidth=6;c.strokeRect(14,14,w-28,h-28);}
+function buildFurniture(sc){
+  const M=o=>new THREE.MeshStandardMaterial(o),G=new THREE.Group();sc.add(G);
+  const mk=(geo,mat,x,y,z,p,o={})=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);if(o.rx)m.rotation.x=o.rx;if(o.ry)m.rotation.y=o.ry;if(o.rz)m.rotation.z=o.rz;m.castShadow=!!o.cs;m.receiveShadow=true;(p||G).add(m);return m;};
+  const bx=(w,h,d,mat,x,y,z,p,o)=>mk(new THREE.BoxGeometry(w,h,d),mat,x,y,z,p,o);
+  const rbox=(w,h,d,r,seg)=>{const g=new THREE.BoxGeometry(w,h,d,seg||6,seg||6,seg||6),p=g.attributes.position,v=new THREE.Vector3();const hw=w/2-r,hh=h/2-r,hd=d/2-r;
+    for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i);const c=new THREE.Vector3(Math.max(-hw,Math.min(hw,v.x)),Math.max(-hh,Math.min(hh,v.y)),Math.max(-hd,Math.min(hd,v.z)));const n=v.clone().sub(c);if(n.lengthSq()>1e-9)n.setLength(r);p.setXYZ(i,c.x+n.x,c.y+n.y,c.z+n.z);}g.computeVertexNormals();return g;};
+  const wT=ctex(256,512,drawWoodF);const wood=M({map:wT,color:0xffffff,roughness:.5}),woodD=M({map:wT,color:0x9a7a66,roughness:.55});
+  const brass=M({color:0xc8964a,metalness:.85,roughness:.32});
+  const fab=ctex(128,128,drawFabric,[3,3]);
+  // --- 本棚（左の壁ぞい、木目の棚） ---
+  const bs=new THREE.Group();bs.position.set(-9.55,0,-2.8);bs.rotation.y=Math.PI/2;G.add(bs);const W=3.4,H=4.3,D=.62;
+  bx(.1,H,D,wood,-W/2,H/2,0,bs,{cs:1});bx(.1,H,D,wood,W/2,H/2,0,bs,{cs:1});bx(W,H,.04,woodD,0,H/2,-D/2+.02,bs);
+  bx(W+.24,.12,D+.12,wood,0,H+.06,.04,bs);bx(W+.12,.08,D+.08,wood,0,H-.04,.02,bs);bx(W+.04,.18,D+.02,wood,0,.09,.01,bs);
+  for(const[x,z] of[[-W/2+.05,D/2-.03],[W/2-.05,D/2-.03]])bx(.06,.12,.06,woodD,x,-.0,z,bs);
+  const sy=[.2,1.0,1.8,2.6,3.4];for(const y of sy)bx(W-.08,.05,D-.04,wood,0,y,0,bs);
+  const books=[],pal=[0x7a2a24,0x2a4a5a,0x3a5a32,0x8a6a2a,0x5a3a4a,0x9a4a2a,0x2a3a5a,0x6a2a2a,0xb09a6a,0x3a5a5a,0x7a5a3a,0x4a3a2a];
+  for(const y of sy.slice(0,5)){let x=-W/2+.08;const e=W/2-.08;while(x<e-.04){if(Math.random()<.05){x+=frnd(.1,.25);continue;}const t=frnd(.045,.1),hh=frnd(.48,.66);if(x+t>e)break;books.push([x+t/2,y+.025+hh/2,t,hh,frnd(.4,.5),pal[Math.floor(Math.random()*pal.length)]]);x+=t+.004;}}
+  const im=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),M({map:ctex(64,256,drawSpineF),roughness:.65}),books.length),o3=new THREE.Object3D();
+  books.forEach((k,i)=>{o3.position.set(k[0],k[1],.03);o3.scale.set(k[2],k[3],k[4]);o3.updateMatrix();im.setMatrixAt(i,o3.matrix);im.setColorAt(i,new THREE.Color(k[5]));});im.instanceMatrix.needsUpdate=true;if(im.instanceColor)im.instanceColor.needsUpdate=true;bs.add(im);
+  // 棚の上：クリスタルと小物入れ
+  const cry=mk(new THREE.OctahedronGeometry(.16,0),M({color:0xd9b8ff,emissive:0x9a5af0,emissiveIntensity:.9,roughness:.15,transparent:true,opacity:.9}),-1.15,H+.38,0,bs);cry.scale.set(1,1.7,1);
+  mk(new THREE.CylinderGeometry(.08,.11,.1,12),brass,-1.15,H+.17,0,bs);const cl=new THREE.PointLight(0xc89aff,.5,3,2);cl.position.set(-1.15,H+.4,.2);bs.add(cl);
+  mk(new THREE.CylinderGeometry(.11,.11,.14,16),M({color:0xd8c8b0,roughness:.5}),-.75,H+.19,0,bs);mk(new THREE.SphereGeometry(.07,12,8),M({color:0xd8c8b0,roughness:.5}),-.75,H+.27,0,bs);
+  // 垂れ下がるつる植物（ポトス）
+  const lfS=new THREE.Shape();lfS.moveTo(0,0);lfS.bezierCurveTo(.07,.04,.08,.12,0,.17);lfS.bezierCurveTo(-.08,.12,-.07,.04,0,0);const lfG=new THREE.ShapeGeometry(lfS,6);
+  const lfMs=[M({color:0x4a8a2a,roughness:.55,side:THREE.DoubleSide}),M({color:0x6aa83a,roughness:.55,side:THREE.DoubleSide}),M({color:0x3a7024,roughness:.6,side:THREE.DoubleSide})];
+  mk(new THREE.CylinderGeometry(.16,.12,.2,16),M({color:0xd8c8b0,roughness:.5}),.95,H+.22,0,bs);
+  for(let v=0;v<9;v++){const x0=.95+frnd(-.12,.12),len=frnd(.8,2.6),zz=frnd(.25,.4);for(let k=0;k<len/.11;k++){const y=H+.3-k*.11,l=new THREE.Mesh(lfG,lfMs[(v+k)%3]);l.position.set(x0+Math.sin(k*.9+v)*.08,y,y>H?frnd(-.1,.15):zz+Math.sin(k+v)*.04);l.rotation.set(frnd(-.6,.3),frnd(-1,1),frnd(-2.2,-.9)*(k%2?1:-1));l.scale.setScalar(frnd(.8,1.2));bs.add(l);}}
+  // --- ソファ（右の壁ぞい、赤いファブリック） ---
+  const so=new THREE.Group();so.position.set(9.0,0,1.3);so.rotation.y=-Math.PI/2;G.add(so);
+  const red=M({color:0xc4504a,roughness:.9,map:fab}),redD=M({color:0xa8403c,roughness:.92,map:fab});const SW=3.6;
+  mk(rbox(SW,.42,1.05,.08),redD,0,.42,0,so,{cs:1});
+  for(const x of[-SW/4+.05,SW/4-.05]){mk(rbox(SW/2-.32,.24,.86,.1),red,x,.74,.12,so,{cs:1});mk(rbox(SW/2-.32,.72,.26,.12),red,x,1.14,-.32,so,{rx:-.12,cs:1});}
+  mk(rbox(SW,.92,.24,.08),redD,0,.96,-.46,so,{cs:1});
+  for(const sg of[-1,1])mk(rbox(.3,.72,1.05,.12),red,sg*(SW/2-.12),.79,0,so,{cs:1});
+  for(const[x,z] of[[-SW/2+.15,-.4],[SW/2-.15,-.4],[-SW/2+.15,.4],[SW/2-.15,.4]])mk(new THREE.CylinderGeometry(.05,.035,.22,10),woodD,x,.11,z,so);
+  const pil=M({color:0xf0e6d6,roughness:.95,map:fab});for(const x of[-1.1,1.1])mk(rbox(.62,.52,.18,.09,5),pil,x,1.12,-.15,so,{rx:-.28,rz:x<0?.1:-.1});
+  // ベージュのラグ
+  const rg=mk(new THREE.PlaneGeometry(3.4,4.6),M({map:ctex(256,256,drawRugB),roughness:1}),7.8,.006,1.3);rg.rotation.x=-Math.PI/2;
+  // --- ミニテーブル（ソファの前） ---
+  const tb=new THREE.Group();tb.position.set(7.35,0,1.3);tb.rotation.y=Math.PI/2;G.add(tb);
+  bx(1.9,.09,.9,wood,0,.62,0,tb,{cs:1});bx(1.76,.12,.78,woodD,0,.52,0,tb);
+  for(const[x,z] of[[-.82,-.34],[.82,-.34],[-.82,.34],[.82,.34]])bx(.09,.5,.09,wood,x,.25,z,tb,{cs:1});bx(1.64,.04,.64,woodD,0,.14,0,tb);
+  // 卓上の鉢植え
+  mk(new THREE.CylinderGeometry(.13,.1,.18,16),M({color:0xd8c8b0,roughness:.45}),-.45,.75,0,tb);
+  for(let i=0;i<10;i++){const l=new THREE.Mesh(lfG,lfMs[i%3]);l.position.set(-.45,.82,0);l.rotation.set(frnd(-.6,.6),i/10*Math.PI*2,frnd(-.5,.5));l.scale.setScalar(frnd(1.4,2));tb.add(l);}
+  // ランタン
+  const lt=new THREE.Group();lt.position.set(.5,.665,0);tb.add(lt);
+  mk(new THREE.CylinderGeometry(.11,.12,.04,6),brass,0,.02,0,lt);mk(new THREE.CylinderGeometry(.09,.09,.22,6,1,true),M({color:0xffe6b0,emissive:0xffb040,emissiveIntensity:1.2,transparent:true,opacity:.85,side:THREE.DoubleSide}),0,.15,0,lt);
+  for(let i=0;i<6;i++){const a=i/6*Math.PI*2;mk(new THREE.CylinderGeometry(.008,.008,.22,4),brass,Math.cos(a)*.095,.15,Math.sin(a)*.095,lt);}
+  mk(new THREE.ConeGeometry(.12,.1,6),brass,0,.31,0,lt);mk(new THREE.TorusGeometry(.03,.006,6,12),brass,0,.38,0,lt);
+  const ll=new THREE.PointLight(0xffa850,.6,3.5,2);ll.position.set(.5,.85,0);tb.add(ll);
+  // --- フロアランプ（もとのサイドテーブルの位置） ---
+  const fl=new THREE.Group();fl.position.set(8.4,0,-2.4);G.add(fl);
+  mk(new THREE.CylinderGeometry(.3,.34,.06,32),brass,0,.03,0,fl,{cs:1});mk(new THREE.CylinderGeometry(.035,.035,2.3,12),brass,0,1.2,0,fl,{cs:1});
+  mk(new THREE.SphereGeometry(.06,12,8),brass,0,1.1,0,fl);mk(new THREE.CylinderGeometry(.06,.06,.1,12),brass,0,2.33,0,fl);
+  mk(new THREE.CylinderGeometry(.28,.48,.55,32,1,true),M({color:0xfff0c8,emissive:0xffc070,emissiveIntensity:.95,side:THREE.DoubleSide,roughness:.9}),0,2.55,0,fl);
+  const lp=new THREE.PointLight(0xffa850,1.2,10,1.6);lp.position.set(0,2.35,0);fl.add(lp);
+  // --- 観葉植物（左手前の角） ---
+  const pl=new THREE.Group();pl.position.set(-8.6,0,8);G.add(pl);
+  const vp=[];for(let i=0;i<=16;i++){const t=i/16;vp.push(new THREE.Vector2(.3+.14*Math.sin(t*Math.PI*.9)+(t>.9?.04:0),t*.85));}
+  mk(new THREE.LatheGeometry(vp,32),M({color:0xe8dcc6,roughness:.5}),0,0,0,pl,{cs:1});mk(new THREE.CircleGeometry(.4,24),M({color:0x3a2614,roughness:1}),0,.8,0,pl,{rx:-Math.PI/2});
+  const bS=new THREE.Shape();bS.moveTo(0,0);bS.bezierCurveTo(.16,.12,.2,.45,0,.8);bS.bezierCurveTo(-.2,.45,-.16,.12,0,0);const bG=new THREE.ShapeGeometry(bS,10);{const p=bG.attributes.position;for(let i=0;i<p.count;i++){const y=p.getY(i);p.setZ(i,Math.sin(y/.8*Math.PI)*.08+Math.abs(p.getX(i))*.35);}bG.computeVertexNormals();}
+  const bM=[M({color:0x3f8a34,roughness:.5,side:THREE.DoubleSide}),M({color:0x5aa840,roughness:.5,side:THREE.DoubleSide}),M({color:0x2f6e2a,roughness:.55,side:THREE.DoubleSide})],stM=M({color:0x4a6a2a,roughness:.8});
+  for(let i=0;i<13;i++){const a=i/13*Math.PI*2+frnd(-.2,.2),tilt=frnd(.1,.55),len=frnd(.9,1.9);const g1=new THREE.Group();g1.position.y=.8;g1.rotation.y=a;pl.add(g1);const g2=new THREE.Group();g2.rotation.x=tilt;g1.add(g2);
+    const s=new THREE.Mesh(new THREE.CylinderGeometry(.012,.018,len,6),stM);s.position.y=len/2;g2.add(s);const l=new THREE.Mesh(bG,bM[i%3]);l.position.y=len-.05;l.rotation.set(frnd(.3,.9),0,frnd(-.3,.3));l.scale.setScalar(frnd(.9,1.3));g2.add(l);
+    const l2=new THREE.Mesh(bG,bM[(i+1)%3]);l2.position.y=len*.6;l2.rotation.set(frnd(.6,1.2),Math.PI,frnd(-.3,.3));l2.scale.setScalar(frnd(.6,.9));g2.add(l2);}
+  return G;}
+// 家具の当たり判定（x0,x1,z0,z1）見た目どおりの大きさ
+const FURN_COLS=[[-10,-9.15,-4.6,-1.0],[8.35,10,-.6,3.2],[6.85,7.85,.3,2.3]];
+const FURN_CIR=[[8.4,-2.4,.4],[-8.6,8,.55]];
 
 function initRoom(){
   if(R.ready)return;R.ready=true;
@@ -2003,21 +2092,7 @@ function initRoom(){
   // 肖像画
   box(2.5,2.1,.12,gold,3.2,3.6,-9.92);
   R.portrait=add(new THREE.PlaneGeometry(2.15,1.75),new THREE.MeshStandardMaterial({map:ctex(512,416,drawPortraitBg),roughness:.7}),3.2,3.6,-9.85,false);
-  // 本棚
-  box(.7,4.6,3.4,wood,-9.6,2.3,-2.8);for(let i=0;i<5;i++)box(.75,.08,3.4,gold,-9.55,.4+i*1.0,-2.8,false);
-  const bc=[0x5c1328,0x13304a,0x1f4a2a,0x6a4a1a,0x2a1a40,0x7a2a1a];for(let s=0;s<4;s++){let z=-4.35;while(z<-1.3){const t=.1+Math.random()*.12,hh=.55+Math.random()*.3;box(.5,hh,t,M({color:bc[Math.floor(Math.random()*6)],roughness:.7}),-9.45,.45+s+hh/2,z+t/2,false);z+=t+.02;}}
-  // ソファ
-  box(1.6,.5,3.4,velvet,8.9,.55,1.3);box(.45,1.4,3.4,velvet,9.55,1.2,1.3);box(1.6,.85,.4,velvet,8.9,.8,-.6);box(1.6,.85,.4,velvet,8.9,.8,3.2);
-  for(const z of[.4,2.2])box(.3,.6,1.1,M({color:0xb48a3e,roughness:.6}),9.25,1.1,z);
-  for(const[x,z] of[[8.2,-.6],[9.6,-.6],[8.2,3.2],[9.6,3.2]])add(new THREE.CylinderGeometry(.06,.04,.3,8),gold,x,.15,z);
-  // サイドテーブルとランプ
-  add(new THREE.CylinderGeometry(.55,.55,.06,32),marble,8.4,1.1,-2.4);add(new THREE.CylinderGeometry(.05,.05,1.1,12),gold,8.4,.55,-2.4);
-  add(new THREE.CylinderGeometry(.04,.04,.9,12),gold,8.4,1.55,-2.4);
-  const shade=add(new THREE.CylinderGeometry(.25,.42,.45,24,1,true),new THREE.MeshStandardMaterial({color:0xffe3a8,emissive:0xffb050,emissiveIntensity:.9,side:THREE.DoubleSide}),8.4,2.1,-2.4,false);
-  const lamp=new THREE.PointLight(0xffa850,1.1,9,1.6);lamp.position.set(8.4,2,-2.4);sc.add(lamp);
-  // 植物
-  add(new THREE.CylinderGeometry(.4,.3,.7,24),gold,-8.6,.35,8);
-  const lf=M({color:0x2f5a2a,roughness:.7});for(let i=0;i<9;i++)add(new THREE.SphereGeometry(.28+Math.random()*.18,12,10),lf,-8.6+(Math.random()-.5)*.6,.9+Math.random()*1.1,8+(Math.random()-.5)*.6);
+  try{buildFurniture(sc);}catch(e){console.warn(e);toast('家具エラー：'+e.message);}
   // シャンデリア
   const ch=new THREE.Group();ch.position.set(0,5.6,0);sc.add(ch);
   const tor=new THREE.Mesh(new THREE.TorusGeometry(1,.05,12,64),gold);tor.rotation.x=Math.PI/2;ch.add(tor);
@@ -2057,7 +2132,7 @@ function makeMon(src,atPed){
 }
 function removeMon(o){R.sc.remove(o.sp);R.sc.remove(o.sh);if(o.aura)R.sc.remove(o.aura);o.tex.dispose();o.sp.traverse(c=>{if(c.isMesh&&c.geometry!==G3.s)c.geometry.dispose();});R.mons=R.mons.filter(x=>x!==o);}
 function syncRoom(){if(!R.ready||!R.sc)return;const L=roomList();R.mons.filter(o=>!o.special&&!o.leave&&!L.includes(o.src)).forEach(removeMon);L.forEach(s=>{if(!R.mons.some(o=>o.src===s))makeMon(s,false);});}
-function newTarget(o){let x,z;do{x=(Math.random()-.5)*14;z=(Math.random()-.5)*13;}while(Math.hypot(x,z)<1.9);o.tx=x;o.tz=z;}
+function newTarget(o){let x,z,n=0;do{x=(Math.random()-.5)*14;z=(Math.random()-.5)*13;n++;}while(n<40&&(Math.hypot(x,z)<1.9||FURN_COLS.some(([x0,x1,z0,z1])=>x>x0-.7&&x<x1+.7&&z>z0-.7&&z<z1+.7)||FURN_CIR.some(([cx,cz,cr])=>Math.hypot(x-cx,z-cz)<cr+.7)));o.tx=x;o.tz=z;}
 function loop(){
   requestAnimationFrame(loop);if(R.paused)return;
   const dt=Math.min(.05,R.clock.getDelta()),t=R.clock.elapsedTime;
@@ -2066,7 +2141,7 @@ function loop(){
   if(R.intro>0){R.intro=Math.max(0,R.intro-dt*.45);}
   const e=R.intro*R.intro,rad=R.rad+e*1.2,phi=R.phi-e*.45,tgY=1.3+e*1.2;
   avStep(dt);const TX=R.focus?0:(R.tgx||0),TZ=R.focus?0:(R.tgz||0);
-  R.cam.position.set(TX+Math.sin(R.yaw)*Math.sin(phi)*rad,tgY+Math.cos(phi)*rad,TZ+Math.cos(R.yaw)*Math.sin(phi)*rad);
+  {let dx=Math.sin(R.yaw)*Math.sin(phi),dy=Math.cos(phi),dz=Math.cos(R.yaw)*Math.sin(phi),k=rad;const L=9.5,lim=(p,d,b)=>{if(d>1e-4)k=Math.min(k,(b-p)/d);else if(d<-1e-4)k=Math.min(k,(-b-p)/d);};lim(TX,dx,L);lim(TZ,dz,L);if(dy>1e-4)k=Math.min(k,(6.6-tgY)/dy);k=Math.max(.6,k);R.cam.position.set(TX+dx*k,tgY+dy*k,TZ+dz*k);}
   R.cam.lookAt(TX,tgY,TZ);
   R.boostV=(R.boostV||0)+((R.boost)-(R.boostV||0))*.06;const b=R.boostV;
   R.magic.rotation.z+=dt*(.25+b*4);R.magic.material.opacity=.45+b*.55+Math.sin(t*2)*.08;R.magic.scale.setScalar(1+b*.25);
@@ -3045,7 +3120,7 @@ function end(w){B.busy=true;let h;
 
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0745</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0815</div>
 <div id="avJoy"><i></i></div>
 </body>
 </html>
