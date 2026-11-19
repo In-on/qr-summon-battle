@@ -652,6 +652,8 @@ button{font-family:inherit;cursor:pointer}
 .pnl.bagP .bgw{font-size:calc(1.8*var(--vh));max-width:calc(19*var(--vh))}
 .pnl.bagP:has(.bgg){max-width:min(94%,calc(150*var(--vh)))!important}
 .pnl.bagP .bgg{width:calc(112*var(--vh));grid-template-columns:repeat(5,calc(19*var(--vh)));justify-content:center;gap:calc(1.4*var(--vh))}
+#avJoy{display:none;position:fixed;left:calc(max(calc(3*var(--vw)),env(safe-area-inset-left)) + calc(2*var(--vh)));bottom:calc(8*var(--vh));width:calc(24*var(--vh));height:calc(24*var(--vh));border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),rgba(255,255,255,.02) 70%);box-shadow:inset 0 0 0 1.5px rgba(232,200,122,.45);z-index:20;touch-action:none}
+#avJoy i{position:absolute;left:50%;top:50%;width:42%;height:42%;margin:-21% 0 0 -21%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6dc,#c9a058 70%);box-shadow:0 4px 12px rgba(0,0,0,.5);transition:transform .05s}
 </style>
 </head>
 <body>
@@ -701,6 +703,7 @@ button{font-family:inherit;cursor:pointer}
   <button class="menuBtn" id="menuBtn" aria-label="メニュー"><span><i></i><i></i><i></i></span></button>
   <div class="menu glass" id="menu">
     <button class="mi hl" onclick="openQR()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><rect x="7" y="7" width="4" height="4"/><rect x="13" y="7" width="4" height="4"/><rect x="7" y="13" width="4" height="4"/><path d="M13 13h4v4h-4z" stroke-dasharray="1.5 1"/></svg><span><b>QRスキャン</b><small>QRコードからモンスターを召喚</small></span></button>
+    <button class="mi" id="genBtn" onclick="toggleGender()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/></svg><span><b>アバター：女の子</b><small>男の子 / 女の子 を切り替え</small></span></button>
     <button class="mi" id="bgmBtn" onclick="bgmToggle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span><b>BGM：ON</b><small>音楽のオン・オフ</small></span></button>
     <button class="mi" onclick="toTitle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b>タイトルへ</b><small>ログイン画面にもどる</small></span></button>
   </div>
@@ -1832,6 +1835,44 @@ function drawWindow(c,w,h){const g=c.createLinearGradient(0,0,0,h);g.addColorSto
 function drawPortraitBg(c,w,h){const g=c.createRadialGradient(w/2,h*.55,10,w/2,h/2,w*.7);g.addColorStop(0,'#5a3e6e');g.addColorStop(1,'#140c1c');c.fillStyle=g;c.fillRect(0,0,w,h);}
 function radialTex(col){return ctex(128,128,(c,w,h)=>{const g=c.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(0,0,w,h);});}
 
+
+/* ---- アバター（部屋で操作） ---- */
+const AV_H=1.95,AV_SP=2.4;
+const AV={obj:null,mix:null,walkA:null,idleA:null,x:0,z:3,ang:0,joy:null,keys:{},g:null,loading:false,wW:0,idleT:{f:.032,m:.017}};
+function avGender(){return save.gender==='m'?'m':'f';}
+function avLoadLib(cb){if(THREE.GLTFLoader)return cb();const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';sc.onload=cb;sc.onerror=()=>{AV.loading=false;toast('アバターを読み込めませんでした');};document.head.appendChild(sc);}
+function avLoad(){if(!R.sc||AV.loading)return;const g=avGender();if(AV.g===g&&AV.obj)return;AV.loading=true;
+  avLoadLib(()=>avData(g,buf=>{if(!buf){AV.loading=false;toast('アバターを読み込めませんでした');return;}new THREE.GLTFLoader().parse(buf,'',gl=>{AV.loading=false;if(AV.obj)R.sc.remove(AV.obj);
+    const o=gl.scene;o.traverse(m=>{if(m.isMesh){m.castShadow=true;m.frustumCulled=false;if(m.material&&m.material.map)m.material.map.encoding=THREE.sRGBEncoding;}});
+    const bb=new THREE.Box3().setFromObject(o),h=(bb.max.y-bb.min.y)||1;o.scale.multiplyScalar(AV_H/h);o.position.y=-bb.min.y*AV_H/h;
+    const w=new THREE.Group();w.add(o);R.sc.add(w);AV.obj=w;AV.g=g;
+    const clip=gl.animations[0];AV.mix=new THREE.AnimationMixer(o);AV.walkA=AV.mix.clipAction(clip);AV.idleA=AV.mix.clipAction(clip.clone());
+    AV.walkA.play();AV.idleA.play();AV.idleA.paused=true;AV.idleA.time=AV.idleT[g];AV.walkA.setEffectiveWeight(0);AV.idleA.setEffectiveWeight(1);AV.wW=0;AV.mix.update(0);
+    w.position.set(AV.x,0,AV.z);w.rotation.y=AV.ang;if(AV.g!==avGender())avLoad();},()=>{AV.loading=false;toast('アバターを読み込めませんでした');});}));}
+function avData(g,cb){const k='AVATAR_'+g,dec=()=>{const b=atob(window[k]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u.buffer;};if(window[k])return cb(dec());const sc=document.createElement('script');sc.src=`avatar_${g}.js?v=1`;sc.onload=()=>cb(window[k]?dec():null);sc.onerror=()=>cb(null);document.head.appendChild(sc);}
+function toggleGender(){save.gender=avGender()==='f'?'m':'f';persist();sfx('swap');const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(save.gender==='m'?'男の子':'女の子');toast(save.gender==='m'?'男の子のアバターにしました':'女の子のアバターにしました');avLoad();}
+function avStep(dt){
+  const ui=$('#avJoy');if(ui){const show=!!AV.obj&&!$('#battle').classList.contains('on')&&!$('#modal').classList.contains('on')&&!$('#box').classList.contains('on');ui.style.display=show?'block':'none';if(!show)AV.joy=null;}
+  if(!AV.obj)return;let jx=0,jy=0;if(AV.joy){jx=AV.joy.x;jy=AV.joy.y;}const K=AV.keys;
+  if(K.a||K.arrowleft)jx-=1;if(K.d||K.arrowright)jx+=1;if(K.w||K.arrowup)jy-=1;if(K.s||K.arrowdown)jy+=1;
+  const m=Math.min(1,Math.hypot(jx,jy)),mv=m>.15;
+  if(mv){const fx=-Math.sin(R.yaw),fz=-Math.cos(R.yaw),rx=Math.cos(R.yaw),rz=-Math.sin(R.yaw);let dx=rx*jx-fx*jy,dz=rz*jx-fz*jy;const l=Math.hypot(dx,dz)||1;dx/=l;dz/=l;
+    AV.x+=dx*AV_SP*m*dt;AV.z+=dz*AV_SP*m*dt;let da=Math.atan2(dx,dz)-AV.ang;da=Math.atan2(Math.sin(da),Math.cos(da));AV.ang+=da*Math.min(1,dt*10);AV.walkA.timeScale=.55+.55*m;}
+  // 当たり判定（壁・召喚台・暖炉・モンスター）
+  AV.x=Math.max(-9.2,Math.min(9.2,AV.x));AV.z=Math.max(-9.2,Math.min(8.9,AV.z));
+  if(AV.z>8.3&&Math.abs(AV.x)<2.2)AV.z=8.3;
+  {const d=Math.hypot(AV.x,AV.z);if(d<1.85){const k=1.85/(d||1);AV.x=(d?AV.x:0)*k;AV.z=(d?AV.z:1.85/k)*k;}}
+  for(const o of R.mons||[]){if(o.leave||!o.sp||!o.sp.visible)continue;const dx=AV.x-o.x,dz=AV.z-o.z,d=Math.hypot(dx,dz);if(d<.75&&d>1e-4){AV.x=o.x+dx/d*.75;AV.z=o.z+dz/d*.75;}}
+  AV.wW+=((mv?1:0)-AV.wW)*Math.min(1,dt*8);AV.walkA.setEffectiveWeight(AV.wW);AV.idleA.setEffectiveWeight(1-AV.wW);
+  AV.mix.update(dt);AV.obj.position.set(AV.x,0,AV.z);AV.obj.rotation.y=AV.ang;
+  R.tgx=(R.tgx||0)+(AV.x-(R.tgx||0))*Math.min(1,dt*3);R.tgz=(R.tgz||0)+(AV.z-(R.tgz||0))*Math.min(1,dt*3);}
+function avBind(){{const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(avGender()==='m'?'男の子':'女の子');}const J=$('#avJoy'),K=J.querySelector('i');let id=null;const rad=()=>J.getBoundingClientRect().width/2;
+  const mv=e=>{const r=J.getBoundingClientRect(),c=gp({clientX:r.left+r.width/2,clientY:r.top+r.height/2}),p=gp(e),R0=rad();let x=(p.x-c.x)/R0,y=(p.y-c.y)/R0;const l=Math.hypot(x,y);if(l>1){x/=l;y/=l;}AV.joy={x,y};K.style.transform=`translate(${x*R0*.55}px,${y*R0*.55}px)`;};
+  J.addEventListener('pointerdown',e=>{e.stopPropagation();id=e.pointerId;J.setPointerCapture(id);mv(e);});
+  J.addEventListener('pointermove',e=>{if(e.pointerId===id)mv(e);});
+  const up=e=>{if(e.pointerId!==id)return;id=null;AV.joy=null;K.style.transform='';};J.addEventListener('pointerup',up);J.addEventListener('pointercancel',up);
+  addEventListener('keydown',e=>{if(/INPUT|TEXTAREA/.test((e.target||{}).tagName||''))return;AV.keys[e.key.toLowerCase()]=1;});addEventListener('keyup',e=>{AV.keys[e.key.toLowerCase()]=0;});}
+
 function initRoom(){
   if(R.ready)return;R.ready=true;
   let rd;try{rd=new THREE.WebGLRenderer({canvas:$('#gl'),antialias:true});}catch(e){toast('3D表示に対応していない端末です');return;}
@@ -1907,7 +1948,7 @@ function initRoom(){
   // 肖像画にモンスター
   const pimg=new Image();pimg.onload=()=>{const m=R.portrait.material.map;const c=m.image.getContext('2d');c.drawImage(pimg,(512-380)/2,30,380,380);m.needsUpdate=true;};pimg.src=gen(save.box.find(Boolean)||'QR召喚').img;
   bindInput();onResize();addEventListener('resize',onResize);addEventListener('gameresize',onResize);syncRoom();makeModel(DRAGON3D,DRAGON_M,0,4,1.2,'#b48cff',{sat:1,con:1,lift:0});makeModel(CAT3D,CAT_M,3.5,-2,1.6,'#c08cff',{sat:1,con:1,lift:0});makeModel(EMBER3D,EMBER_M,-3.5,-1.5,1.15,'#ff9a5a',{sat:1,con:1,lift:0});makeModel(CRYSTAL3D,CRYSTAL_M,-3,3,1.15,'#d8c8ff',{sat:1.0,con:1.0,lift:0});makeModel(IMP3D,IMP_M,3.4,2.6,1.15,'#ff9a5a',{sat:1,con:1,lift:0});makeModel(FOX3D,FOX_M,4.4,.4,1.2,'#fff1b8',{sat:1,con:1,lift:0});makeModel(VERD3D,VERD_M,-4.5,.9,1.15,'#9fffb0',{sat:1,con:1,lift:0});makeModel(FIN3D,FIN_M,0,-4.3,1.15,'#8ad0ff',{sat:1,con:1,lift:0});makeModel(AETH3D,AETH_M,-2.3,-4,1.15,'#9fffd0',{sat:1,con:1,lift:0});makeModel(TURT3D,TURT_M,2.4,-4.1,1.15,'#7fd0ff',{sat:1,con:1,lift:0});makeModel(PRISM3D,PRISM_M,-1.6,1.8,1.15,'#fff1b8',{sat:1,con:1,lift:0});makeModel(CCRY3D,CCRY_M,1.8,1.6,1.15,'#ffe8a0',{sat:1,con:1,lift:0});makeModel(KIT3D,KIT_M,-1.4,-1.8,1.15,'#ffb08a',{sat:1,con:1,lift:0});makeModel(EWD3D,EWD_M,1.4,-1.8,1.15,'#ff8a5a',{sat:1,con:1,lift:0});makeModel(JEL3D,JEL_M,-1.4,4.2,1.15,'#8ad8ff',{sat:1,con:1,lift:0});makeModel(CRB3D,CRB_M,1.6,4,1.15,'#7fc0ff',{sat:1,con:1,lift:0});makeModel(EMF3D,EMF_M,-3.8,-2.6,1.15,'#9af0b0',{sat:1,con:1,lift:0});makeModel(WSP3D,WSP_M,3.8,-2.6,1.15,'#c08cff',{sat:1,con:1,lift:0});makeModel(MNK3D,MNK_M,0,1.2,1.15,'#b08cff',{sat:1,con:1,lift:0});makeModel(VBS3D,VBS_M,2.4,2.8,1.15,'#9af0b0',{sat:1,con:1,lift:0});
-  R.clock=new THREE.Clock();loop();
+  R.clock=new THREE.Clock();loop();avBind();avLoad();
 }
 function onResize(){if(!R.rd)return;const w=GW(),h=GH();R.rd.setSize(w,h,false);R.cam.aspect=w/h;R.cam.fov=w/h<1.5?56:46;R.cam.updateProjectionMatrix();}
 const ROOM_MAX=3;
@@ -1934,8 +1975,9 @@ function loop(){
   R.phi+=(R.tphi-R.phi)*.08;const trad=R.focus?6.2:R.trad;R.rad+=(trad-R.rad)*.05;
   if(R.intro>0){R.intro=Math.max(0,R.intro-dt*.45);}
   const e=R.intro*R.intro,rad=R.rad+e*1.2,phi=R.phi-e*.45,tgY=1.3+e*1.2;
-  R.cam.position.set(Math.sin(R.yaw)*Math.sin(phi)*rad,tgY+Math.cos(phi)*rad,Math.cos(R.yaw)*Math.sin(phi)*rad);
-  R.cam.lookAt(0,tgY,0);
+  avStep(dt);const TX=R.focus?0:(R.tgx||0),TZ=R.focus?0:(R.tgz||0);
+  R.cam.position.set(TX+Math.sin(R.yaw)*Math.sin(phi)*rad,tgY+Math.cos(phi)*rad,TZ+Math.cos(R.yaw)*Math.sin(phi)*rad);
+  R.cam.lookAt(TX,tgY,TZ);
   R.boostV=(R.boostV||0)+((R.boost)-(R.boostV||0))*.06;const b=R.boostV;
   R.magic.rotation.z+=dt*(.25+b*4);R.magic.material.opacity=.45+b*.55+Math.sin(t*2)*.08;R.magic.scale.setScalar(1+b*.25);
   R.pillar.material.opacity=b*.55;R.pillar.rotation.y+=dt*2;R.pl.intensity=.6+b*5;
@@ -2914,5 +2956,6 @@ function end(w){B.busy=true;let h;
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
 <div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.19-2026</div>
+<div id="avJoy"><i></i></div>
 </body>
 </html>
