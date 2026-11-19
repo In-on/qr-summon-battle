@@ -1369,13 +1369,22 @@ const WSP_M={src:'special:violetwisp',special:true,img:WSP3D.img,name:'ヴァイ
  skill:{n:'ウィスプフレイム',t:'atk',el:'闇',p:70,a:100,d:SKDESC.atk('闇')},ult:{n:'ファントムブレイズ',t:'ult',el:'闇',p:175,a:100,d:`闇属性の超強力な一撃（転倒＋${STJ['闇']}）`},get skills(){return[ATTACK,this.skill,this.ult];}};
 const MNK_M={src:'special:moonkit',special:true,img:MNK3D.img,name:'ムーンキット',el:{n:'闇',c:'#9a6aff'},rar:SRR,hp:290,atk:110,def:104,crit:18,
  skill:{n:'クレセントクロー',t:'erupt',el:'闇',p:68,a:100,d:SKDESC.erupt('闇')},ult:{n:'ルナティックナイト',t:'ult',el:'闇',p:175,a:100,d:`闇属性の超強力な一撃（転倒＋${STJ['闇']}）`},get skills(){return[ATTACK,this.skill,this.ult];}};
-function SRLIST(){return[PRISM_M,CCRY_M,KIT_M,EWD_M,JEL_M,CRB_M,EMF_M,WSP_M,MNK_M];}
+const VBS_M={src:'special:verdantsprite',special:true,img:VBS3D.img,name:'ヴァーダントブロッサム',el:{n:'木',c:'#5ae08a'},rar:SRR,hp:285,atk:108,def:106,crit:18,
+ skill:{n:'ブロッサムシード',t:'erupt',el:'木',p:68,a:100,d:SKDESC.erupt('木')},ult:{n:'グリーンサンクチュアリ',t:'ult',el:'木',p:175,a:100,d:`木属性の超強力な一撃（転倒＋${STJ['木']}）`},get skills(){return[ATTACK,this.skill,this.ult];}};
+function SRLIST(){return[PRISM_M,CCRY_M,KIT_M,EWD_M,JEL_M,CRB_M,EMF_M,WSP_M,MNK_M,VBS_M];}
 const ALLSP=()=>[...URLIST(),...SRLIST()];
 /* URは最初は持っていない（QR読み取りで0.5%の確率で出現） */
 const UR_RATE=.01,SR_RATE=.05;
 const urBase=s=>String(s).split('#')[0];
 const SR_RAR=SRR;
 /* SRも最初は持っていない（QR読み取りで5%の確率で出現） */
+{const G='gift_verdantsprite';save.gifts=save.gifts||[];if(!save.gifts.includes(G)){save.gifts.push(G);const src='special:verdantsprite';
+  if(!save.box.some(x=>x&&urBase(x)===src)){const k=save.box.indexOf(null);if(k>=0)save.box[k]=src;}
+  save.urOff=(save.urOff||[]).filter(x=>x!==src);
+  /* 部屋は3体まで：他のUR/SRを1体しまって場所を空ける */
+  const vis=[];for(const x of save.box){if(!x||!String(x).startsWith('special:'))continue;const b=urBase(x);if(!save.urOff.includes(b)&&!vis.includes(b))vis.push(b);}
+  let g=0;while(vis.indexOf(src)>=3&&g++<20){const o=vis.slice(0,vis.indexOf(src)).pop();save.urOff.push(o);vis.splice(vis.indexOf(o),1);}
+  persist();}}
 function b64(s,T){const bin=atob(s),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new T(u.buffer);}
 
 const FXU=[];
@@ -1828,7 +1837,7 @@ function initRoom(){
   R.shadowTex=radialTex('rgba(0,0,0,.55)');R.loader=new THREE.TextureLoader();R.texCache={};
   // 肖像画にモンスター
   const pimg=new Image();pimg.onload=()=>{const m=R.portrait.material.map;const c=m.image.getContext('2d');c.drawImage(pimg,(512-380)/2,30,380,380);m.needsUpdate=true;};pimg.src=gen(save.box.find(Boolean)||'QR召喚').img;
-  bindInput();onResize();addEventListener('resize',onResize);addEventListener('gameresize',onResize);syncRoom();makeModel(DRAGON3D,DRAGON_M,0,4,1.2,'#b48cff',{sat:1,con:1,lift:0});makeModel(CAT3D,CAT_M,3.5,-2,1.6,'#c08cff',{sat:1,con:1,lift:0});makeModel(EMBER3D,EMBER_M,-3.5,-1.5,1.15,'#ff9a5a',{sat:1,con:1,lift:0});makeModel(CRYSTAL3D,CRYSTAL_M,-3,3,1.15,'#d8c8ff',{sat:1.0,con:1.0,lift:0});makeModel(IMP3D,IMP_M,3.4,2.6,1.15,'#ff9a5a',{sat:1,con:1,lift:0});makeModel(FOX3D,FOX_M,4.4,.4,1.2,'#fff1b8',{sat:1,con:1,lift:0});makeModel(VERD3D,VERD_M,-4.5,.9,1.15,'#9fffb0',{sat:1,con:1,lift:0});makeModel(FIN3D,FIN_M,0,-4.3,1.15,'#8ad0ff',{sat:1,con:1,lift:0});makeModel(AETH3D,AETH_M,-2.3,-4,1.15,'#9fffd0',{sat:1,con:1,lift:0});makeModel(TURT3D,TURT_M,2.4,-4.1,1.15,'#7fd0ff',{sat:1,con:1,lift:0});makeModel(PRISM3D,PRISM_M,-1.6,1.8,1.15,'#fff1b8',{sat:1,con:1,lift:0});makeModel(CCRY3D,CCRY_M,1.8,1.6,1.15,'#ffe8a0',{sat:1,con:1,lift:0});makeModel(KIT3D,KIT_M,-1.4,-1.8,1.15,'#ffb08a',{sat:1,con:1,lift:0});makeModel(EWD3D,EWD_M,1.4,-1.8,1.15,'#ff8a5a',{sat:1,con:1,lift:0});makeModel(JEL3D,JEL_M,-1.4,4.2,1.15,'#8ad8ff',{sat:1,con:1,lift:0});makeModel(CRB3D,CRB_M,1.6,4,1.15,'#7fc0ff',{sat:1,con:1,lift:0});makeModel(EMF3D,EMF_M,-3.8,-2.6,1.15,'#9af0b0',{sat:1,con:1,lift:0});makeModel(WSP3D,WSP_M,3.8,-2.6,1.15,'#c08cff',{sat:1,con:1,lift:0});makeModel(MNK3D,MNK_M,0,1.2,1.15,'#b08cff',{sat:1,con:1,lift:0});
+  bindInput();onResize();addEventListener('resize',onResize);addEventListener('gameresize',onResize);syncRoom();makeModel(DRAGON3D,DRAGON_M,0,4,1.2,'#b48cff',{sat:1,con:1,lift:0});makeModel(CAT3D,CAT_M,3.5,-2,1.6,'#c08cff',{sat:1,con:1,lift:0});makeModel(EMBER3D,EMBER_M,-3.5,-1.5,1.15,'#ff9a5a',{sat:1,con:1,lift:0});makeModel(CRYSTAL3D,CRYSTAL_M,-3,3,1.15,'#d8c8ff',{sat:1.0,con:1.0,lift:0});makeModel(IMP3D,IMP_M,3.4,2.6,1.15,'#ff9a5a',{sat:1,con:1,lift:0});makeModel(FOX3D,FOX_M,4.4,.4,1.2,'#fff1b8',{sat:1,con:1,lift:0});makeModel(VERD3D,VERD_M,-4.5,.9,1.15,'#9fffb0',{sat:1,con:1,lift:0});makeModel(FIN3D,FIN_M,0,-4.3,1.15,'#8ad0ff',{sat:1,con:1,lift:0});makeModel(AETH3D,AETH_M,-2.3,-4,1.15,'#9fffd0',{sat:1,con:1,lift:0});makeModel(TURT3D,TURT_M,2.4,-4.1,1.15,'#7fd0ff',{sat:1,con:1,lift:0});makeModel(PRISM3D,PRISM_M,-1.6,1.8,1.15,'#fff1b8',{sat:1,con:1,lift:0});makeModel(CCRY3D,CCRY_M,1.8,1.6,1.15,'#ffe8a0',{sat:1,con:1,lift:0});makeModel(KIT3D,KIT_M,-1.4,-1.8,1.15,'#ffb08a',{sat:1,con:1,lift:0});makeModel(EWD3D,EWD_M,1.4,-1.8,1.15,'#ff8a5a',{sat:1,con:1,lift:0});makeModel(JEL3D,JEL_M,-1.4,4.2,1.15,'#8ad8ff',{sat:1,con:1,lift:0});makeModel(CRB3D,CRB_M,1.6,4,1.15,'#7fc0ff',{sat:1,con:1,lift:0});makeModel(EMF3D,EMF_M,-3.8,-2.6,1.15,'#9af0b0',{sat:1,con:1,lift:0});makeModel(WSP3D,WSP_M,3.8,-2.6,1.15,'#c08cff',{sat:1,con:1,lift:0});makeModel(MNK3D,MNK_M,0,1.2,1.15,'#b08cff',{sat:1,con:1,lift:0});makeModel(VBS3D,VBS_M,2.4,2.8,1.15,'#9af0b0',{sat:1,con:1,lift:0});
   R.clock=new THREE.Clock();loop();
 }
 function onResize(){if(!R.rd)return;const w=GW(),h=GH();R.rd.setSize(w,h,false);R.cam.aspect=w/h;R.cam.fov=w/h<1.5?56:46;R.cam.updateProjectionMatrix();}
