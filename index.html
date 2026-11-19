@@ -654,6 +654,51 @@ button{font-family:inherit;cursor:pointer}
 .pnl.bagP .bgg{width:calc(112*var(--vh));grid-template-columns:repeat(5,calc(19*var(--vh)));justify-content:center;gap:calc(1.4*var(--vh))}
 #avJoy{display:none;position:fixed;left:calc(max(calc(3*var(--vw)),env(safe-area-inset-left)) + calc(2*var(--vh)));bottom:calc(8*var(--vh));width:calc(24*var(--vh));height:calc(24*var(--vh));border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.08),rgba(255,255,255,.02) 70%);box-shadow:inset 0 0 0 1.5px rgba(232,200,122,.45);z-index:20;touch-action:none}
 #avJoy i{position:absolute;left:50%;top:50%;width:42%;height:42%;margin:-21% 0 0 -21%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff6dc,#c9a058 70%);box-shadow:0 4px 12px rgba(0,0,0,.5);transition:transform .05s}
+
+/* ===== HUD v2 ===== */
+.hud2{position:absolute;top:max(calc(2.5*var(--vh)),env(safe-area-inset-top));left:max(calc(2*var(--vw)),env(safe-area-inset-left));display:flex;align-items:center;gap:calc(2.4*var(--vh));padding:calc(1.8*var(--vh)) calc(4.5*var(--vh)) calc(1.8*var(--vh)) calc(2.6*var(--vh));border-radius:calc(2.2*var(--vh));background:linear-gradient(135deg,rgba(38,22,34,.9),rgba(16,10,18,.86) 60%,rgba(28,16,26,.88));border:1px solid rgba(232,200,122,.6);box-shadow:inset 0 0 0 calc(.5*var(--vh)) rgba(0,0,0,.28),inset 0 0 0 calc(.6*var(--vh)) rgba(232,200,122,.2),inset 0 0 calc(4*var(--vh)) rgba(150,90,160,.18),0 calc(1*var(--vh)) calc(3*var(--vh)) rgba(0,0,0,.55);cursor:pointer;z-index:19}
+.hcor{position:absolute;width:calc(9*var(--vh));height:calc(9*var(--vh));pointer-events:none;filter:drop-shadow(0 0 4px rgba(255,210,120,.45))}
+.hcor.tl{left:calc(-1.6*var(--vh));top:calc(-2.2*var(--vh))}.hcor.br{right:calc(-1.4*var(--vh));bottom:calc(-1.8*var(--vh))}
+.hspk{position:absolute;right:calc(2*var(--vh));top:calc(1.4*var(--vh));width:calc(3*var(--vh));height:calc(3*var(--vh));filter:drop-shadow(0 0 4px #ffd27a);animation:hspk 2.4s ease-in-out infinite}
+@keyframes hspk{50%{opacity:.35;transform:scale(.8)}}
+.hav{position:relative;width:calc(19*var(--vh));height:calc(19*var(--vh));flex:none}
+.hav .laurel{position:absolute;left:calc(-3.6*var(--vh));top:calc(-1*var(--vh));width:calc(7*var(--vh));height:calc(21*var(--vh));filter:drop-shadow(0 0 3px rgba(255,210,120,.5));z-index:2}
+.hring{position:absolute;inset:0;border-radius:50%;padding:calc(.9*var(--vh));background:conic-gradient(from 210deg,#fff3c4,#d9a94e,#8a5a1c,#e8c47a,#fff3c4,#b07a2a,#fff3c4);box-shadow:0 0 0 calc(.35*var(--vh)) #2a1a0c,0 0 0 calc(.55*var(--vh)) rgba(232,200,122,.7),0 0 calc(2.4*var(--vh)) rgba(255,210,120,.45)}
+.hring .crest{width:100%;height:100%;border-radius:50%;overflow:hidden;background:radial-gradient(circle at 50% 35%,#3a2a40,#120c16);display:grid;place-items:center;box-shadow:inset 0 0 0 calc(.3*var(--vh)) #2a1a0c}
+.hring .crest .av{width:100%!important;height:100%!important}
+.hinfo{display:flex;flex-direction:column;gap:calc(1.3*var(--vh));min-width:calc(34*var(--vh))}
+.hnm{display:flex;align-items:center;gap:calc(1.6*var(--vh));font:700 calc(4.2*var(--vh)) 'Shippori Mincho B1';color:#fff;letter-spacing:.08em;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+.hed{width:calc(4.4*var(--vh));height:calc(4.4*var(--vh));border-radius:calc(.9*var(--vh));border:1px solid rgba(232,200,122,.55);background:rgba(0,0,0,.35);display:grid;place-items:center;padding:0}.hed svg{width:66%;height:66%}
+.hlv{display:flex;align-items:center;gap:calc(1.6*var(--vh))}
+.hlv b{font:600 calc(3.8*var(--vh)) 'Shippori Mincho B1';color:#fff;letter-spacing:.02em;white-space:nowrap;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+.hlv small,.hst small{font:600 calc(2.5*var(--vh)) 'Shippori Mincho B1';color:#f3ead8;white-space:nowrap}
+.gbar,.pbar{position:relative;display:block;height:calc(1.5*var(--vh));border-radius:99px;background:rgba(0,0,0,.45);box-shadow:inset 0 0 0 1px rgba(232,200,122,.35);overflow:hidden}
+.gbar{width:calc(13*var(--vh))}.pbar{flex:1;min-width:calc(22*var(--vh))}
+.gbar i,.pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;transition:width .4s}
+.gbar i{background:linear-gradient(180deg,#fff0b8,#e2b45c 55%,#b07c2a)}
+.pbar i{background:linear-gradient(90deg,#c48ad8,#e9a0d8 60%,#f3c0e0)}
+.hst{display:flex;align-items:center;gap:calc(1.4*var(--vh))}
+.hst small::before{content:'';display:inline-block;width:calc(2.3*var(--vh));height:calc(2.3*var(--vh));margin-right:calc(.4*var(--vh));vertical-align:-12%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M13.5 2L5 13.5h6L9.5 22 19 9.5h-6z' fill='%23e9b0ff' stroke='%23502a6a' stroke-width='1.2' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.curs{position:absolute;top:calc(max(calc(2.5*var(--vh)),env(safe-area-inset-top)) + calc(.9*var(--vh)));right:calc(max(calc(2*var(--vw)),env(safe-area-inset-right)) + calc(12.5*var(--vh)));display:flex;gap:calc(2.6*var(--vh));z-index:19}
+.cur{position:relative;display:flex;align-items:center;height:calc(7*var(--vh));width:calc(27*var(--vh));padding:0 calc(.8*var(--vh)) 0 calc(7.5*var(--vh));border-radius:99px;background:linear-gradient(180deg,rgba(40,32,70,.9),rgba(16,12,32,.9));border:1px solid rgba(232,200,122,.55);box-shadow:inset 0 0 0 calc(.35*var(--vh)) rgba(0,0,0,.3),inset 0 0 calc(2*var(--vh)) rgba(140,110,220,.2),0 calc(.6*var(--vh)) calc(1.6*var(--vh)) rgba(0,0,0,.45);cursor:pointer}
+.cur .ci{position:absolute;left:calc(.6*var(--vh));top:50%;transform:translateY(-50%);width:calc(6.6*var(--vh));height:calc(6.6*var(--vh));filter:drop-shadow(0 0 5px rgba(180,160,255,.5))}
+.cur .ci svg{width:100%;height:100%}
+.cur b{flex:1;text-align:right;padding-right:calc(1.4*var(--vh));font:600 calc(3.4*var(--vh)) 'Shippori Mincho B1';color:#fff;letter-spacing:.03em;text-shadow:0 2px 5px rgba(0,0,0,.6)}
+.cplus{width:calc(5.2*var(--vh));height:calc(5.2*var(--vh));flex:none;border-radius:50%;padding:0;display:grid;place-items:center;background:radial-gradient(circle at 40% 35%,#3a2e4a,#120c1c);border:calc(.3*var(--vh)) solid #e2b660;box-shadow:0 0 0 1px #3a2610}
+.cplus svg{width:62%;height:62%}
+.menuBtn.gearB{width:calc(9.5*var(--vh));height:calc(9.5*var(--vh));padding:calc(.7*var(--vh));background:conic-gradient(from 200deg,#fff3c4,#c9953e,#7a4c16,#e8c47a,#fff3c4,#a87226,#fff3c4);border:0;box-shadow:0 0 0 calc(.3*var(--vh)) #2a1a0c,0 calc(.6*var(--vh)) calc(1.8*var(--vh)) rgba(0,0,0,.55)}
+.menuBtn.gearB svg{width:100%;height:100%;border-radius:50%;padding:16%;background:radial-gradient(circle at 40% 35%,#3a2a1a,#140c06);transition:transform .35s}
+.menuBtn.gearB.on svg{transform:rotate(60deg)}
+.sideBtn{top:auto!important;width:calc(12.5*var(--vh))!important;height:calc(12.5*var(--vh))!important;padding:calc(.9*var(--vh))!important;border:0!important;background:conic-gradient(from 200deg,#fff3c4,#c9953e,#7a4c16,#e8c47a,#fff3c4,#a87226,#fff3c4)!important;box-shadow:0 0 0 calc(.35*var(--vh)) #2a1a0c,0 0 0 calc(.55*var(--vh)) rgba(232,200,122,.5),0 calc(.8*var(--vh)) calc(2*var(--vh)) rgba(0,0,0,.6)!important}
+.sideBtn svg{width:100%!important;height:100%!important;border-radius:50%;padding:15%;box-sizing:border-box;background:radial-gradient(circle at 40% 32%,#4a3420,#1c120a 75%);box-shadow:inset 0 0 0 calc(.3*var(--vh)) #2a1a0c,inset 0 calc(.8*var(--vh)) calc(1.6*var(--vh)) rgba(255,220,160,.12)}
+.sideBtn.on{box-shadow:0 0 0 calc(.35*var(--vh)) #2a1a0c,0 0 0 calc(.6*var(--vh)) #fff3c4,0 0 calc(2.6*var(--vh)) rgba(255,220,140,.7)!important}
+#shopBtn,#advBtn,#monBtn{right:max(calc(2*var(--vw)),env(safe-area-inset-right))!important}
+#monBtn{bottom:max(calc(3*var(--vh)),env(safe-area-inset-bottom))!important}
+#advBtn{bottom:calc(max(calc(3*var(--vh)),env(safe-area-inset-bottom)) + calc(15.5*var(--vh)))!important}
+#shopBtn{bottom:calc(max(calc(3*var(--vh)),env(safe-area-inset-bottom)) + calc(31*var(--vh)))!important}
+#monMenu,#advMenu{top:auto!important;right:calc(max(calc(2*var(--vw)),env(safe-area-inset-right)) + calc(15*var(--vh)))!important;transform-origin:bottom right}
+#monMenu{bottom:max(calc(3*var(--vh)),env(safe-area-inset-bottom))}
+#advMenu{bottom:calc(max(calc(3*var(--vh)),env(safe-area-inset-bottom)) + calc(15.5*var(--vh)))}
 </style>
 </head>
 <body>
@@ -687,10 +732,15 @@ button{font-family:inherit;cursor:pointer}
 <!-- GAME -->
 <section id="game" class="scr">
   <canvas id="gl"></canvas>
-  <div class="hudL glass" onclick="openProfile()"><div class="crest"></div><div><div class="hn" id="hudName"></div><div class="hc"></div><div class="hres"></div></div></div>
-  <button class="sideBtn" id="shopBtn" aria-label="ショップ" onclick="openShop()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6" stroke-linejoin="round"><path d="M4 9l1.5-5h13L20 9"/><path d="M4 9h16v2a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0A2.7 2.7 0 0 1 4 11z"/><path d="M5.5 13.5V20h13v-6.5"/><path d="M10 20v-4h4v4"/></svg></button>
-  <button class="sideBtn" id="monBtn" aria-label="モンスター" onclick="toggleSub('monMenu')"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6" stroke-linejoin="round"><path d="M5 9l-2-5 5 2.5M19 9l2-5-5 2.5"/><path d="M12 5c-4.5 0-8 3.2-8 7.5S7.5 20 12 20s8-3.2 8-7.5S16.5 5 12 5z"/><circle cx="9" cy="12" r="1.3" fill="#f6e2a8"/><circle cx="15" cy="12" r="1.3" fill="#f6e2a8"/><path d="M10 16c1.2.8 2.8.8 4 0"/></svg></button>
-  <button class="sideBtn" id="advBtn" aria-label="冒険" onclick="toggleSub('advMenu')"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6" stroke-linecap="round"><path d="M14.5 3H21v6.5L10 20.5 3.5 14z"/><path d="M6 12l6 6M3 21l3-3M17 7l-6 6"/></svg></button>
+  <div class="hud2" onclick="openProfile()"><svg class="hcor tl" viewBox="0 0 80 80"><defs><linearGradient id="gdG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff3c4"/><stop offset=".45" stop-color="#e2b660"/><stop offset="1" stop-color="#8a5a1c"/></linearGradient></defs><path d="M6 74C6 40 14 18 40 8M6 60C12 44 22 34 36 30M14 20c6 2 10 6 12 12M30 6c-2 5-1 10 2 14" fill="none" stroke="url(#gdG)" stroke-width="2.2" stroke-linecap="round"/><path d="M40 8c8-3 16-2 22 2-7 1-13 4-18 9zM36 30c6-3 12-3 17 0-6 1-11 3-15 7zM22 14c-1-6 1-11 6-14 1 6-1 11-6 14z" fill="url(#gdG)"/><circle cx="6" cy="74" r="2.6" fill="#ffe9a8"/></svg><svg class="hcor br" viewBox="0 0 80 80"><path d="M74 6C74 40 66 62 40 72M74 20c-6 16-16 26-30 30" fill="none" stroke="url(#gdG)" stroke-width="2.2" stroke-linecap="round"/><path d="M40 72c-8 3-16 2-22-2 7-1 13-4 18-9zM44 50c-6 3-12 3-17 0 6-1 11-3 15-7z" fill="url(#gdG)"/><circle cx="74" cy="6" r="2.6" fill="#ffe9a8"/></svg><svg class="hspk" viewBox="0 0 24 24"><path d="M12 0C13 9 15 11 24 12 15 13 13 15 12 24 11 15 9 13 0 12 9 11 11 9 12 0z" fill="#ffe9a8"/></svg>
+    <div class="hav"><svg class="laurel" viewBox="0 0 40 120"><path d="M30 116C10 96 6 60 18 20" fill="none" stroke="url(#gdG)" stroke-width="2.4" stroke-linecap="round"/><path d="M26 108c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(-20 26 108)"/><path d="M18 94c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(-5 18 94)"/><path d="M13 78c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(5 13 78)"/><path d="M11 62c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(12 11 62)"/><path d="M12 46c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(20 12 46)"/><path d="M15 30c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(28 15 30)"/><path d="M18 20c-4-7-3-14 3-19 3 7 2 13-3 19z" fill="url(#gdG)"/></svg><div class="hring"><div class="crest" id="hCrest"></div></div></div>
+    <div class="hinfo"><div class="hnm"><span id="hudName"></span><button class="hed" aria-label="プロフィール" onclick="event.stopPropagation();openProfile()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/></svg></button></div>
+      <div class="hlv"><b>Lv.<span id="hLv">1</span></b><span class="gbar"><i id="hLvB"></i></span><small id="hLvN"></small></div>
+      <div class="hst"><span class="pbar"><i id="hStB"></i></span><small id="hStN"></small></div></div></div>
+  <div class="curs"><div class="cur" onclick="openShop()"><i class="ci"><svg viewBox="0 0 32 32"><defs><linearGradient id="gmA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bff4ff"/><stop offset=".5" stop-color="#7f8cff"/><stop offset="1" stop-color="#e06cff"/></linearGradient></defs><path d="M9 4h14l7 9-14 16L2 13z" fill="url(#gmA)" stroke="#3a2a7a" stroke-width="1.2" stroke-linejoin="round"/><path d="M2 13h28M9 4l3 9 4 16M23 4l-3 9-4 16M12 13l4-9 4 9" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width=".9"/><path d="M10 6l-4 6h5z" fill="#fff" opacity=".7"/></svg></i><b id="hGem">0</b><button class="cplus" aria-label="ショップ"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div><div class="cur" onclick="openShop()"><i class="ci" id="hCoinI"></i><b id="hCoin">0</b><button class="cplus" aria-label="ショップ"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div></div>
+  <button class="sideBtn" id="shopBtn" aria-label="ショップ" onclick="openShop()"><svg viewBox="0 0 32 32"><path d="M11 9V7.5A2.5 2.5 0 0 1 13.5 5h5A2.5 2.5 0 0 1 21 7.5V9" fill="none" stroke="#f3e4c0" stroke-width="2.4"/><rect x="4" y="9" width="24" height="17" rx="3.5" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M4 15.5h24" stroke="#5a3a18" stroke-width="1.2"/><rect x="13" y="13" width="6" height="5" rx="1.2" fill="#c9a058" stroke="#5a3a18" stroke-width="1.1"/></svg></button>
+  <button class="sideBtn" id="monBtn" aria-label="モンスター" onclick="toggleSub('monMenu')"><svg viewBox="0 0 32 32"><path d="M6 13L3.5 4.5 11 8.5M26 13l2.5-8.5L21 8.5" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M16 7.5C9 7.5 4 12.5 4 18.5 4 24 9.2 28 16 28s12-4 12-9.5c0-6-5-11-12-11z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><ellipse cx="11.2" cy="18" rx="2.1" ry="2.6" fill="#3a2410"/><ellipse cx="20.8" cy="18" rx="2.1" ry="2.6" fill="#3a2410"/><circle cx="11.9" cy="17.1" r=".8" fill="#fff"/><circle cx="21.5" cy="17.1" r=".8" fill="#fff"/><path d="M13.5 23c1.6 1.1 3.4 1.1 5 0" fill="none" stroke="#3a2410" stroke-width="1.4" stroke-linecap="round"/><path d="M14.5 7.8l1.5-3 1.5 3" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
+  <button class="sideBtn" id="advBtn" aria-label="冒険" onclick="toggleSub('advMenu')"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="none" stroke="#f3e4c0" stroke-width="1.8"/><path d="M16 1.5l3 11.5L30.5 16 19 19 16 30.5 13 19 1.5 16 13 13z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M16 1.5V16H30.5M16 30.5V16H1.5" fill="#c9a058" opacity=".55"/><path d="M8.5 8.5l5 6.5M23.5 8.5l-6.5 5M23.5 23.5l-5-6.5M8.5 23.5l6.5-5" stroke="#f3e4c0" stroke-width="1.4" stroke-linecap="round"/><circle cx="16" cy="16" r="2.2" fill="#5a3a18"/></svg></button>
   <div class="menu glass sub" id="monMenu">
     <button class="mi" onclick="openBox('view')"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16M15 4v16M3 14.5h18"/></svg><span><b>BOX</b><small>捕まえたモンスター</small></span></button>
     <button class="mi" onclick="openBag()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5" stroke-linejoin="round"><path d="M8 7V5.5A2.5 2.5 0 0 1 10.5 3h3A2.5 2.5 0 0 1 16 5.5V7"/><rect x="3.5" y="7" width="17" height="13" rx="3"/><path d="M3.5 12h17M10 12v2h4v-2"/></svg><span><b>かばん</b><small>持っている携帯品を見る</small></span></button>
@@ -700,7 +750,7 @@ button{font-family:inherit;cursor:pointer}
     <button class="mi" onclick="startAdv()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 20l5-9 4 6 3-4 6 7z"/><circle cx="17" cy="6" r="2"/></svg><span><b>冒険</b><small>秘宝の洞窟でボスを倒して宝箱を獲得</small></span></button>
     <button class="mi" onclick="openVersus()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M4 20L14 10M14 10l2-6 4 4-6 2M20 20L10 10M10 10L8 4 4 8l6 2"/></svg><span><b>対戦</b><small>ひとりで／ふたりで対戦</small></span></button>
   </div>
-  <button class="menuBtn" id="menuBtn" aria-label="メニュー"><span><i></i><i></i><i></i></span></button>
+  <button class="menuBtn gearB" id="menuBtn" aria-label="メニュー"><svg viewBox="0 0 32 32"><defs><linearGradient id="gearG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c0"/><stop offset=".5" stop-color="#e2b660"/><stop offset="1" stop-color="#9a6a24"/></linearGradient></defs><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="url(#gearG)" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button>
   <div class="menu glass" id="menu">
     <button class="mi hl" onclick="openQR()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><rect x="7" y="7" width="4" height="4"/><rect x="13" y="7" width="4" height="4"/><rect x="7" y="13" width="4" height="4"/><path d="M13 13h4v4h-4z" stroke-dasharray="1.5 1"/></svg><span><b>QRスキャン</b><small>QRコードからモンスターを召喚</small></span></button>
     <button class="mi" id="genBtn" onclick="toggleGender()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/></svg><span><b>アバター：女の子</b><small>男の子 / 女の子 を切り替え</small></span></button>
@@ -1317,7 +1367,9 @@ function addExp(n){profInit();const P=save.prof;P.exp=(P.exp||0)+n;let up=0;whil
 function rankBar(){profInit();const P=save.prof;return Math.min(100,P.exp/rankNeed(P.rank)*100);}
 function profInit(){save.prof=save.prof||{};save.prof.rank=save.prof.rank||1;save.prof.exp=save.prof.exp||0;if(!ICONS[save.prof.icon])save.prof.icon='egg';save.prof.icons=(save.prof.icons||Object.keys(ICONS)).filter(k=>ICONS[k]);save.prof.frames=save.prof.frames||[];}
 function avatarHTML(sz){const p=save.prof||{},I=ICONS[p.icon]||ICONS.egg,F=p.frame&&FRAMES[p.frame];return `<span class="av${F?' fr':''}" style="--s:${sz}">${I.svg}${F?F.svg:''}</span>`;}
-function hudAvatar(){profInit();const c=document.querySelector('.hudL .crest');if(c)c.innerHTML=avatarHTML('100%');const h=document.querySelector('.hudL .hc');if(h)h.innerHTML=`ランク <b>${save.prof.rank}</b><span class="rkb"><i style="width:${rankBar()}%"></i></span>`;const r=document.querySelector('.hudL .hres');if(r){stNow();r.innerHTML=`<span><i class="cico">${COIN_SVG}</i>${coins()}</span><span><i class="cico">${ST_SVG}</i>${save.st.v}/${ST_MAX}</span>`;}}
+function hudAvatar(){profInit();const f=n=>Math.floor(n||0).toLocaleString('en-US'),P=save.prof,T=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;},Wd=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+'%';};
+  const c=$('#hCrest');if(c)c.innerHTML=avatarHTML('100%');T('hLv',P.rank);Wd('hLvB',rankBar());T('hLvN',`${f(P.exp)} / ${f(rankNeed(P.rank))}`);
+  stNow();Wd('hStB',save.st.v/ST_MAX*100);T('hStN',`${save.st.v} / ${ST_MAX}`);T('hCoin',f(coins()));T('hGem',f(save.gem));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;}
 function openProfile(){profInit();sfx('tap');closeMenu();const n=save.box.filter(Boolean),cnt=k=>n.filter(s=>gen(s).rar.k===k).length;
   const body=`<div class="prof"><div class="pav">${avatarHTML('100%')}</div><div class="pin"><div class="pnm">${esc(save.name||'サモナー')}</div><div class="prk"><span>ランク <b>${save.prof.rank}</b></span><span class="rkb"><i style="width:${rankBar()}%"></i></span><small>次のランクまで ${rankNeed(save.prof.rank)-save.prof.exp} EXP</small></div></div></div>`;
   modal(pnl('プロフィール','',body,`<button class="obtn" onclick="openIconSel()">アイコン変更</button><button class="obtn" onclick="openFrameSel()">フレーム変更</button><button class="gbtn" onclick="closeModal()">とじる</button>`));}
@@ -1844,10 +1896,10 @@ function avLoadLib(cb){if(THREE.GLTFLoader)return cb();const sc=document.createE
 /* 立ちポーズ：Tポーズから腕を下ろす（ひじ・ひざはまっすぐ） */
 function avRestPose(o){o.updateMatrixWorld(true);const B={};o.traverse(n=>{if(n.isBone)B[n.name.replace(/^mixamorig[:_]?/,'')]=n;});
   const V=THREE.Vector3,Q=THREE.Quaternion;
-  const aim=(b,c,side)=>{if(!b||!c||!b.parent)return;o.updateMatrixWorld(true);const pb=b.getWorldPosition(new V()),pc=c.getWorldPosition(new V());const cur=pc.sub(pb).normalize();
-    const tgt=new V(side*.22,-1,.04).normalize();const r=new Q().setFromUnitVectors(cur,tgt);const bw=b.getWorldQuaternion(new Q()),pw=b.parent.getWorldQuaternion(new Q());b.quaternion.copy(pw.invert().multiply(r.multiply(bw)));};
+  const AW=AV.g2==='f'?[.10,.02]:[.22,.22];const aim=(b,c,side,k)=>{if(!b||!c||!b.parent)return;o.updateMatrixWorld(true);const pb=b.getWorldPosition(new V()),pc=c.getWorldPosition(new V());const cur=pc.sub(pb).normalize();
+    const tgt=new V(side*k,-1,.04).normalize();const r=new Q().setFromUnitVectors(cur,tgt);const bw=b.getWorldQuaternion(new Q()),pw=b.parent.getWorldQuaternion(new Q());b.quaternion.copy(pw.invert().multiply(r.multiply(bw)));};
   const sideOf=(b)=>{o.updateMatrixWorld(true);return Math.sign(b.getWorldPosition(new V()).x)||1;};
-  for(const S of['Left','Right']){const a=B[S+'Arm'],f=B[S+'ForeArm'],h=B[S+'Hand'];if(!a)continue;const sd=sideOf(a);aim(a,f,sd);aim(f,h,sd);}
+  for(const S of['Left','Right']){const a=B[S+'Arm'],f=B[S+'ForeArm'],h=B[S+'Hand'];if(!a)continue;const sd=sideOf(a);aim(a,f,sd,AW[0]);aim(f,h,sd,AW[1]);}
   for(const S of['Left','Right']){const u=B[S+'UpLeg'],l=B[S+'Leg'],f=B[S+'Foot'];if(!u)continue;const sd=sideOf(u);
     const st=(b,c)=>{if(!b||!c)return;o.updateMatrixWorld(true);const pb=b.getWorldPosition(new V()),pc=c.getWorldPosition(new V());const cur=pc.sub(pb).normalize(),tgt=new V(sd*.04,-1,0).normalize();const r=new Q().setFromUnitVectors(cur,tgt);const bw=b.getWorldQuaternion(new Q()),pw=b.parent.getWorldQuaternion(new Q());b.quaternion.copy(pw.invert().multiply(r.multiply(bw)));};
     st(u,l);st(l,f);}
@@ -1857,7 +1909,7 @@ function avLoad(){if(!R.sc||AV.loading)return;const g=avGender();if(AV.g===g&&AV
   avLoadLib(()=>avData(g,buf=>{if(!buf){AV.loading=false;avErr(`avatar_${g}.js が見つかりません`);return;}try{new THREE.GLTFLoader().parse(buf,'',gl=>{try{AV.loading=false;if(AV.obj)R.sc.remove(AV.obj);
     const o=gl.scene;o.traverse(m=>{if(m.isMesh){m.castShadow=true;m.frustumCulled=false;if(m.material&&m.material.map)m.material.map.encoding=THREE.sRGBEncoding;}});
     const bb=new THREE.Box3().setFromObject(o),h=(bb.max.y-bb.min.y)||1;o.scale.multiplyScalar(AV_H/h);o.position.y=-bb.min.y*AV_H/h;
-    avRestPose(o);const w=new THREE.Group();w.add(o);R.sc.add(w);AV.obj=w;AV.g=g;
+    AV.g2=g;avRestPose(o);const w=new THREE.Group();w.add(o);R.sc.add(w);AV.obj=w;AV.g=g;
     const clip=gl.animations[0];AV.mix=new THREE.AnimationMixer(o);AV.walkA=AV.mix.clipAction(clip);
     AV.idleA=null;AV.walkA.play();AV.walkA.setEffectiveWeight(0);AV.wW=0;AV.mix.update(0);
     w.position.set(AV.x,0,AV.z);w.rotation.y=AV.ang;if(AV.g!==avGender())avLoad();}catch(e){AV.loading=false;avErr('表示:'+e.message);}},e=>{AV.loading=false;avErr('解析:'+(e&&e.message||e));});}catch(e){AV.loading=false;avErr('解析開始:'+e.message);}}));}
@@ -2968,7 +3020,7 @@ function end(w){B.busy=true;let h;
 
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.19-2300</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.19-2335</div>
 <div id="avJoy"><i></i></div>
 </body>
 </html>
