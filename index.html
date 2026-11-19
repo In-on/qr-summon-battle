@@ -1938,7 +1938,7 @@ function avLoad(){if(!R.sc||AV.loading)return;const g=avGender();if(AV.g===g&&AV
     const clip=gl.animations[0];AV.sw=null;AV.dur=clip.duration||1;for(const t of clip.tracks){const mm=t.name.match(/^(.*Hand(Thumb|Index|Middle|Ring|Pinky)\d)\.quaternion$/);if(!mm)continue;const fb=o.getObjectByName(mm[1]);if(fb)fb.quaternion.fromArray(t.values,0);}if(g==='f'){clip.tracks=clip.tracks.filter(t=>!/(Left|Right)(Shoulder|Arm|ForeArm|Hand)\.quaternion$/.test(t.name));const B={};o.traverse(n=>{if(n.isBone)B[n.name.replace(/^mixamorig[:_]?/,'')]=n;});o.updateMatrixWorld(true);AV.sw=[];for(const [S,sg] of [['Left',1],['Right',-1]]){const b=B[S+'Arm'];if(!b||!b.parent)continue;const pq=b.parent.getWorldQuaternion(new THREE.Quaternion()).invert();AV.sw.push({b,sg,q0:b.quaternion.clone(),ax:new THREE.Vector3(1,0,0).applyQuaternion(pq).normalize()});}}AV.mix=new THREE.AnimationMixer(o);AV.walkA=AV.mix.clipAction(clip);
     AV.idleA=null;AV.walkA.play();AV.walkA.setEffectiveWeight(0);AV.wW=0;AV.mix.update(0);
     w.position.set(AV.x,0,AV.z);w.rotation.y=AV.ang;if(AV.g!==avGender())avLoad();}catch(e){AV.loading=false;avErr('表示:'+e.message);}},e=>{AV.loading=false;avErr('解析:'+(e&&e.message||e));});}catch(e){AV.loading=false;avErr('解析開始:'+e.message);}}));}
-function avData(g,cb){const k='AVATAR_'+g,dec=()=>{const b=atob(window[k]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u.buffer;};if(window[k])return cb(dec());const sc=document.createElement('script');sc.src=`avatar_${g}.js?v=1`;sc.onload=()=>cb(window[k]?dec():null);sc.onerror=()=>cb(null);document.head.appendChild(sc);}
+function avData(g,cb){const k='AVATAR_'+g,dec=()=>{const b=atob(window[k]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u.buffer;};if(window[k])return cb(dec());const sc=document.createElement('script');sc.src=`avatar_${g}.js?v=2`;sc.onload=()=>cb(window[k]?dec():null);sc.onerror=()=>cb(null);document.head.appendChild(sc);}
 function toggleGender(){save.gender=avGender()==='f'?'m':'f';persist();sfx('swap');const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(save.gender==='m'?'男の子':'女の子');toast(save.gender==='m'?'男の子のアバターにしました':'女の子のアバターにしました');avLoad();}
 function avStep(dt){try{avStep2(dt);}catch(e){if(!AV.errShown){AV.errShown=1;avErr('動作:'+e.message);}}}
 function avStep2(dt){
@@ -3045,7 +3045,7 @@ function end(w){B.busy=true;let h;
 
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0030</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0745</div>
 <div id="avJoy"><i></i></div>
 </body>
 </html>
