@@ -1840,18 +1840,31 @@ function radialTex(col){return ctex(128,128,(c,w,h)=>{const g=c.createRadialGrad
 const AV_H=1.95,AV_SP=2.4;
 const AV={obj:null,mix:null,walkA:null,idleA:null,x:0,z:3,ang:0,joy:null,keys:{},g:null,loading:false,wW:0,idleT:{f:.032,m:.017}};
 function avGender(){return save.gender==='m'?'m':'f';}
-function avLoadLib(cb){if(THREE.GLTFLoader)return cb();const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';sc.onload=cb;sc.onerror=()=>{AV.loading=false;toast('アバターを読み込めませんでした');};document.head.appendChild(sc);}
+function avLoadLib(cb){if(THREE.GLTFLoader)return cb();const sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';sc.onload=cb;sc.onerror=()=>{AV.loading=false;avErr('部品(GLTFLoader)の読み込みに失敗');};document.head.appendChild(sc);}
+/* 立ちポーズ：Tポーズから腕を下ろす（ひじ・ひざはまっすぐ） */
+function avRestPose(o){o.updateMatrixWorld(true);const B={};o.traverse(n=>{if(n.isBone)B[n.name.replace(/^mixamorig[:_]?/,'')]=n;});
+  const V=THREE.Vector3,Q=THREE.Quaternion;
+  const aim=(b,c,side)=>{if(!b||!c||!b.parent)return;o.updateMatrixWorld(true);const pb=b.getWorldPosition(new V()),pc=c.getWorldPosition(new V());const cur=pc.sub(pb).normalize();
+    const tgt=new V(side*.22,-1,.04).normalize();const r=new Q().setFromUnitVectors(cur,tgt);const bw=b.getWorldQuaternion(new Q()),pw=b.parent.getWorldQuaternion(new Q());b.quaternion.copy(pw.invert().multiply(r.multiply(bw)));};
+  const sideOf=(b)=>{o.updateMatrixWorld(true);return Math.sign(b.getWorldPosition(new V()).x)||1;};
+  for(const S of['Left','Right']){const a=B[S+'Arm'],f=B[S+'ForeArm'],h=B[S+'Hand'];if(!a)continue;const sd=sideOf(a);aim(a,f,sd);aim(f,h,sd);}
+  for(const S of['Left','Right']){const u=B[S+'UpLeg'],l=B[S+'Leg'],f=B[S+'Foot'];if(!u)continue;const sd=sideOf(u);
+    const st=(b,c)=>{if(!b||!c)return;o.updateMatrixWorld(true);const pb=b.getWorldPosition(new V()),pc=c.getWorldPosition(new V());const cur=pc.sub(pb).normalize(),tgt=new V(sd*.04,-1,0).normalize();const r=new Q().setFromUnitVectors(cur,tgt);const bw=b.getWorldQuaternion(new Q()),pw=b.parent.getWorldQuaternion(new Q());b.quaternion.copy(pw.invert().multiply(r.multiply(bw)));};
+    st(u,l);st(l,f);}
+  o.updateMatrixWorld(true);}
+function avErr(m){console.warn('avatar',m);toast('アバターエラー：'+m);}
 function avLoad(){if(!R.sc||AV.loading)return;const g=avGender();if(AV.g===g&&AV.obj)return;AV.loading=true;
-  avLoadLib(()=>avData(g,buf=>{if(!buf){AV.loading=false;toast('アバターを読み込めませんでした');return;}new THREE.GLTFLoader().parse(buf,'',gl=>{AV.loading=false;if(AV.obj)R.sc.remove(AV.obj);
+  avLoadLib(()=>avData(g,buf=>{if(!buf){AV.loading=false;avErr(`avatar_${g}.js が見つかりません`);return;}try{new THREE.GLTFLoader().parse(buf,'',gl=>{try{AV.loading=false;if(AV.obj)R.sc.remove(AV.obj);
     const o=gl.scene;o.traverse(m=>{if(m.isMesh){m.castShadow=true;m.frustumCulled=false;if(m.material&&m.material.map)m.material.map.encoding=THREE.sRGBEncoding;}});
     const bb=new THREE.Box3().setFromObject(o),h=(bb.max.y-bb.min.y)||1;o.scale.multiplyScalar(AV_H/h);o.position.y=-bb.min.y*AV_H/h;
-    const w=new THREE.Group();w.add(o);R.sc.add(w);AV.obj=w;AV.g=g;
-    const clip=gl.animations[0];AV.mix=new THREE.AnimationMixer(o);AV.walkA=AV.mix.clipAction(clip);AV.idleA=AV.mix.clipAction(clip.clone());
-    AV.walkA.play();AV.idleA.play();AV.idleA.paused=true;AV.idleA.time=AV.idleT[g];AV.walkA.setEffectiveWeight(0);AV.idleA.setEffectiveWeight(1);AV.wW=0;AV.mix.update(0);
-    w.position.set(AV.x,0,AV.z);w.rotation.y=AV.ang;if(AV.g!==avGender())avLoad();},()=>{AV.loading=false;toast('アバターを読み込めませんでした');});}));}
+    avRestPose(o);const w=new THREE.Group();w.add(o);R.sc.add(w);AV.obj=w;AV.g=g;
+    const clip=gl.animations[0];AV.mix=new THREE.AnimationMixer(o);AV.walkA=AV.mix.clipAction(clip);
+    AV.idleA=null;AV.walkA.play();AV.walkA.setEffectiveWeight(0);AV.wW=0;AV.mix.update(0);
+    w.position.set(AV.x,0,AV.z);w.rotation.y=AV.ang;if(AV.g!==avGender())avLoad();}catch(e){AV.loading=false;avErr('表示:'+e.message);}},e=>{AV.loading=false;avErr('解析:'+(e&&e.message||e));});}catch(e){AV.loading=false;avErr('解析開始:'+e.message);}}));}
 function avData(g,cb){const k='AVATAR_'+g,dec=()=>{const b=atob(window[k]),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u.buffer;};if(window[k])return cb(dec());const sc=document.createElement('script');sc.src=`avatar_${g}.js?v=1`;sc.onload=()=>cb(window[k]?dec():null);sc.onerror=()=>cb(null);document.head.appendChild(sc);}
 function toggleGender(){save.gender=avGender()==='f'?'m':'f';persist();sfx('swap');const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(save.gender==='m'?'男の子':'女の子');toast(save.gender==='m'?'男の子のアバターにしました':'女の子のアバターにしました');avLoad();}
-function avStep(dt){
+function avStep(dt){try{avStep2(dt);}catch(e){if(!AV.errShown){AV.errShown=1;avErr('動作:'+e.message);}}}
+function avStep2(dt){
   const ui=$('#avJoy');if(ui){const show=!!AV.obj&&!$('#battle').classList.contains('on')&&!$('#modal').classList.contains('on')&&!$('#box').classList.contains('on');ui.style.display=show?'block':'none';if(!show)AV.joy=null;}
   if(!AV.obj)return;let jx=0,jy=0;if(AV.joy){jx=AV.joy.x;jy=AV.joy.y;}const K=AV.keys;
   if(K.a||K.arrowleft)jx-=1;if(K.d||K.arrowright)jx+=1;if(K.w||K.arrowup)jy-=1;if(K.s||K.arrowdown)jy+=1;
@@ -1862,8 +1875,8 @@ function avStep(dt){
   AV.x=Math.max(-9.2,Math.min(9.2,AV.x));AV.z=Math.max(-9.2,Math.min(8.9,AV.z));
   if(AV.z>8.3&&Math.abs(AV.x)<2.2)AV.z=8.3;
   {const d=Math.hypot(AV.x,AV.z);if(d<1.85){const k=1.85/(d||1);AV.x=(d?AV.x:0)*k;AV.z=(d?AV.z:1.85/k)*k;}}
-  for(const o of R.mons||[]){if(o.leave||!o.sp||!o.sp.visible)continue;const dx=AV.x-o.x,dz=AV.z-o.z,d=Math.hypot(dx,dz);if(d<.75&&d>1e-4){AV.x=o.x+dx/d*.75;AV.z=o.z+dz/d*.75;}}
-  AV.wW+=((mv?1:0)-AV.wW)*Math.min(1,dt*8);AV.walkA.setEffectiveWeight(AV.wW);AV.idleA.setEffectiveWeight(1-AV.wW);
+  if(mv)for(const o of R.mons||[]){if(o.leave||!o.sp||!o.sp.visible)continue;const dx=AV.x-o.x,dz=AV.z-o.z,d=Math.hypot(dx,dz);if(d<.75&&d>1e-4){AV.x=o.x+dx/d*.75;AV.z=o.z+dz/d*.75;}}
+  AV.wW+=((mv?1:0)-AV.wW)*Math.min(1,dt*(mv?8:16));if(AV.wW<.01)AV.wW=0;AV.walkA.setEffectiveWeight(AV.wW);
   AV.mix.update(dt);AV.obj.position.set(AV.x,0,AV.z);AV.obj.rotation.y=AV.ang;
   R.tgx=(R.tgx||0)+(AV.x-(R.tgx||0))*Math.min(1,dt*3);R.tgz=(R.tgz||0)+(AV.z-(R.tgz||0))*Math.min(1,dt*3);}
 function avBind(){{const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(avGender()==='m'?'男の子':'女の子');}const J=$('#avJoy'),K=J.querySelector('i');let id=null;const rad=()=>J.getBoundingClientRect().width/2;
@@ -2955,7 +2968,7 @@ function end(w){B.busy=true;let h;
 
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.19-2026</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.19-2300</div>
 <div id="avJoy"><i></i></div>
 </body>
 </html>
