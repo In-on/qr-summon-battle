@@ -2031,6 +2031,8 @@ function buildFurniture(sc){
   bx(1.9,.09,.9,wood,0,.62,0,tb,{cs:1});bx(1.76,.12,.78,woodD,0,.52,0,tb);
   for(const[x,z] of[[-.82,-.34],[.82,-.34],[-.82,.34],[.82,.34]])bx(.09,.5,.09,wood,x,.25,z,tb,{cs:1});bx(1.64,.04,.64,woodD,0,.14,0,tb);
   // 卓上の鉢植え
+  const lfS=new THREE.Shape();lfS.moveTo(0,0);lfS.bezierCurveTo(.07,.04,.08,.12,0,.17);lfS.bezierCurveTo(-.08,.12,-.07,.04,0,0);const lfG=new THREE.ShapeGeometry(lfS,6);
+  const lfMs=[M({color:0x4a8a2a,roughness:.55,side:THREE.DoubleSide}),M({color:0x6aa83a,roughness:.55,side:THREE.DoubleSide}),M({color:0x3a7024,roughness:.6,side:THREE.DoubleSide})];
   mk(new THREE.CylinderGeometry(.13,.1,.18,16),M({color:0xd8c8b0,roughness:.45}),-.45,.75,0,tb);
   for(let i=0;i<10;i++){const l=new THREE.Mesh(lfG,lfMs[i%3]);l.position.set(-.45,.82,0);l.rotation.set(frnd(-.6,.6),i/10*Math.PI*2,frnd(-.5,.5));l.scale.setScalar(frnd(1.4,2));tb.add(l);}
   // ランタン
@@ -3188,7 +3190,7 @@ function end(w){B.busy=true;let h;
 
 function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-0855</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-1040</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
