@@ -796,6 +796,13 @@ button{font-family:inherit;cursor:pointer}
 .pfs{display:grid;grid-template-columns:1fr 1fr;gap:calc(1.6*var(--vh))}
 .pfs>div{padding:calc(1.6*var(--vh));border-radius:12px;background:linear-gradient(180deg,rgba(60,40,80,.6),rgba(20,12,30,.6));box-shadow:0 0 0 1px rgba(217,180,106,.45);text-align:left}
 .pfs small{display:block;font-size:calc(2*var(--vh));color:#f3ead8;opacity:.85}.pfs b{font:700 calc(5.4*var(--vh)) 'Cinzel','Shippori Mincho B1';color:#ffe9a8;text-shadow:0 0 10px rgba(255,200,90,.5)}.pfs b i{font:600 calc(2.2*var(--vh)) 'Shippori Mincho B1';font-style:normal;margin-left:6px;color:#f3ead8}
+
+/* オンライン */
+.onj{display:flex;gap:calc(1.2*var(--vh));align-items:center;justify-content:center;margin-top:calc(1*var(--vh))}
+.onj input{width:calc(22*var(--vh));padding:calc(1.2*var(--vh)) calc(1.6*var(--vh));border-radius:10px;border:1px solid rgba(217,180,106,.6);background:rgba(0,0,0,.4);color:#ffe9a8;font:700 calc(3.4*var(--vh)) 'Cinzel',monospace;letter-spacing:.3em;text-align:center}
+.onw{display:flex;flex-direction:column;align-items:center;gap:calc(1.6*var(--vh));padding:calc(2*var(--vh)) 0;color:#f3ead8;font-size:calc(2.4*var(--vh));text-align:center;line-height:1.7}
+.onw .onc{display:block;font:700 calc(8*var(--vh)) 'Cinzel',serif;letter-spacing:.25em;color:#ffe9a8;text-shadow:0 0 14px rgba(255,200,90,.6)}
+.spn{width:calc(6*var(--vh));height:calc(6*var(--vh));border-radius:50%;border:3px solid rgba(255,233,168,.2);border-top-color:#ffe9a8;animation:spn 1s linear infinite}@keyframes spn{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -845,7 +852,7 @@ button{font-family:inherit;cursor:pointer}
   </div>
   <div class="menu glass sub" id="advMenu">
     <button class="mi" onclick="closeMenu();openStages()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 20l5-9 4 6 3-4 6 7z"/><circle cx="17" cy="6" r="2"/></svg><span><b>冒険</b><small>秘宝の洞窟でボスを倒して宝箱を獲得</small></span></button>
-    <button class="mi" onclick="openVersus()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M4 20L14 10M14 10l2-6 4 4-6 2M20 20L10 10M10 10L8 4 4 8l6 2"/></svg><span><b>対戦</b><small>ひとりで／ふたりで対戦</small></span></button>
+    <button class="mi" onclick="openVersus()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M4 20L14 10M14 10l2-6 4 4-6 2M20 20L10 10M10 10L8 4 4 8l6 2"/></svg><span><b>対戦</b><small>ひとりで／オンライン対戦</small></span></button>
   </div>
   <button class="menuBtn gearB" id="menuBtn" aria-label="メニュー"><svg viewBox="0 0 32 32"><defs><linearGradient id="gearG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c0"/><stop offset=".5" stop-color="#e2b660"/><stop offset="1" stop-color="#9a6a24"/></linearGradient></defs><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="url(#gearG)" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button>
   <div class="menu glass" id="menu">
@@ -2152,7 +2159,7 @@ function buildDoor(sc){
     mk(new THREE.OctahedronGeometry(.18,0),gem,x,3.0,.18).scale.set(.8,1.4,.8);const L=new THREE.PointLight(0xb070ff,.7,4.5,2);L.position.set(x,3.0,.5);G.add(L);}
   const fl=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('#c89aff'),blending:THREE.AdditiveBlending,depthWrite:false,transparent:true,opacity:.55}));fl.scale.set(1.2,1.2,1);fl.position.set(0,1.95,.3);G.add(fl);R.doorGlow=fl;
   R.door=G;return G;}
-function openDoor(){sfx('open');modal(pnl('どこへ行く？','',`<div class="vsel"><button class="mi" onclick="closeModal();openStages()"><b>冒険</b><small>ステージを選んでボスに挑む</small></button><button class="mi" onclick="closeModal();openVersus()"><b>対戦</b><small>ひとりで／ふたりで対戦</small></button></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
+function openDoor(){sfx('open');modal(pnl('どこへ行く？','',`<div class="vsel"><button class="mi" onclick="closeModal();openStages()"><b>冒険</b><small>ステージを選んでボスに挑む</small></button><button class="mi" onclick="closeModal();openVersus()"><b>対戦</b><small>ひとりで／オンライン対戦</small></button></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
 /* ---- ステージ選択 ---- */
 function drawCaveThumb(c,w,h){let g=c.createLinearGradient(0,0,0,h);g.addColorStop(0,'#06142a');g.addColorStop(.6,'#0d3050');g.addColorStop(1,'#071a2c');c.fillStyle=g;c.fillRect(0,0,w,h);
   g=c.createRadialGradient(w*.55,h*.1,5,w*.55,h*.3,w*.45);g.addColorStop(0,'rgba(170,230,255,.55)');g.addColorStop(1,'rgba(170,230,255,0)');c.fillStyle=g;c.beginPath();c.moveTo(w*.45,0);c.lineTo(w*.66,0);c.lineTo(w*.8,h);c.lineTo(w*.32,h);c.fill();
@@ -2416,7 +2423,7 @@ function boxDragEnd(){const D=BX.drag;if(!D)return;BX.drag=null;if(D.navT)clearT
 function boxPage(d){BX.page=(BX.page+d+NBOX)%NBOX;sfx('tap');renderBox();}
 function renderBox(){
   const p=BX.page,cnt=save.box.slice(p*PER,p*PER+PER).filter(Boolean).length;
-  const np=(BX.picks||[]).length,mt=BX.mode==='view'?'':BX.mode==='adv'?`冒険に連れていく3体を選んでください（${np}/3）`:BX.mode==='solo'?`チームの3体を選んでください（${np}/3）`:`${BX.who?'P2':'P1'} のチーム3体を選んでください（${np}/3）`;
+  const np=(BX.picks||[]).length,mt=BX.mode==='view'?'':BX.mode==='adv'?`冒険に連れていく3体を選んでください（${np}/3）`:BX.mode==='solo'||BX.mode==='online'?`チームの3体を選んでください（${np}/3）`:`${BX.who?'P2':'P1'} のチーム3体を選んでください（${np}/3）`;
   let g='';for(let i=0;i<PER;i++){const idx=p*PER+i,s=save.box[idx];if(s){const m=gen(s);const pk=BX.mode!=='view'?(BX.picks||[]).indexOf(s):-1;g+=`<div class="slot${BX.sel===idx?' sel':''}${save.room.includes(s)?' inroom':''}${isTraining(s)?' trng':''}${pk>=0?' pk':''}" data-i="${idx}"${pk>=0?` data-n="${pk+1}"`:''}><i class="rd" style="--c:${m.rar.c}"></i><img src="${m.img}" alt="" loading="lazy">${(save.mon[s]||{}).fz?'<i class="fzb"><i class="rbs">★</i></i>':''}${isLocked(s)?'<i class="lkb"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\"><rect x=\"5\" y=\"11\" width=\"14\" height=\"10\" rx=\"2\" fill=\"currentColor\" fill-opacity=\".25\"/><path d=\"M8 11V8a4 4 0 0 1 8 0v3\"/></svg></i>':''}</div>`;}else g+=`<div class="slot" data-i="${idx}"></div>`;}
   let dots='';for(let b=0;b<NBOX;b++)dots+=`<i class="${b===p?'on':save.box.slice(b*PER,b*PER+PER).some(Boolean)?'has':''}" data-b="${b}"></i>`;
   $('#boxL').innerHTML=`<div class="bh"><button class="nav" onclick="boxPage(-1)">◀</button><div class="bt"><b class="gt">BOX ${p+1}</b><small>${cnt} / ${PER}　・　TOTAL ${owned()} / ${NBOX*PER}</small></div><button class="nav" onclick="boxPage(1)">▶</button></div>${mt?`<div class="bmode">${mt}</div>`:''}<div class="grid">${g}</div><div class="dots">${dots}</div>`;
@@ -2597,7 +2604,7 @@ function addItem(force){const r=Math.random(),rr=force!==undefined?force:r<.02?2
   if(IRANGE[rr]){if(t==='crit')it.pcv=wPick(...IRANGE[rr].cv);else it.pv=wPick(...IRANGE[rr].v);}save.items.push(it);persist();return it;}
 /* --- サブメニュー --- */
 function toggleSub(id){const m=$('#'+id),on=!m.classList.contains('on');closeMenu();if(on){m.classList.add('on');$(id==='monMenu'?'#monBtn':'#advBtn').classList.add('on');}sfx('tap');}
-function openVersus(){closeMenu();sfx('open');modal(pnl('対戦','',`<div class="vsel"><button class="mi" onclick="closeModal();startSolo()"><b>ひとりで対戦</b><small>野生のモンスターと連勝チャレンジ</small></button><button class="mi" onclick="closeModal();startPvp()"><b>ふたりで対戦</b><small>1台で交代しながら対戦</small></button></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
+function openVersus(){closeMenu();sfx('open');modal(pnl('対戦','',`<div class="vsel"><button class="mi" onclick="closeModal();startSolo()"><b>ひとりで対戦</b><small>野生のモンスターと連勝チャレンジ</small></button><button class="mi" onclick="closeModal();startOnline()"><b>オンライン対戦</b><small>ランダムマッチ／部屋番号で対戦</small></button></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
 function startAdv(){if(!owned()){closeMenu();toast('まずはQRスキャンでモンスターを召喚しよう');return;}if(stNow()<=0){closeMenu();toast(`スタミナがありません（あと${stLeft()}で回復・ショップでポーションも買えます）`);return;}BX.picks=[];openBox('adv');}
 
 /* ================= バトル ================= */
@@ -2608,6 +2615,7 @@ function pickForBattle(){const s=save.box[BX.sel];if(!s)return;if(isTraining(s))
   if(P.length<3){toast(`あと ${3-P.length} 体えらんでください`);renderBox();return;}
   if(BX.mode==='adv'){advTeam=P.slice();BX.picks=[];closeBox();advBattle();}
   else if(BX.mode==='solo'){soloTeam=P.slice();BX.picks=[];closeBox();soloBattle();}
+  else if(BX.mode==='online'){onTeam=P.slice();BX.picks=[];closeBox();openOnline();}
   else{pv[BX.who]=P.slice();BX.picks=[];if(BX.who===0){BX.who=1;BX.sel=-1;renderBox();toast('次は P2 が3体えらんでください');}else{closeBox();pvpBattle();}}}
 const stg=s=>s>=0?(2+s)/2:2/(2-s);
 const ARENA_R=16;let BT=null;const TXC={};
@@ -2970,7 +2978,7 @@ function bindJoy(s){const j=$('#joy'+s),k=j.querySelector('i');if(j._b)return;j.
   j.addEventListener('pointermove',mv);const up=e=>{if(e.pointerId!==id)return;id=null;k.style.transform='';const f=me();if(f)f.joy=null;};j.addEventListener('pointerup',up);j.addEventListener('pointercancel',up);}
 /* ---- キャラ交代 ---- */
 function mates(t,ex){return B.f.map((m,k)=>k).filter(k=>B.f[k].team===t&&k!==ex);}
-function swBtn(s,q){const i=B.ctl[s];if(i===undefined)return;const f=B.f[i];const k=mates(f.team,i)[q];if(k!==undefined)switchTo(f.team,k);}
+function swBtn(s,q){if(B&&B.guest){netSend({e:'sw',q});return;}const i=B.ctl[s];if(i===undefined)return;const f=B.f[i];const k=mates(f.team,i)[q];if(k!==undefined)switchTo(f.team,k);}
 function switchTo(t,ni,forced){if(!B||B.busy||B.start>0)return;if(B.mode==='adv'&&B.bossOn)return;const oi=B.act[t],o=B.f[oi],n=B.f[ni];if(ni===oi||n.dead)return;
   if(!forced){if(B.swcd[t]>0||o.dead||o.ult>0||o.cmb||o.st.frz>0||o.st.stun>0||o.st.down>0){if(B.ctl.includes(oi)&&B.swcd[t]>0)toast('交代はあと'+Math.ceil(B.swcd[t])+'秒');return;}}
   n.x=o.x;n.z=o.z;n.vx=n.vz=0;n.ang=n.face=o.ang;n.bench=0;n.inv=.8;n.st={};n.cmb=0;n.ult=0;n.stun=0;n.joy=o.joy;o.joy=null;o.bench=1;o.cmb=0;o.ult=0;o.rush=0;o.obj.visible=false;o.ring.visible=false;
@@ -2984,7 +2992,7 @@ function addSt(d,k,a){if(!k||d.dead)return;if(k==='stun')return;if(k==='blast'){
 function locked(f){return f.st.down>0||f.st.stun>0||f.st.frz>0;}
 /* ---- 入力 ---- */
 function canAct(f){return B&&!B.busy&&B.start<=0&&!f.dead&&!f.fly&&!(f.oos>0)&&!f.bench&&f.stun<=0&&f.ult<=0&&!f.cmb&&!f.rush&&!locked(f);}
-function press(i,k){if(!B)return;const f=B.f[i];if(k==='dodge'){doDodge(i);return;}if(!canAct(f))return;if(k==='skill')doSkill(i);if(k==='ult')startUlt(i);}
+function press(i,k){if(!B)return;if(B.guest&&!B.replay){if(i===B.act[0])netSend({e:'p',k});return;}const f=B.f[i];if(k==='dodge'){doDodge(i);return;}if(!canAct(f))return;if(k==='skill')doSkill(i);if(k==='ult')startUlt(i);}
 function camRel(jx,jy){const y=B.cy===undefined?0:B.cy;return[jx*-Math.cos(y)+(-jy)*Math.sin(y),jx*Math.sin(y)+(-jy)*Math.cos(y)];}
 function keyDir(i){const K=BT.keys,s=B.ctl.indexOf(i);if(s<0)return[0,0];const p1=B.mode!=='pvp'||s===0;let x=0,y=0;if(K[p1?'w':'arrowup'])y-=1;if(K[p1?'s':'arrowdown'])y+=1;if(K[p1?'a':'arrowleft'])x-=1;if(K[p1?'d':'arrowright'])x+=1;if(B.mode==='pvp'&&s===0&&!x&&!y){/*P1はWASD*/}return[x,y];}
 function doDodge(i){const f=B.f[i];if(!B||f.cmb||B.busy||B.start>0||f.dead||f.bench||f.stun>0||f.ult>0||f.dcd>0||locked(f)||f.st.root>0||f.rush)return;let dx=0,dz=0;
@@ -3006,14 +3014,14 @@ function sched(dt,fn){B.ev.push({t:B.t+dt,fn});}
 function dmgCalc(a,d,p,el){const e=eff(el,d.m.el.n),cr=Math.random()<(a.crit||10)/100;const v=p*(a.atk*stg(a.as))/(d.def*stg(d.ds))*.55+3;return{v:Math.max(1,Math.round(v*e*(cr?1.5:1)*(.85+Math.random()*.15))),e,cr};}
 const KWT={'会心！':'gold','ばつぐん！':'fire','撃破！':'vio','かわした！':'miss','無敵':'good','復活！':'heal','場外！':'fire','台パン！':'fire','やられた！':'sad'};
 function kwTheme(txt,cls){if(KWT[txt])return KWT[txt];if(cls==='heal')return 'heal';if(cls==='sk')return 'pink';if(cls==='st')return 'vio';if(cls==='combo')return 'good';return null;}
-function popNum(f,txt,cls){const v=new THREE.Vector3(f.x,1.8*(f.sz||1)+(f.fy||0),f.z).project(BT.cam);const d=document.createElement('div');const th=typeof txt==='string'||cls==='heal'?kwTheme(String(txt),cls):null;
+function popNum(f,txt,cls){if(B&&B.guest&&!B._fwd&&cls!=='sk'&&cls!=='st')return;if(B&&B.net&&B.net.role==='host'&&cls!=='sk'&&cls!=='st')hEv({e:'n',i:B.f.indexOf(f),t:txt,c:cls});const v=new THREE.Vector3(f.x,1.8*(f.sz||1)+(f.fy||0),f.z).project(BT.cam);const d=document.createElement('div');const th=typeof txt==='string'||cls==='heal'?kwTheme(String(txt),cls):null;
   if(th){d.className='bdmg kw k-'+th+(cls==='st'?' ksm':'');d.innerHTML=`<i class="ks a"></i><i class="ks b"></i><i class="ks c"></i><span class="kt" data-t="${String(txt).replace(/"/g,'')}">${txt}</span>`;}else{d.className='bdmg '+(cls||'');d.textContent=txt;}const sc=th&&cls!=='combo'&&txt!=='撃破！'?1:0,ox=sc?(Math.random()<.5?-1:1)*(GW()*(.06+Math.random()*.12)):(Math.random()-.5)*30,oy=sc?(Math.random()-.5)*GH()*.16:0;d.style.left=((v.x+1)/2*GW()+ox)+'px';d.style.top=((1-v.y)/2*GH()+oy)+'px';$('#dmgs').appendChild(d);setTimeout(()=>d.remove(),th?1300:1000);}
 /* ---- 属性ごとの見た目 ---- */
 const ELV={火:{tex:'fireC',c:['#ff4a10','#ff9a20','#ffe070']},水:{tex:'dropC',c:['#2f8cff','#7fd0ff','#e0f6ff']},木:{tex:'leafC',c:['#3faf3a','#7fdc5a','#c8ff8a']},光:{tex:'starC',c:['#fff1b8','#ffffff','#ffd060']},闇:{tex:'darkC',c:['#7a3aff','#b07bff','#3a1060']}};
 function elv(el){return ELV[el]||ELV.光;}
 function elemImpact(x,y,z,el,big){if(!ELC[el]||el==='無')return;elemHit(el,x,y,z,big);}
 /* ---- ダメージ ---- */
-function hurt(a,d,p,el,kb=1,big,st){if(!B||d.dead||d.bench||B.busy||a.team===d.team||(d.boss&&!B.bossOn))return 0;const di=B.f.indexOf(d),ai=B.f.indexOf(a);
+function hurt(a,d,p,el,kb=1,big,st){if(B&&B.guest)return 0;if(!B||d.dead||d.bench||B.busy||a.team===d.team||(d.boss&&!B.bossOn))return 0;const di=B.f.indexOf(d),ai=B.f.indexOf(a);
   const dx=d.x-a.x,dz=d.z-a.z,l=Math.hypot(dx,dz)||1;
   if(d.dodge>0||d.inv>0){if(!d._mt||B.t-d._mt>.3){d._mt=B.t;popNum(d,d.inv>0?'無敵':'かわした！','gd');}return -1;}
   const r=dmgCalc(a,d,p,el);d.hp=Math.max(0,d.hp-r.v);d.hit=.3;d.stun=Math.max(d.stun,big?.55:.18);d.vx+=dx/l*4*kb;d.vz+=dz/l*4*kb;
@@ -3029,8 +3037,8 @@ function ko(a,d){if(B.mode!=='pvp'&&d.team===1&&!d.expd){d.expd=1;const n=d.boss
   popNum(d,'撃破！','combo');if(mine)bMsg('やられた！',1200,'#ff9fb0');else if(kill)bMsg('撃破！',900,TEAMC[a.team]);wipeChk(d.team);upd(B.f.indexOf(d));}
 function ringOut(f,i){f.dead=1;f.ringo=1;f.rt=4;f.dts=B.t-2;f.cmb=0;f.ult=0;f.rush=0;f.st={};f.swq=0;f.hp=0;f.obj.visible=false;sfx('ko');const mine=B.ctl.includes(i);bMsg(mine?'場外… しばらくして復活':'場外！',1300,mine?'#ff9fb0':'#ffd76a');wipeChk(f.team);upd(i);}
 function tapanUI(){const on=B&&B.mode!=='adv';for(const k of[0,1]){const b=$('#tapan'+k),bar=$(k===0?'.bbar.r':'.bbar.l');if(b&&bar){b.style.top=(bar.offsetTop+bar.offsetHeight+14)+'px';}}for(const k of[0,1]){const b=$('#tapan'+k);if(!b)continue;const show=on&&(k===0||B.mode==='pvp');b.style.display=show?'':'none';if(show){const n=(B.tp||[0,0])[k];b.querySelector('em').textContent=n;b.classList.toggle('dis',n<=0);}}}
-function tapan(team){if(!B||B.mode==='adv'||B.busy||B.start>0)return;B.tp=B.tp||[2,2];if(B.tp[team]<=0){toast('台パンはもう使えません');return;}
-  const tg=B.f.filter(e=>e.team!==team&&!e.dead&&!e.bench&&!e.fly);B.tp[team]--;tapanUI();
+function tapan(team){if(!B||B.mode==='adv'||B.busy||B.start>0)return;if(B.guest&&!B.replay){netSend({e:'tp'});return;}const tp0=(B.tp||[2,2])[team];B.tp=B.tp||[2,2];if(B.tp[team]<=0){toast('台パンはもう使えません');return;}
+  const tg=B.f.filter(e=>e.team!==team&&!e.dead&&!e.bench&&!e.fly);B.tp[team]--;tapanUI();hEv({e:'a',k:'tp',i:B.act[team]});
   let cx=0,cz=0;if(tg.length){for(const e of tg){cx+=e.x;cz+=e.z;}cx/=tg.length;cz/=tg.length;}
   const H=handMesh();H.position.set(cx,14,cz);H.rotation.y=B.yaw!==undefined?B.yaw:0;BT.sc.add(H);BT.objs.push(H);B.hand={o:H,t:0,x:cx,z:cz,hit:0,tg,team};bMsg('台パン！',900,'#ffb070');}
 function handMesh(){const g=new THREE.Group(),sk=new THREE.MeshStandardMaterial({color:0xf2c4a0,roughness:.6}),nl=new THREE.MeshStandardMaterial({color:0xffe4e0,roughness:.3});
@@ -3198,10 +3206,10 @@ function bStep(rdt){const bt=BT;let dt=rdt;if(B.hs>0){B.hs-=rdt;dt=rdt*.06;}cons
    if(B.ul){let bf=null;for(const f of B.f)if(f.lt&&f.lt.intensity>0&&(!bf||f.lt.intensity>bf.lt.intensity))bf=f;if(bf){B.ul.position.copy(bf.lt.position);B.ul.color.set(bf.lt.col);B.ul.intensity=bf.lt.intensity;}else B.ul.intensity=0;}}
   {const evs=B.ev;B.ev=[];for(const e of evs){if(B.t>=e.t){try{e.fn();}catch(_){}}else B.ev.push(e);}}
   B.swcd[0]=Math.max(0,B.swcd[0]-dt);B.swcd[1]=Math.max(0,B.swcd[1]-dt);
-  B.f.forEach((f,i)=>{if(!B.ctl.includes(i)&&B.start<=0&&!B.busy)aiThink(i,dt);});
+  B.f.forEach((f,i)=>{if(!B.guest&&!f.remote&&!B.ctl.includes(i)&&B.start<=0&&!B.busy)aiThink(i,dt);});
   // 陣地
   if(B.mode==='adv'){if(B.start<=0&&!B.busy)advCheck();}
-  else if(B.start<=0&&!B.busy){B.left-=dt;const inz=[0,0];for(const f of B.f)if(!f.dead&&!f.bench&&Math.hypot(f.x,f.z)<ZR)inz[f.team]++;
+  else if(B.start<=0&&!B.busy&&!B.guest){B.left-=dt;const inz=[0,0];for(const f of B.f)if(!f.dead&&!f.bench&&Math.hypot(f.x,f.z)<ZR)inz[f.team]++;
     const own=inz[0]&&inz[1]?2:inz[0]?0:inz[1]?1:-1;if(own!==B.own){B.own=own;if(own===0||own===1){if(B.mode!=='pvp')bMsg(own===0?'確保！':'うばわれた！',700,TEAMC[own]);}}
     if(own===0||own===2)B.score[0]=Math.min(100,B.score[0]+dt);if(own===1||own===2)B.score[1]=Math.min(100,B.score[1]+dt);
     if(Math.floor(B.left*4)!==Math.floor((B.left+dt)*4))zhud();
@@ -3213,7 +3221,7 @@ function bStep(rdt){const bt=BT;let dt=rdt;if(B.hs>0){B.hs-=rdt;dt=rdt*.06;}cons
     if(f.bench){f.obj.visible=false;hideFx();if(f.dead){f.rt-=dt;if(Math.floor(f.rt*4)!==Math.floor((f.rt+dt)*4))upd(i);if(f.rt<=0&&B.mode!=='adv'){f.dead=0;f.ringo=0;f.fly=null;f.fy=0;f.hp=f.max;f.st={};f.x=f.hx;f.z=f.hz;upd(i);}}return;}
     if(f.dead){f.rt-=dt;if(Math.floor(f.rt*4)!==Math.floor((f.rt+dt)*4))upd(i);f.obj.rotation.z=Math.min(1.5,f.obj.rotation.z+dt*3);const de=B.t-(f.dts||0);if(!f.ringo){f.obj.position.y=Math.max(-2,f.obj.position.y-(de>.8?dt*2:0));}if(de>1||f.ringo)f.obj.visible=false;hideFx();
       if(de>1.2&&!f.swq&&B.mode==='adv'&&B.bossOn&&f.team===0){f.swq=1;if(B.ctl[0]===i){const k=mates(0,i).find(k=>!B.f[k].dead);if(k!==undefined){B.ctl[0]=k;B.act[0]=k;buildActs(0,k);B.f[k].ring.material.opacity=1;bMsg(B.f[k].m.name+' を操作！',900,TEAMC[0]);}}return;}
-      if(de>.6&&!f.swq&&!B.busy&&B.start<=0&&B.act[f.team]===i&&(B.mode!=='adv'||f.team===0)&&!(B.mode==='adv'&&B.bossOn)){const c=mates(f.team,i).filter(k=>!B.f[k].dead);if(c.length){c.sort((p,q)=>B.f[q].hp-B.f[p].hp);switchTo(f.team,c[0],true);if(B.act[f.team]!==i)f.swq=1;return;}else f.swq=1;}
+      if(!B.guest&&de>.6&&!f.swq&&!B.busy&&B.start<=0&&B.act[f.team]===i&&(B.mode!=='adv'||f.team===0)&&!(B.mode==='adv'&&B.bossOn)){const c=mates(f.team,i).filter(k=>!B.f[k].dead);if(c.length){c.sort((p,q)=>B.f[q].hp-B.f[p].hp);switchTo(f.team,c[0],true);if(B.act[f.team]!==i)f.swq=1;return;}else f.swq=1;}
       if(f.rt<=0&&!B.busy&&B.mode!=='adv')respawn(f,i);return;}
     if(f.oos>0){f.oos-=dt;f.obj.visible=false;hideFx();if(f.oos<=0){f.oos=0;f.x=f.hx;f.z=f.hz;f.vx=f.vz=0;f.fy=0;f.obj.rotation.set(0,f.ang,0);f.inv=1.5;f.stun=0;f.st={};f.obj.visible=true;pillar(f.x,f.z,TEAMC[f.team],6,.8,.8);burst(f.x,.3,f.z,TEAMC[f.team],20,4,.45,.8,2);if(B.ctl.includes(i))bMsg('復帰！',800,TEAMC[f.team]);upd(i);}return;}
     if(f.fly){const F=f.fly;F.t+=dt;const k=F.t/F.T;F.rx+=dt*2.2;F.rz+=dt*1.3;hideFx();f.obj.visible=true;
@@ -3223,6 +3231,7 @@ function bStep(rdt){const bt=BT;let dt=rdt;if(B.hs>0){B.hs-=rdt;dt=rdt*.06;}cons
     f.ring.visible=true;f.obj.visible=f.inv>0?Math.sin(t*40)>-.3:true;
     let jx=0,jy=0;if(f.joy){jx=f.joy.x;jy=f.joy.y;}
     const s=B.ctl.indexOf(i);if(s>=0){const k=keyDir(i);jx+=k[0];jy+=k[1];const w=camRel(jx,jy);jx=w[0];jy=w[1];}
+    if(f.remote&&!B.guest&&B.rj&&B.act[f.team]===i){jx=B.rj[0];jy=B.rj[1];}if(B.guest&&s>=0)B.myj=[jx,jy];
     const l=Math.hypot(jx,jy);if(l>1){jx/=l;jy/=l;}
     for(const k in f.st){f.st[k]-=dt;if(f.st[k]<=0){delete f.st[k];if(k==='down')f.inv=Math.max(f.inv,.4);}}
     if(f.st.burn>0){f.bt=(f.bt||0)+dt;if(f.bt>.5){f.bt=0;const v=Math.max(1,Math.round(f.max*.015));f.hp=Math.max(1,f.hp-v);popNum(f,v,'bn');upd(i);}if(Math.random()<dt*40)fireAt(f.x+(Math.random()-.5)*.7,.2+Math.random()*f.sz,f.z+(Math.random()-.5)*.7,0,1,0,2,.4,.55,.3);}
@@ -3230,12 +3239,12 @@ function bStep(rdt){const bt=BT;let dt=rdt;if(B.hs>0){B.hs-=rdt;dt=rdt*.06;}cons
     const stop=B.start>0||B.busy||f.stun>0||f.ult>0||f.cmb||locked(f)||f.st.root>0;const sp=5.4*(f.st.slow>0?.45:1)*(stop?0:1);
     if(f.rush>0){f.rush=Math.max(0,f.rush-dt);f.vx=f.rdx*19;f.vz=f.rdz*19;f.face=Math.atan2(f.rdx,f.rdz);elemP(f.m.el.n,f.x,.7,f.z,-f.rdx*3,.8,-f.rdz*3,1.1);for(const e of foes(f))if(!f.rushHit.includes(e)&&Math.hypot(e.x-f.x,e.z-f.z)<1.5){f.rushHit.push(e);const el=ELC[f.m.skill.el]?f.m.skill.el:f.m.el.n;hurt(f,e,70,el,3,true,['down',ELST[el]]);}if(f.rush<=0){f.vx*=.2;f.vz*=.2;}}
     else if(f.dodge>0){const dd=Math.pow(.05,dt);f.vx*=dd;f.vz*=dd;}else{const damp=Math.pow(stop||f.hit>0?.02:.00005,dt);f.vx=f.vx*damp+jx*sp*(1-damp);f.vz=f.vz*damp+jy*sp*(1-damp);}
-    f.x+=f.vx*dt;f.z+=f.vz*dt;if(B.mode==='adv'){f.x=Math.max(-7.2,Math.min(7.2,f.x));f.z=Math.max(-27,Math.min(9,f.z));if(f.x<-4.2&&f.z<2.5&&f.z>-6.5)f.x=-4.2;}else{const r=Math.hypot(f.x,f.z),lim=ARENA_R-.7;if(r>lim){f.x*=lim/r;f.z*=lim/r;}}
-    const o=nearestFoe(f);if(f.rush>0||locked(f)){}else if(l>.15&&f.ult<=0&&!f.cmb&&f.st.root===undefined)f.face=Math.atan2(jx,jy);else if(o&&!f.cmb)f.face=Math.atan2(o.x-f.x,o.z-f.z);
+    if(B.guest){if(f.tx!==undefined){const kk=Math.min(1,dt*12);f.x+=(f.tx-f.x)*kk;f.z+=(f.tz-f.z)*kk;}f.vx*=.5;f.vz*=.5;}else{f.x+=f.vx*dt;f.z+=f.vz*dt;}if(B.mode==='adv'){f.x=Math.max(-7.2,Math.min(7.2,f.x));f.z=Math.max(-27,Math.min(9,f.z));if(f.x<-4.2&&f.z<2.5&&f.z>-6.5)f.x=-4.2;}else{const r=Math.hypot(f.x,f.z),lim=ARENA_R-.7;if(r>lim){f.x*=lim/r;f.z*=lim/r;}}
+    const o=nearestFoe(f);if(B.guest){if(f.tf!==undefined)f.face=f.tf;}else if(f.rush>0||locked(f)){}else if(l>.15&&f.ult<=0&&!f.cmb&&f.st.root===undefined)f.face=Math.atan2(jx,jy);else if(o&&!f.cmb)f.face=Math.atan2(o.x-f.x,o.z-f.z);
     let df=f.face-f.ang;df=Math.atan2(Math.sin(df),Math.cos(df));f.ang+=df*Math.min(1,dt*22);
     f.acd=Math.max(0,f.acd-dt);f.cd=Math.max(0,f.cd-dt);if(B.start<=0&&!B.busy)f.g=Math.min(100,f.g+dt*2.2);f.hit=Math.max(0,f.hit-dt);f.lunge=Math.max(0,f.lunge-dt);f.stun=Math.max(0,f.stun-dt);f.spin=Math.max(0,f.spin-dt);f.jump=Math.max(0,f.jump-dt);f.dodge=Math.max(0,f.dodge-dt);f.dcd=Math.max(0,f.dcd-dt);f.inv=Math.max(0,f.inv-dt);
     // 自動こうげき：射程に敵がいたら勝手に攻撃
-    if(o&&canAct(f)&&f.acd<=0&&f.dodge<=0){const R=(f.m.special?3.6:3.1)+.2;if(Math.hypot(o.x-f.x,o.z-f.z)<R)doMelee(i);}
+    if(!B.guest&&o&&canAct(f)&&f.acd<=0&&f.dodge<=0){const R=(f.m.special?3.6:3.1)+.2;if(Math.hypot(o.x-f.x,o.z-f.z)<R)doMelee(i);}
     if(f.ult>0){f.ult-=dt;if(f.ult<=0&&!f.dead&&!B.busy)fireUlt(i);if(Math.random()<dt*30){const a=Math.random()*6.283;part(f.x+Math.cos(a)*.9,.1,f.z+Math.sin(a)*.9,ELC[f.m.ult.el]||'#fff',{vy:3+Math.random()*3,vx:-Math.cos(a)*.8,vz:-Math.sin(a)*.8,size:.35,dur:.6});}}
     // 見た目
     const mv=Math.hypot(f.vx,f.vz),bob=mv>.3?Math.abs(Math.sin(t*12+i))*.12:Math.sin(t*2.4+i)*.03;
@@ -3284,7 +3293,10 @@ function bStep(rdt){const bt=BT;let dt=rdt;if(B.hs>0){B.hs-=rdt;dt=rdt*.06;}cons
   efxUpdate(dt,t,bt.cam);
   bt.rd.render(bt.sc,bt.cam);
 }
-function end(w){B.busy=true;let h;
+function end(w,fromNet){if(B.net&&B.guest&&!fromNet)return;B.busy=true;let h;
+  if(B.mode==='online'){if(B.net&&B.net.role==='host'&&!fromNet){hSnap();hEv({e:'end',w});}const sc=`<div class="sub" style="font-size:calc(3.4*var(--vh))"><span style="color:${TEAMC[0]}">${Math.floor(B.score[0])}%</span>　vs　<span style="color:${TEAMC[1]}">${Math.floor(B.score[1])}%</span></div>`;
+    if(w===0){sfx('win');save.onWin=(save.onWin||0)+1;persist();}else sfx('lose');const f=B.f[B.act[w===1?1:0]];
+    modal(`<div class="res glass"${w===0?' style="--c:#ffd76a"':''}><div class="big${w===0?' gt':''}"${w===1?' style="color:#ff9fb0"':''}>${w<0?'DRAW':w===0?'VICTORY':'DEFEAT'}</div>${sc}<img src="${f.m.img}" alt=""><div class="sub">VS ${esc((B.net&&B.net.peer)||'あいて')}</div><div class="btns"><button class="gbtn" onclick="closeModal();quitBattle(true);openOnline()">もう一度オンライン</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`);return;}
   const sc=`<div class="sub" style="font-size:calc(3.4*var(--vh))"><span style="color:${TEAMC[0]}">${Math.floor(B.score[0])}%</span>　vs　<span style="color:${TEAMC[1]}">${Math.floor(B.score[1])}%</span></div>`;
   if(B.mode==='cpu'){
     if(w===0){streak++;if(streak>save.best){save.best=streak;persist();}sfx('win');
@@ -3294,9 +3306,81 @@ function end(w){B.busy=true;let h;
   modal(h);
 }
 
-function quitBattle(force){if(!force&&B&&B.busy)return;B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
+/* ===== オンライン対戦（Supabase Realtime） ===== */
+const SB_URL='https://sbhdgqhhwqitmsmbfgoj.supabase.co',SB_KEY='sb_publishable_UYLxwfRQVxurstLALqGxJA_AQZL2cxw';
+let SB=null,NET=null,onTeam=[];const MYID=Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+function sbLoad(cb){if(SB)return cb(true);const go=()=>{try{SB=window.supabase.createClient(SB_URL,SB_KEY,{realtime:{params:{eventsPerSecond:40}}});cb(true);}catch(e){console.warn(e);cb(false);}};
+  if(window.supabase&&window.supabase.createClient)return go();const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';s.onload=go;s.onerror=()=>cb(false);document.head.appendChild(s);}
+function startOnline(){if(!owned()){closeMenu();toast('まずはQRスキャンでモンスターを召喚しよう');return;}BX.picks=[];openBox('online');}
+function teamPack(L){return L.map(s=>{const m=monStat(s),d=save.mon[s]||{};return{s,hp:m.hp,atk:m.atk,def:m.def,crit:m.crit,lv:d.lv||1,fz:d.fz||0};});}
+function teamUnpack(P){return P.map(p=>{let g;try{g=gen(p.s);}catch(e){g=gen('wild:'+p.s);}return Object.assign({},g,{hp:p.hp,atk:p.atk,def:p.def,crit:p.crit,lv:p.lv,fz:p.fz,key:p.s});});}
+function netClose(){if(!NET)return;try{NET.send&&NET.send({e:'bye'});}catch(e){}for(const c of[NET.ch,NET.lobby])if(c)try{SB.removeChannel(c);}catch(e){}clearInterval(NET.iv);clearInterval(NET.wd);clearTimeout(NET.to);NET=null;}
+function openOnline(){netClose();modal(pnl('オンライン対戦','チームの3体が決まりました',`<div class="vsel"><button class="mi" onclick="onRandom()"><b>ランダムマッチ</b><small>同じタイミングで待っている人と対戦</small></button><button class="mi" onclick="onHost()"><b>部屋を作る</b><small>4桁の部屋番号を友だちに教えて対戦</small></button><div class="onj"><input id="onCode" inputmode="numeric" maxlength="4" placeholder="部屋番号"><button class="gbtn" onclick="onJoin()">入る</button></div></div>`,`<button class="obtn" onclick="closeModal()">やめる</button>`));}
+function onWait(t,sub){modal(pnl(t,'',`<div class="onw"><i class="spn"></i><p>${sub}</p></div>`,`<button class="obtn" onclick="netClose();openOnline()">キャンセル</button>`));}
+function chan(name){return SB.channel(name,{config:{broadcast:{self:false,ack:false}}});}
+function netSend(p){if(NET&&NET.ch)try{NET.ch.send({type:'broadcast',event:'m',payload:p});}catch(e){}}
+/* 部屋を作る（ホスト） */
+function onHost(code){sbLoad(ok=>{if(!ok){toast('通信の準備に失敗しました');return;}netClose();code=code||String(1000+Math.floor(Math.random()*9000));
+  NET={role:'host',code,send:netSend};const ch=chan('qrb-'+code);NET.ch=ch;
+  ch.on('broadcast',{event:'m'},({payload:p})=>netMsg(p));
+  ch.subscribe(st=>{if(st==='SUBSCRIBED'){if(!NET.auto)onWait('部屋番号 '+code,'相手が入るのを待っています…<br><b class="onc">'+code+'</b>');}else if(st==='CHANNEL_ERROR'||st==='TIMED_OUT'){toast('通信エラー：もう一度ためしてください');}});});}
+/* 部屋に入る（ゲスト） */
+function onJoin(code){code=code||($('#onCode')||{}).value||'';code=String(code).replace(/\D/g,'');if(code.length!==4){toast('4桁の部屋番号を入れてください');return;}
+  sbLoad(ok=>{if(!ok){toast('通信の準備に失敗しました');return;}const auto=NET&&NET.auto;netClose();NET={role:'guest',code,send:netSend,auto};const ch=chan('qrb-'+code);NET.ch=ch;
+    ch.on('broadcast',{event:'m'},({payload:p})=>netMsg(p));
+    onWait('接続中…','部屋 '+code+' に入っています');
+    ch.subscribe(st=>{if(st==='SUBSCRIBED'){const hi=()=>{if(!NET||NET.started)return;netSend({e:'join',team:teamPack(onTeam),name:save.name||'サモナー'});};hi();NET.iv=setInterval(hi,1200);
+      NET.to=setTimeout(()=>{if(NET&&!NET.started){netClose();toast('部屋が見つかりませんでした');openOnline();}},15000);}});});}
+/* ランダムマッチ */
+function onRandom(){sbLoad(ok=>{if(!ok){toast('通信の準備に失敗しました');return;}netClose();NET={role:'lobby',send:()=>{}};const lb=SB.channel('qrb-lobby',{config:{presence:{key:MYID},broadcast:{self:false}}});NET.lobby=lb;const t0=Date.now();
+  onWait('ランダムマッチ','対戦相手をさがしています…');
+  lb.on('broadcast',{event:'match'},({payload:p})=>{if(!NET||NET.role!=='lobby')return;if(p.b===MYID){const L=NET.lobby;NET.lobby=null;try{SB.removeChannel(L);}catch(e){}NET.role='x';NET.auto=1;setTimeout(()=>onJoin(p.code),400);}});
+  lb.on('presence',{event:'sync'},()=>{if(!NET||NET.role!=='lobby')return;const st=lb.presenceState();const W=Object.keys(st).map(k=>({id:k,t:(st[k][0]||{}).t||0})).sort((a,b)=>a.t-b.t||(a.id<b.id?-1:1));
+    if(W.length>=2&&W[0].id===MYID){const b=W[1].id,code=String(1000+Math.floor(Math.random()*9000));lb.send({type:'broadcast',event:'match',payload:{a:MYID,b,code}});const L=lb;setTimeout(()=>{try{SB.removeChannel(L);}catch(e){}},600);NET.lobby=null;NET.role='x';NET.auto=1;onHost(code);if(NET)NET.auto=1;onWait('対戦相手が見つかりました','接続しています…');}});
+  lb.subscribe(async st=>{if(st==='SUBSCRIBED'){try{await lb.track({t:t0});}catch(e){}}});});}
+/* メッセージ処理 */
+function netMsg(p){if(!NET)return;NET.last=Date.now();
+  if(p.e==='join'&&NET.role==='host'&&!NET.started){NET.started=1;NET.peer=p.name;const mine=teamPack(onTeam);netSend({e:'start',host:mine,guest:p.team,name:save.name||'サモナー'});setTimeout(()=>onBattle(mine,p.team,'host'),150);return;}
+  if(p.e==='start'&&NET.role==='guest'&&!NET.started){NET.started=1;NET.peer=p.name;clearInterval(NET.iv);clearTimeout(NET.to);onBattle(p.guest,p.host,'guest');return;}
+  if(p.e==='bye'){if(B&&B.net&&!B.busy){B.busy=true;bMsg('相手が退出しました',1600,'#ff9fb0');setTimeout(()=>{if(B&&B.net)end(0,true);},1500);}else if(!B){toast('相手が退出しました');}return;}
+  if(!B||!B.net)return;
+  if(B.net.role==='host'){if(p.e==='j'){B.rj=[-p.v[0],-p.v[1]];}else if(p.e==='p'){const i=B.act[1];press(i,p.k);}else if(p.e==='sw'){const k=mates(1,B.act[1])[p.q];if(k!==undefined)switchTo(1,k);}else if(p.e==='tp'){tapan(1);}}
+  else{if(p.e==='s')gApply(p);else if(p.e==='a')gAct(p);else if(p.e==='n')gPop(p);else if(p.e==='end'){gApply(p.s||{});end(p.w<0?-1:1-p.w,true);}}}
+const OMAP=j=>(j+3)%6;
+function onBattle(mine,theirs,role){closeModal();const A=teamUnpack(mine),Bt=teamUnpack(theirs);const F=[...A.map((m,k)=>fighter(m,1,'',0,k)),...Bt.map((m,k)=>{const f=fighter(m,1,'',1,k);f.remote=1;return f;})];
+  B={mode:'online',f:F,busy:false,ctl:[0],act:[0,3],net:NET,guest:role==='guest'};NET.last=Date.now();setupBattle();
+  if(role==='host'){NET.iv=setInterval(hSnap,66);}else{NET.iv=setInterval(gInput,66);}
+  NET.wd=setInterval(()=>{if(!B||!B.net||B.busy)return;if(Date.now()-NET.last>8000){B.busy=true;bMsg('通信が切れました',1600,'#ff9fb0');setTimeout(()=>{if(B&&B.net)end(-1,true);},1500);}},1000);
+  setTimeout(()=>{if(B&&B.net)bMsg('VS '+(NET&&NET.peer||'あいて'),1400,'#ffd76a');},400);}
+/* ホスト：状態を送る */
+const r2=v=>Math.round(v*100)/100;
+function stFlags(f){return(f.st.stun>0?1:0)|(f.st.down>0?2:0)|(f.st.frz>0?4:0)|(f.st.burn>0?8:0)|(f.st.slow>0?16:0)|(f.st.root>0?32:0)|(f.inv>0?64:0)|(f.stun>0?128:0);}
+function hSnap(){if(!B||!B.net||B.net.role!=='host'){return;}netSend({e:'s',l:r2(B.left),sc:[r2(B.score[0]),r2(B.score[1])],o:B.own,a:B.act.slice(),tp:(B.tp||[2,2]).slice(),st:B.start>0?1:0,
+  f:B.f.map(f=>[r2(f.x),r2(f.z),r2(f.face),Math.round(f.hp),f.max,f.dead?1:0,f.bench?1:0,Math.round(f.g),r2(f.cd),stFlags(f),f.fly||f.oos>0?1:0])});}
+function hEv(p){if(B&&B.net&&B.net.role==='host')netSend(p);}
+/* ゲスト：入力を送る */
+function gInput(){if(!B||!B.net||!B.guest)return;const v=B.myj||[0,0];const k=v[0].toFixed(2)+v[1].toFixed(2);const now=Date.now();if(k!==B.lj||now-(B.ljt||0)>900){B.lj=k;B.ljt=now;netSend({e:'j',v:[r2(v[0]),r2(v[1])]});}}
+/* ゲスト：状態を反映 */
+function gApply(p){if(!B||!B.guest||!p.f)return;B.left=p.l;B.score=[p.sc[1],p.sc[0]];const own=p.o===0?1:p.o===1?0:p.o;if(own!==B.own){B.own=own;if(own===0)bMsg('確保中！',800,TEAMC[0]);else if(own===1)bMsg('うばわれている！',800,TEAMC[1]);}
+  B.tp=[p.tp[1],p.tp[0]];tapanUI();if(B.start>0&&!p.st)B.start=0;
+  p.f.forEach((a,j)=>{const i=OMAP(j),f=B.f[i];if(!f)return;f.tx=-a[0];f.tz=-a[1];f.tf=a[2]+Math.PI;const hp=a[3];let ch=hp!==f.hp;f.hp=hp;f.max=a[4];f.g=a[7];f.cd=a[8];const fl=a[9];
+    for(const[b,k] of[[1,'stun'],[2,'down'],[4,'frz'],[8,'burn'],[16,'slow'],[32,'root']]){if(fl&b)f.st[k]=Math.max(f.st[k]||0,.2);else if(k!=='down'||!f.fly)delete f.st[k];}if(fl&64)f.inv=Math.max(f.inv,.15);f.stun=fl&128?.2:0;
+    if(a[5]&&!f.dead){f.dead=1;f.dts=B.t;f.rt=999;ch=1;burst(f.x,1,f.z,'#ffffff',36,9,.7,.9);sfx('ko');}
+    else if(!a[5]&&f.dead){if(f.bench){f.dead=0;f.ringo=0;f.fly=null;f.fy=0;f.st={};}else respawn(f,i);ch=1;}
+    if(ch)upd(i);});
+  for(const t of[0,1]){const want=OMAP(p.a[t]),tt=want<3?0:1;if(B.act[tt]!==want&&B.start<=0){const n=B.f[want];if(n&&!n.dead){switchTo(tt,want,true);}}}
+  if(Math.floor(B.left*4)!==Math.floor((B.lastL||0)*4)){B.lastL=B.left;zhud();}}
+function gAct(p){if(!B||!B.guest)return;const i=OMAP(p.i),f=B.f[i];if(!f||f.dead)return;B.replay=1;try{
+  if(p.k==='melee'){f.acd=0;f.cmb=0;doMelee(i);}else if(p.k==='skill'){f.cd=0;doSkill(i);}else if(p.k==='ult'){f.g=100;startUlt(i);}else if(p.k==='dodge'){f.dcd=0;f.stun=0;doDodge(i);}else if(p.k==='tp'){B.tp=B.tp||[2,2];const tm=f.team;B.tp[tm]=Math.max(1,B.tp[tm]);tapan(tm);}}catch(e){console.warn(e);}B.replay=0;}
+function gPop(p){if(!B||!B.guest)return;const f=B.f[OMAP(p.i)];if(!f)return;B._fwd=1;try{popNum(f,p.t,p.c);}catch(e){}B._fwd=0;}
+
+/* ホストの動きをゲストへ伝える */
+(function(){const W=(name,pre,post)=>{const o=window[name];window[name]=function(i){const f=B&&B.f&&B.f[i],a=f?pre(f,arguments):null;const r=o.apply(this,arguments);try{if(f&&B.net&&B.net.role==='host'&&post(f,a,arguments))hEv({e:'a',k:name==='doMelee'?'melee':name==='doSkill'?'skill':name==='startUlt'?'ult':'dodge',i});}catch(e){}return r;};};
+  W('doMelee',f=>f.cmb,(f,a,ar)=>ar[1]===undefined&&!a&&f.cmb);W('doSkill',f=>f.cd,(f,a)=>a<=0&&f.cd>0);W('startUlt',f=>f.g,(f,a)=>a>=100&&f.g<100);W('doDodge',f=>f.dodge,(f,a)=>!(a>0)&&f.dodge>0);})();
+
+function quitBattle(force){if(!force&&B&&B.busy)return;if(B&&B.net)netClose();B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-2025</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-2100</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
