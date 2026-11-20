@@ -787,7 +787,8 @@ button{font-family:inherit;cursor:pointer}
 #tapan0{bottom:auto;right:max(calc(2*var(--vw)),env(safe-area-inset-right));width:calc(10.5*var(--vh));height:calc(10.5*var(--vh))}#tapan1{bottom:auto;left:max(calc(2*var(--vw)),env(safe-area-inset-left));width:calc(10.5*var(--vh));height:calc(10.5*var(--vh))}
 
 /* プロフィール大 */
-#modal .pnl:has(.prof2){width:min(92vw,calc(150*var(--vh)))!important;max-width:none!important}
+#modal .pnl:has(.prof2){width:min(calc(90*var(--vw)),calc(170*var(--vh)))!important;max-width:none!important;max-height:calc(94*var(--vh))!important;overflow:auto}
+.prof2 .pfi{min-width:0}.prof2 .prof{flex-wrap:nowrap}
 .prof2{display:flex;gap:calc(3*var(--vh));align-items:stretch;margin-top:calc(1.5*var(--vh))}
 .pfa{flex:none;width:calc(36*var(--vh));aspect-ratio:3/4;border-radius:14px;background:radial-gradient(circle at 50% 40%,rgba(180,140,255,.35),rgba(20,12,30,.9) 70%);box-shadow:0 0 0 1.5px #b88c44,inset 0 0 30px rgba(0,0,0,.6);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;overflow:hidden;position:relative}
 .pfa img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}.pfa span{position:relative;margin-bottom:calc(1*var(--vh));font:700 calc(2*var(--vh)) 'Shippori Mincho B1';color:#f3dca0;background:rgba(0,0,0,.45);padding:2px 12px;border-radius:99px}
@@ -806,6 +807,18 @@ button{font-family:inherit;cursor:pointer}
 </style>
 </head>
 <body>
+<script>
+var ROT=false;
+function applyOrient(){const W=innerWidth,H=innerHeight,b=document.body,r=document.documentElement.style;ROT=H>W;
+  if(ROT){b.style.width=H+'px';b.style.height=W+'px';b.style.transform=`translateX(${W}px) rotate(90deg)`;r.setProperty('--vh',W/100+'px');r.setProperty('--vw',H/100+'px');}
+  else{b.style.width='';b.style.height='';b.style.transform='';r.setProperty('--vh',H/100+'px');r.setProperty('--vw',W/100+'px');}
+  window.dispatchEvent(new Event('gameresize'));}
+function GW(){return ROT?innerHeight:innerWidth;}function GH(){return ROT?innerWidth:innerHeight;}
+function gp(e){return ROT?{x:e.clientY,y:innerWidth-e.clientX}:{x:e.clientX,y:e.clientY};}
+addEventListener('resize',applyOrient);addEventListener('pageshow',applyOrient);document.addEventListener('visibilitychange',()=>{if(!document.hidden)setTimeout(applyOrient,60);});
+setInterval(()=>{if(document.body&&(innerHeight>innerWidth)!==ROT)applyOrient();},500);[60,300,900,2000].forEach(t=>setTimeout(applyOrient,t));addEventListener('orientationchange',()=>setTimeout(applyOrient,200));
+document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)applyOrient();
+</script>
 
 <!-- LOGIN -->
 <section id="login" class="scr on">
@@ -1301,15 +1314,7 @@ const PARTS={
 
 </script>
 <script type="text/x-main">
-let ROT=false;
-function applyOrient(){const W=innerWidth,H=innerHeight,b=document.body,r=document.documentElement.style;ROT=H>W;
-  if(ROT){b.style.width=H+'px';b.style.height=W+'px';b.style.transform=`translateX(${W}px) rotate(90deg)`;r.setProperty('--vh',W/100+'px');r.setProperty('--vw',H/100+'px');}
-  else{b.style.width='';b.style.height='';b.style.transform='';r.setProperty('--vh',H/100+'px');r.setProperty('--vw',W/100+'px');}
-  window.dispatchEvent(new Event('gameresize'));}
-function GW(){return ROT?innerHeight:innerWidth;}function GH(){return ROT?innerWidth:innerHeight;}
-function gp(e){return ROT?{x:e.clientY,y:innerWidth-e.clientX}:{x:e.clientX,y:e.clientY};}
-addEventListener('resize',applyOrient);addEventListener('orientationchange',()=>setTimeout(applyOrient,200));
-document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)applyOrient();
+applyOrient();
 const $=s=>document.querySelector(s);
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -3278,8 +3283,8 @@ function bStep(rdt){const bt=BT;let dt=rdt;if(B.hs>0){B.hs-=rdt;dt=rdt*.06;}cons
   B.shake*=Math.pow(.003,rdt);const sx=(Math.random()-.5)*B.shake,sy=(Math.random()-.5)*B.shake;
   {const K=bt.keys;if(K['q'])B.yaw+=rdt*2;if(K['e'])B.yaw-=rdt*2;B.cy=B.yaw;const fx=Math.sin(B.yaw),fz=Math.cos(B.yaw);
   if(B.mode!=='pvp'){const a=B.f[B.ctl[0]];const ax=a.dead?a.hx:a.x,az=a.dead?a.hz:a.z;const rx=-fz,rz=fx;
-    const px=ax-fx*7+rx*1.4,pz=az-fz*7+rz*1.4;B.cpx=B.cpx===undefined?px:B.cpx+(px-B.cpx)*Math.min(1,rdt*8);B.cpz=B.cpz===undefined?pz:B.cpz+(pz-B.cpz)*Math.min(1,rdt*8);
     B.lx=B.lx===undefined?ax:B.lx+(ax-B.lx)*Math.min(1,rdt*8);B.lz=B.lz===undefined?az:B.lz+(az-B.lz)*Math.min(1,rdt*8);
+    B.cpx=B.lx-fx*7+rx*1.4;B.cpz=B.lz-fz*7+rz*1.4;
     bt.cam.position.set(B.cpx+sx,3.9+sy,B.cpz);bt.cam.lookAt(B.lx+fx*3+sx*.5,.8,B.lz+fz*3);}
   else{const p=B.f[B.act[0]],q=B.f[B.act[1]];const P=[p.dead?[p.hx,p.hz]:[p.x,p.z],q.dead?[q.hx,q.hz]:[q.x,q.z]];const mx=(P[0][0]+P[1][0])/2,mz=(P[0][1]+P[1][1])/2,sep=Math.hypot(P[0][0]-P[1][0],P[0][1]-P[1][1]);
     const zd=Math.min(2.4,Math.max(1.1,sep/5));B.cz=B.cz===undefined?zd:B.cz+(zd-B.cz)*Math.min(1,rdt*2);B.cx=B.cx===undefined?mx:B.cx+(mx-B.cx)*Math.min(1,rdt*4);B.cmz=B.cmz===undefined?mz:B.cmz+(mz-B.cmz)*Math.min(1,rdt*4);const Z=B.cz;
@@ -3377,7 +3382,7 @@ function gPop(p){if(!B||!B.guest)return;const f=B.f[OMAP(p.i)];if(!f)return;B._f
 
 function quitBattle(force){if(!force&&B&&B.busy)return;if(B&&B.net)netClose();B=null;bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-2110</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.20-2140</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
