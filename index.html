@@ -1051,6 +1051,7 @@ button{font-family:inherit;cursor:pointer}
 .qsB{display:flex;gap:calc(1.6*var(--vh))}.qsB>*{flex:1;margin:0!important;padding:calc(2.2*var(--vh)) 0!important;font-size:calc(3.2*var(--vh))!important}
 .qsR .txt{display:flex;gap:calc(1.6*var(--vh));margin:0}.qsR .txt .inp{flex:1;min-width:0;margin:0!important;font-size:calc(2.8*var(--vh))!important}
 .qsR .txt button{margin:0!important;padding:calc(1.8*var(--vh)) calc(4*var(--vh))!important;font-size:calc(3.2*var(--vh))!important}
+.hst .pbar{flex:none!important;width:calc(11*var(--vh))!important;min-width:0!important}.hst .stt{font:700 calc(1.7*var(--vh)) 'Shippori Mincho B1';font-style:normal;color:#e9b0ff;white-space:nowrap;font-variant-numeric:tabular-nums;margin-right:calc(-.6*var(--vh))}.hst .stt:empty{display:none}
 </style>
 </head>
 <body>
@@ -1093,7 +1094,7 @@ document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)apply
     <div class="hav"><svg class="laurel" viewBox="0 0 40 120"><path d="M30 116C10 96 6 60 18 20" fill="none" stroke="url(#gdG)" stroke-width="2.4" stroke-linecap="round"/><path d="M26 108c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(-20 26 108)"/><path d="M18 94c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(-5 18 94)"/><path d="M13 78c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(5 13 78)"/><path d="M11 62c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(12 11 62)"/><path d="M12 46c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(20 12 46)"/><path d="M15 30c-9-2-14-8-14-15 8 1 13 7 14 15z" fill="url(#gdG)" transform="rotate(28 15 30)"/><path d="M18 20c-4-7-3-14 3-19 3 7 2 13-3 19z" fill="url(#gdG)"/></svg><div class="hring"><div class="crest" id="hCrest"></div></div></div>
     <div class="hinfo"><div class="hnm"><span id="hudName"></span><button class="hed" aria-label="プロフィール" onclick="event.stopPropagation();openProfile()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/></svg></button></div>
       <div class="hlv"><b>Lv.<span id="hLv">1</span></b><span class="gbar"><i id="hLvB"></i></span><small id="hLvN"></small></div>
-      <div class="hst"><span class="pbar"><i id="hStB"></i></span><small id="hStN"></small></div></div></div>
+      <div class="hst"><span class="pbar"><i id="hStB"></i></span><em class="stt" id="hStT"></em><small id="hStN"></small></div></div></div>
   <div class="curs"><div class="cur" onclick="openShop()"><i class="ci" id="hCoinI"></i><b id="hCoin">0</b><button class="cplus" aria-label="ショップ"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div></div>
   <button class="sideBtn" id="shopBtn" aria-label="ショップ" onclick="openShop()"><svg viewBox="0 0 32 32"><path d="M4 12l2.5-6h19L28 12z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M4 12q2 3 4 0q2 3 4 0q2 3 4 0q2 3 4 0q2 3 4 0q2 3 4 0" fill="#c9a058" stroke="#5a3a18" stroke-width="1.1"/><path d="M6.5 14.5V26h19V14.5" fill="none" stroke="#f3e4c0" stroke-width="2"/><rect x="13" y="18" width="6" height="8" rx="1" fill="#f3e4c0" stroke="#5a3a18"/><circle cx="23" cy="20" r="2.4" fill="#ffd76a" stroke="#5a3a18"/></svg></button>
   <button class="sideBtn" id="monBtn" aria-label="モンスター" onclick="toggleSub('monMenu')"><svg viewBox="0 0 32 32"><path d="M6 13L3.5 4.5 11 8.5M26 13l2.5-8.5L21 8.5" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M16 7.5C9 7.5 4 12.5 4 18.5 4 24 9.2 28 16 28s12-4 12-9.5c0-6-5-11-12-11z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><ellipse cx="11.2" cy="18" rx="2.1" ry="2.6" fill="#3a2410"/><ellipse cx="20.8" cy="18" rx="2.1" ry="2.6" fill="#3a2410"/><circle cx="11.9" cy="17.1" r=".8" fill="#fff"/><circle cx="21.5" cy="17.1" r=".8" fill="#fff"/><path d="M13.5 23c1.6 1.1 3.4 1.1 5 0" fill="none" stroke="#3a2410" stroke-width="1.4" stroke-linecap="round"/><path d="M14.5 7.8l1.5-3 1.5 3" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
@@ -1719,7 +1720,7 @@ function profInit(){save.prof=save.prof||{};save.prof.rank=save.prof.rank||1;sav
 function avatarHTML(sz){const p=save.prof||{},I=ICONS[p.icon]||ICONS.egg,F=p.frame&&FRAMES[p.frame];return `<span class="av${F?' fr':''}" style="--s:${sz}">${I.svg}${F?F.svg:''}</span>`;}
 function hudAvatar(){profInit();const f=n=>Math.floor(n||0).toLocaleString('en-US'),P=save.prof,T=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;},Wd=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+'%';};
   const c=$('#hCrest');if(c)c.innerHTML=avatarHTML('100%');T('hLv',P.rank);Wd('hLvB',rankBar());T('hLvN',`${f(P.exp)} / ${f(rankNeed(P.rank))}`);
-  stNow();Wd('hStB',save.st.v/ST_MAX*100);T('hStN',`${save.st.v} / ${ST_MAX}`);T('hCoin',f(coins()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;}
+  stNow();Wd('hStB',save.st.v/ST_MAX*100);T('hStN',`${save.st.v} / ${ST_MAX}`);T('hStT',stLeft());T('hCoin',f(coins()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;}
 let AVSNAP=null;function avSnap(){try{if(!AV.obj||!window.THREE)return null;if(!AVSNAP){const rd=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});rd.setSize(360,480,false);rd.setPixelRatio(1);rd.outputEncoding=THREE.sRGBEncoding;rd.setClearColor(0,0);
     const sc=new THREE.Scene();sc.add(new THREE.HemisphereLight(0xffffff,0x40304a,.95));const k=new THREE.DirectionalLight(0xffffff,1.0);k.position.set(-2,3,4);sc.add(k);const f=new THREE.DirectionalLight(0xffd8c0,.45);f.position.set(3,1,2);sc.add(f);AVSNAP={rd,sc,cam:new THREE.PerspectiveCamera(26,360/480,.1,60)};}
   const o=AV.obj,par=o.parent,p=o.position.clone(),ry=o.rotation.y;AVSNAP.sc.add(o);o.position.set(0,0,0);o.rotation.y=.3;o.updateMatrixWorld(true);const H=AV_H;AVSNAP.cam.position.set(0,H*.55,H*2.9);AVSNAP.cam.lookAt(0,H*.5,0);
@@ -2586,7 +2587,7 @@ async function startScan(){const msg=t=>{const m=$('#qsMsg');if(m){m.textContent
   let st;try{st=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});}
   catch(e){msg('カメラを使えませんでした\n設定でカメラを許可するか「撮影する」を使ってください');return;}
   const v=$('#qsVid');if(!v){st.getTracks().forEach(t=>t.stop());return;}
-  SCN.st=st;SCN.on=true;v.srcObject=st;try{await v.play();}catch(e){}msg('');$('#qsV').classList.add('live');
+  SCN.st=st;SCN.on=true;v.style.transform=ROT?'rotate(-90deg)':'';v.srcObject=st;try{await v.play();}catch(e){}msg('');$('#qsV').classList.add('live');
   SCN.cv=SCN.cv||document.createElement('canvas');let n=0;
   const tick=async()=>{if(!SCN.on)return;const vid=$('#qsVid');if(!vid){stopScan();return;}
     let d=null;const vw=vid.videoWidth,vh=vid.videoHeight;
@@ -2915,11 +2916,12 @@ const MON_CUM=(()=>{const w=[];for(let l=1;l<50;l++)w.push(Math.pow(1.06,l-1));c
 const monNeed=lv=>lv>=50?1:MON_CUM[lv+1]-MON_CUM[lv];
 function monExp(s,n){const d=mst(s);d.ex=(d.ex||0)+n;while(d.lv<MON_MAX&&d.ex>=monNeed(d.lv)){d.ex-=monNeed(d.lv);d.lv++;}if(d.lv>=MON_MAX)d.ex=0;return d;}
 const COIN_REL={N:10,R:30,SR:100,UR:300};
-const ST_MAX=5,ST_MS=30*60000;
+const ST_MAX=5,ST_MS=60*60000;
 function coins(){return save.coin||0;}
 function addCoin(n){save.coin=coins()+n;persist();hudAvatar();}
 function stNow(){const S=save.st||(save.st={v:ST_MAX,t:Date.now()});const now=Date.now();if(S.v>=ST_MAX){S.t=now;return S.v;}const k=Math.floor((now-S.t)/ST_MS);if(k>0){S.v=Math.min(ST_MAX,S.v+k);S.t=S.v>=ST_MAX?now:S.t+k*ST_MS;persist();}return S.v;}
 function stUse(){stNow();if(save.st.v<=0)return false;if(save.st.v>=ST_MAX)save.st.t=Date.now();save.st.v--;persist();hudAvatar();return true;}
+setInterval(()=>{const e=document.getElementById('hStT');if(!e||!save||!save.st)return;const v0=save.st.v,v=stNow();if(v!==v0){try{hudAvatar();}catch(_){}}e.textContent=stLeft();},1000);
 function stLeft(){const v=stNow();if(v>=ST_MAX)return '';const r=ST_MS-(Date.now()-save.st.t);return `${Math.floor(r/60000)}:${String(Math.floor(r/1000)%60).padStart(2,'0')}`;}
 const SHOP=[{k:'lvpot',n:'経験値のポーション',d:'経験値+100',p:200},{k:'stpot',n:'スタミナポーション',d:'スタミナ+1',p:500}];
 const COIN_SVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#f0c040" stroke="#8a5a10" stroke-width="1.5"/><circle cx="12" cy="12" r="6.5" fill="none" stroke="#fff4b8" stroke-width="1.2"/><path d="M12 8.5l1 2.2 2.4.3-1.8 1.6.5 2.4-2.1-1.2-2.1 1.2.5-2.4-1.8-1.6 2.4-.3z" fill="#fff4b8"/></svg>';
@@ -3749,7 +3751,7 @@ function gPop(p){if(!B||!B.guest)return;const f=B.f[OMAP(p.i)];if(!f)return;B._f
 
 function quitBattle(force){if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.22-1310</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.22-1320</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
