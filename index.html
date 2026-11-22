@@ -969,6 +969,23 @@ button{font-family:inherit;cursor:pointer}
 .prof2 .pfi{width:max-content!important;min-width:0!important}.prof2 .prof{width:auto!important;max-width:none!important}.prof2{gap:calc(2*var(--vh))!important}
 #modal .pnl:has(.prof2){width:min(calc(72*var(--vw)),calc(140*var(--vh)))!important}.prof2 .pfa{margin-left:calc(-1.5*var(--vh))!important}
 #rfxc{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:70;display:none}#rfxc.on{display:block}
+
+/* プロフィール：はみ出し対策 */
+#modal .pnl:has(.prof2){width:max-content!important;max-width:calc(94*var(--vw))!important;max-height:calc(96*var(--vh))!important;overflow:visible!important;padding-left:calc(3*var(--vh))!important;padding-right:calc(3*var(--vh))!important}
+.prof2{gap:calc(2*var(--vh))!important;margin-top:calc(.6*var(--vh))!important}
+.prof2 .pfa{width:calc(28*var(--vh))!important;margin-left:0!important}
+.prof2 .prof .pav{width:calc(17*var(--vh))!important;height:calc(17*var(--vh))!important;flex:none}
+.prof2 .pfi{gap:calc(1.6*var(--vh))!important}
+.pfs>div{width:calc(27*var(--vh))!important}.pfs>div.pfr{width:calc(36*var(--vh))!important}
+.pfr .pfrk img{width:calc(11*var(--vh))!important;height:calc(11*var(--vh))!important}
+/* ショップを大きく */
+.pnl.shopP{max-width:min(94%,calc(150*var(--vh)))!important;padding:calc(2.6*var(--vh)) calc(3*var(--vh))!important}
+.pnl.shopP .shl{width:calc(92*var(--vh))!important;gap:calc(1.2*var(--vh))!important}
+.pnl.shopP .shr{padding:calc(1.2*var(--vh)) calc(1.8*var(--vh))!important}
+.pnl.shopP .shi{width:calc(12*var(--vh))!important;height:calc(12*var(--vh))!important}
+.pnl.shopP .ptl{font-size:calc(4.4*var(--vh))!important}
+.pnl.shopP .shr b{font-size:calc(3.4*var(--vh))!important}.pnl.shopP .shr small{font-size:calc(2.4*var(--vh))!important}
+.pnl.shopP button{font-size:calc(2.8*var(--vh))!important}
 </style>
 </head>
 <body>
@@ -2340,9 +2357,9 @@ const STAGES=[{id:'cave',name:'秘宝の洞窟',desc:'青く光る水晶と滝�
 function openStages(){sfx('open');const L=STAGES.map((s,i)=>s.id?`<button class="stg" onclick="openStage(${i})"><img src="${caveImg()}" alt=""><span><b>${s.name}</b><small>${s.desc}</small><em>⚡ スタミナ 1</em></span></button>`:`<div class="stg lk"><i>🔒</i><span><b>${s.name}</b><small>${s.desc}</small></span></div>`).join('');
   modal(pnl('ステージ選択','',`<div class="stgl">${L}</div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
 function openStage(i){const s=STAGES[i];sfx('tap');
-  const rows=[[3,'虹','伝説の宝箱のみ（0.5%）'],[2,'金','2%'],[1,'銀','30%'],[0,'銅','68%']].map(([r,k,p])=>{const items=['atk','def','hp','crit'].map(t=>{const it={t,r,pv:0,pcv:0,lv:IT_MAX};const g=IRANGE[r];const v=t==='crit'?(g?`${g.cv[0]}〜${g.cv[1]}`:IRAR[r].cv):(g?`${g.v[0]}〜${g.v[1]}`:Math.round(IRAR[r].v*100));return `<div class="sdi"><img src="${ITIMG[t][r]}" alt=""><b>${STL[t]}</b><small>+${v}%</small></div>`;}).join('');
+  const rows=[[3,'虹','']].map(([r,k,p])=>{const items=['atk','def','hp','crit'].map(t=>{const it={t,r,pv:0,pcv:0,lv:IT_MAX};const g=IRANGE[r];const v=t==='crit'?(g?`${g.cv[0]}〜${g.cv[1]}`:IRAR[r].cv):(g?`${g.v[0]}〜${g.v[1]}`:Math.round(IRAR[r].v*100));return `<div class="sdi"><img src="${ITIMG[t][r]}" alt=""><b>${STL[t]}</b><small>+${v}%</small></div>`;}).join('');
     return `<div class="sdr"><div class="sdh" style="color:${IRAR[r].c}">${k}<small>${p}</small></div><div class="sdg">${items}</div></div>`;}).join('');
-  modal(pnl(s.name,'',`<div class="sdt"><img src="${caveImg()}" alt=""><div><p>${s.desc}</p><p class="sdm">・ザコ敵は近づくと襲ってくる<br>・ボスは3体のチームで挑む<br>・ボスを倒すと宝箱から携帯品が2〜3個</p><p class="sdm">⚡ スタミナ 1 を使います</p></div></div><div class="sds">ドロップする携帯品（Lv10のときの効果）</div>${rows}`,`<button class="obtn" onclick="openStages()">もどる</button><button class="gbtn" onclick="closeModal();startAdv()">出発する</button>`));}
+  modal(pnl(s.name,'',`<div class="sdt"><img src="${caveImg()}" alt=""><div><p>${s.desc}</p><p class="sdm">・ザコ敵は近づくと襲ってくる<br>・ボスは3体のチームで挑む<br>・ボスを倒すと宝箱から携帯品が2〜3個</p><p class="sdm">⚡ スタミナ 1 を使います</p></div></div><div class="sds">ドロップする当たり携帯品（Lv10のときの効果）</div>${rows}`,`<button class="obtn" onclick="openStages()">もどる</button><button class="gbtn" onclick="closeModal();startAdv()">出発する</button>`));}
 
 function initRoom(){
   if(R.ready)return;R.ready=true;
@@ -3622,7 +3639,7 @@ function gPop(p){if(!B||!B.guest)return;const f=B.f[OMAP(p.i)];if(!f)return;B._f
 
 function quitBattle(force){if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.22-0100</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.22-1100</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
