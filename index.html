@@ -2641,10 +2641,12 @@ function bindInput(){
   cv.addEventListener('wheel',e=>{R.trad=Math.max(5.5,Math.min(9.2,R.trad+e.deltaY*.01));},{passive:true});
 }
 function tapAt(x,y){
+  if(summoning||$('#modal').classList.contains('on')||$('#box').classList.contains('on'))return;
+  const vm=()=>R.mons.filter(o=>!o.leave&&!o.temp&&o.sp&&o.sp.parent);
   const r={left:0,top:0,width:GW(),height:GH()},v=new THREE.Vector2((x-r.left)/r.width*2-1,-((y-r.top)/r.height)*2+1),rc=new THREE.Raycaster();rc.setFromCamera(v,R.cam);
-  if(R.door){const dh=rc.intersectObject(R.door,true)[0];const mh=rc.intersectObjects(R.mons.filter(o=>!o.leave).map(o=>o.sp),true)[0];if(dh&&(!mh||dh.distance<mh.distance)){openDoor();return;}}
-  const hit=rc.intersectObjects(R.mons.filter(o=>!o.leave).map(o=>o.sp),true)[0];
-  if(hit){const o=R.mons.find(o=>{let p=hit.object;while(p){if(p===o.sp)return true;p=p.parent;}return false;});if(!o)return;o.jump=1;sfx('tap');setTimeout(()=>showCard(o.m,{mode:o.special?'special':'room'}),380);}
+  if(R.door){const dh=rc.intersectObject(R.door,true)[0];const mh=rc.intersectObjects(vm().map(o=>o.sp),true)[0];if(dh&&(!mh||dh.distance<mh.distance)){openDoor();return;}}
+  const hit=rc.intersectObjects(vm().map(o=>o.sp),true)[0];
+  if(hit){const o=R.mons.find(o=>{let p=hit.object;while(p){if(p===o.sp)return true;p=p.parent;}return false;});if(!o)return;o.jump=1;sfx('tap');setTimeout(()=>{if(summoning||$('#modal').classList.contains('on')||$('#box').classList.contains('on')||!o.sp.parent)return;showCard(o.m,{mode:o.special?'special':'room'});},380);}
 }
 
 /* ================= QR ================= */
@@ -2796,7 +2798,7 @@ function rfxPlay(kind,onFlash){return new Promise(res=>{let c=$('#rfxc');if(!c){
     if(!fl&&t>=FT){fl=1;try{onFlash&&onFlash();}catch(e){}}
     if(t<D)requestAnimationFrame(step);else fin();};requestAnimationFrame(step);});}
 
-let SUMT=0;setInterval(()=>{if(summoning&&!$('#modal').classList.contains('on')&&Date.now()-SUMT>20000){summoning=false;try{R.boost=0;R.focus=0;}catch(e){}}},2000);
+let SUMT=0;setInterval(()=>{if(!summoning&&R.mons&&!$('#modal').classList.contains('on')){let ch=0;for(const o of R.mons){if(o.temp&&!o.leave){o.leave=true;R.focus=0;R.boost=0;}if(o.tempUR){o.tempUR=0;ch=1;}}if(ch){R.focus=0;R.boost=0;applyUR();}}if(summoning&&!$('#modal').classList.contains('on')&&Date.now()-SUMT>20000){summoning=false;try{R.boost=0;R.focus=0;}catch(e){}}},2000);
 async function summon(src){
   if(summoning)return;summoning=true;SUMT=Date.now();closeModal();closeMenu();
   let isUR=false,isSR=false;{const r=Math.random(),c=r<UR_RATE?URLIST():r<UR_RATE+SR_RATE?SRLIST():null;if(c){src=c[Math.floor(Math.random()*c.length)].src+'#'+Date.now().toString(36);isUR=r<UR_RATE;isSR=!isUR;}}
@@ -2828,7 +2830,7 @@ function showCard(m,o){CARDM=m;
   cardClose=o.onClose||null;
   let note='',btns='';
   if(o.mode==='new'){note=o.ur?`超レア！ URモンスターが出現！ BOX ${o.box} に送りました`:o.sr?`レア！ SRモンスターが出現！ BOX ${o.box} に送りました`:o.had?`すでにBOX ${o.box}にいるモンスターです`:`召喚成功！ BOX ${o.box} に送りました`;btns=`<button class="gbtn" onclick="closeModal()">OK</button>`;}
-  if(o.mode==='special'){note='三面図から立体化した特別なモンスター';btns=`<button class="gbtn" onclick="closeModal()">とじる</button>`;}
+  if(o.mode==='special'){note='';btns=`<button class="gbtn" onclick="closeModal()">とじる</button>`;}
   if(o.mode==='room')btns=`<button class="obtn" onclick="closeModal();openBox('view',0,'${encodeURIComponent(m.src)}')">BOXで見る</button><button class="gbtn" onclick="closeModal()">とじる</button>`;
   modal(`<div class="card glass fancy" style="--c:${m.rar.c}"><button class="cx" onclick="closeModal()" aria-label="とじる"></button>
     <div class="art"><div class="beam"></div>${monArt(m)}<div class="v3w"></div><div class="v3h">ドラッグで回転</div></div>
@@ -3010,7 +3012,7 @@ const MON_TOT=1000;   /* Lv.1→50に必要な経験値の合計（薬10本分�
 const MON_CUM=(()=>{const w=[];for(let l=1;l<50;l++)w.push(Math.pow(1.06,l-1));const W=w.reduce((a,b)=>a+b,0);const c=[0,0];let acc=0;for(let l=1;l<50;l++){acc+=w[l-1];c.push(Math.round(MON_TOT*acc/W));}return c;})();
 const monNeed=lv=>lv>=50?1:MON_CUM[lv+1]-MON_CUM[lv];
 function monExp(s,n){const d=mst(s);d.ex=(d.ex||0)+n;while(d.lv<MON_MAX&&d.ex>=monNeed(d.lv)){d.ex-=monNeed(d.lv);d.lv++;}if(d.lv>=MON_MAX)d.ex=0;return d;}
-const COIN_REL={N:10,R:30,SR:100,UR:300};
+const COIN_REL={N:20,R:20,SR:100,UR:300};
 const ST_MAX=5,ST_MS=60*60000;
 function coins(){return save.coin||0;}
 function addCoin(n){save.coin=coins()+n;persist();hudAvatar();}
@@ -3893,7 +3895,7 @@ function gPop(p){if(!B||!B.guest)return;const f=B.f[OMAP(p.i)];if(!f)return;B._f
 
 function quitBattle(force){if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.22-2310</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.22-2340</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
