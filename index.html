@@ -1150,6 +1150,103 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
 #npOv{position:absolute;left:50%;top:calc(20*var(--vh));transform:translateX(-50%);z-index:30;display:flex;flex-direction:column;align-items:center;gap:calc(.6*var(--vh));padding:calc(1.2*var(--vh)) calc(4*var(--vh));border-radius:99px;background:rgba(4,3,10,.7);box-shadow:inset 0 0 0 1px rgba(232,200,122,.5);pointer-events:none}
 #npOv b{font:800 calc(3.4*var(--vh)) 'Shippori Mincho B1',serif;color:#ffe9b0;text-shadow:0 0 14px rgba(255,210,120,.6);animation:rkBlink 1.4s ease-in-out infinite}
 #npOv span{font:600 calc(2.2*var(--vh)) 'Zen Kaku Gothic New';color:#ddd}
+
+.syn{display:flex;gap:calc(3*var(--vh));align-items:stretch;width:calc(130*var(--vh));max-width:100%;margin-top:calc(1*var(--vh))}
+.synL{width:calc(44*var(--vh));display:flex;flex-direction:column;gap:calc(1.4*var(--vh));justify-content:center;align-items:center;text-align:center;padding:calc(1.6*var(--vh));border-radius:14px;background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px rgba(232,200,122,.35)}
+.synf{font:800 calc(4*var(--vh)) 'Shippori Mincho B1';color:#f3e3b0}.synf em{font-style:normal;color:#e8c87a;margin:0 .4em;font-size:.8em}
+.synr{display:flex;flex-direction:column;gap:calc(.8*var(--vh))}
+.sy3{font:700 calc(2.8*var(--vh)) 'Shippori Mincho B1';color:var(--c)}.sy3 b{font:900 calc(4.4*var(--vh)) 'Cinzel';color:#fff;text-shadow:0 0 10px var(--c);margin-left:.3em}
+.synn{font:500 calc(2*var(--vh))/1.5 'Zen Kaku Gothic New';color:#bdb4a6}
+.synG{flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(calc(11*var(--vh)),1fr));gap:calc(1*var(--vh));max-height:calc(46*var(--vh));overflow:auto;align-content:start;padding:calc(.4*var(--vh))}
+.synres{display:flex;flex-direction:column;align-items:center;gap:calc(1*var(--vh));min-width:calc(60*var(--vh));padding:calc(1*var(--vh))}
+.synres b{font:800 calc(4*var(--vh)) 'Shippori Mincho B1';color:var(--c,#f3e3b0)}.synres span{font:600 calc(2.6*var(--vh)) 'Zen Kaku Gothic New';color:#ddd}
+.synres .synart{animation:synIn .7s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 0 18px var(--c))}
+.synres.rb .synart{animation:synIn .7s cubic-bezier(.3,1.6,.5,1),synRb 1.6s .7s ease-in-out infinite}
+@keyframes synIn{from{transform:scale(.2) rotate(-20deg);opacity:0}}
+@keyframes synRb{50%{filter:drop-shadow(0 0 30px #ff9cf0) drop-shadow(0 0 10px #a8c8ff) brightness(1.2)}}
+.synres.fail b{color:#ff9fb0}
+
+.shpw{display:flex;flex-direction:column;gap:calc(1.4*var(--vh));width:calc(110*var(--vh));max-width:100%;margin:calc(1*var(--vh)) auto 0}
+.shp{display:grid;grid-template-columns:calc(9*var(--vh)) calc(5*var(--vh)) calc(14*var(--vh)) 1fr;align-items:center;padding:calc(1.2*var(--vh)) calc(2.4*var(--vh));border-radius:12px;background:rgba(0,0,0,.3);box-shadow:inset 0 0 0 1px rgba(232,200,122,.3)}
+.shp span{font:800 calc(3.6*var(--vh)) 'Shippori Mincho B1'}.shp em{font-style:normal;color:#e8c87a;font-size:calc(3*var(--vh))}
+.shp small{font:600 calc(2.5*var(--vh)) 'Zen Kaku Gothic New';color:#e6ddd0}
+.shpn{font:500 calc(2.3*var(--vh))/1.7 'Zen Kaku Gothic New';color:#bdb4a6;padding:0 calc(1*var(--vh))}
+
+#story{position:fixed;inset:0;z-index:9000;background:#000;overflow:hidden;cursor:pointer;-webkit-user-select:none;user-select:none}
+#story .syBg{position:absolute;inset:-10%;background:radial-gradient(ellipse at 50% 35%,rgba(255,226,180,.55),rgba(140,100,160,.25) 40%,rgba(0,0,0,0) 75%),radial-gradient(circle at 30% 70%,rgba(120,160,255,.18),transparent 50%);filter:blur(calc(3*var(--vh)));opacity:0;transition:opacity 3s ease}
+#story .syLid{position:absolute;left:-5%;right:-5%;height:52%;background:#000;z-index:2;transition:transform 2.4s cubic-bezier(.6,0,.3,1)}
+#story .syLid.t{top:0;border-radius:0 0 50% 50%/0 0 30% 30%}#story .syLid.b{bottom:0;border-radius:50% 50% 0 0/30% 30% 0 0}
+#story.wake .syBg{opacity:1}#story.wake .syLid.t{transform:translateY(-100%)}#story.wake .syLid.b{transform:translateY(100%)}
+#story .syBox{position:absolute;left:50%;bottom:calc(5*var(--vh));transform:translateX(-50%) translateY(2vh);width:min(calc(150*var(--vh)),92%);min-height:calc(20*var(--vh));box-sizing:border-box;padding:calc(3.6*var(--vh)) calc(5*var(--vh)) calc(3*var(--vh));border-radius:calc(2.4*var(--vh));background:linear-gradient(180deg,rgba(18,12,26,.86),rgba(6,4,10,.92));box-shadow:inset 0 0 0 1.5px rgba(232,200,122,.7),inset 0 0 0 calc(.7*var(--vh)) rgba(0,0,0,.4),0 calc(1*var(--vh)) calc(4*var(--vh)) rgba(0,0,0,.6);opacity:0;transition:opacity .4s,transform .4s;z-index:5}
+#story .syBox.on{opacity:1;transform:translateX(-50%)}
+#story .syNm{position:absolute;left:calc(4*var(--vh));top:0;transform:translateY(-55%);padding:calc(.6*var(--vh)) calc(3*var(--vh));border-radius:99px;background:linear-gradient(180deg,#3a2a14,#1c140a);box-shadow:inset 0 0 0 1.5px #e8c87a;font:800 calc(3*var(--vh)) 'Shippori Mincho B1',serif;color:#ffe9b0;letter-spacing:.1em}
+#story .syTx{font:600 calc(4*var(--vh))/1.6 'Shippori Mincho B1',serif;color:#fff;letter-spacing:.04em;text-shadow:0 2px 6px rgba(0,0,0,.6)}
+#story .syNx{position:absolute;right:calc(3.4*var(--vh));bottom:calc(2*var(--vh));font-style:normal;color:#e8c87a;font-size:calc(2.6*var(--vh));opacity:0}
+#story .syBox.ready .syNx{opacity:1;animation:syNx .9s ease-in-out infinite}
+@keyframes syNx{50%{transform:translateY(calc(.8*var(--vh)))}}
+#story .syCh{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);display:flex;flex-direction:column;gap:calc(2.4*var(--vh));opacity:0;pointer-events:none;transition:opacity .3s;z-index:6}
+#story .syCh.on{opacity:1;pointer-events:auto}
+#story .syCh button{min-width:calc(56*var(--vh));padding:calc(2.4*var(--vh)) calc(4*var(--vh));border-radius:99px;border:1.5px solid #e8c87a;background:linear-gradient(180deg,rgba(40,28,52,.92),rgba(14,10,20,.95));color:#ffe9b0;font:800 calc(3.6*var(--vh)) 'Shippori Mincho B1',serif;letter-spacing:.1em;box-shadow:0 0 calc(2*var(--vh)) rgba(232,200,122,.25)}
+#story .syForm{position:absolute;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .35s;z-index:7;background:rgba(0,0,0,.35)}
+#story .syForm.on{opacity:1;pointer-events:auto}
+#story .syF{display:flex;flex-direction:column;align-items:center;gap:calc(2*var(--vh));padding:calc(4*var(--vh)) calc(6*var(--vh));border-radius:calc(2.4*var(--vh));min-width:calc(76*var(--vh));cursor:default}
+#story .syFt{font:800 calc(3.6*var(--vh)) 'Shippori Mincho B1',serif;color:#ffe9b0;letter-spacing:.08em}
+#story .syF .inp{width:100%;font-size:calc(3.4*var(--vh))!important;text-align:center}
+#story .syG{display:flex;gap:calc(2*var(--vh));width:100%}
+#story .syG button{flex:1;padding:calc(2*var(--vh)) 0;border-radius:calc(1.6*var(--vh));border:1.5px solid rgba(232,200,122,.5);background:rgba(0,0,0,.35);color:#e9dcc0;font:800 calc(3.2*var(--vh)) 'Shippori Mincho B1',serif}
+#story .syG button[data-g=m].on{border-color:#8fc8ff;color:#fff;background:linear-gradient(180deg,#2a4a7a,#13233e);box-shadow:0 0 calc(2*var(--vh)) rgba(120,190,255,.6)}
+#story .syG button[data-g=f].on{border-color:#ff9fc8;color:#fff;background:linear-gradient(180deg,#7a2a54,#3e1328);box-shadow:0 0 calc(2*var(--vh)) rgba(255,140,190,.6)}
+#story #syOk{width:100%;font-size:calc(3.6*var(--vh))!important;padding:calc(2*var(--vh)) 0!important}
+#story #syOk.dis{opacity:.45}
+#story .syF small{font:500 calc(2*var(--vh)) 'Zen Kaku Gothic New';color:#a89f92}
+#story .syFade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity 1.2s;z-index:20}
+#story.out .syFade{opacity:1}
+#story.gone{opacity:0;transition:opacity 1.2s;pointer-events:none}
+#story.gone .syFade{opacity:1}
+
+.rnm{display:flex;flex-direction:column;gap:calc(2*var(--vh));width:calc(70*var(--vh));margin:calc(1*var(--vh)) auto 0}
+.rnm .inp{font-size:calc(3.2*var(--vh))!important;text-align:center}
+.rnG{display:flex;gap:calc(2*var(--vh))}
+.rnG button{flex:1;padding:calc(2*var(--vh)) 0;border-radius:calc(1.6*var(--vh));border:1.5px solid rgba(232,200,122,.5);background:rgba(0,0,0,.35);color:#e9dcc0;font:800 calc(3*var(--vh)) 'Shippori Mincho B1',serif}
+.rnG button[data-g=m].on{border-color:#8fc8ff;color:#fff;background:linear-gradient(180deg,#2a4a7a,#13233e)}
+.rnG button[data-g=f].on{border-color:#ff9fc8;color:#fff;background:linear-gradient(180deg,#7a2a54,#3e1328)}
+
+#story.inroom{background:transparent}
+#story.inroom .syBg,#story.inroom .syLid{display:none}
+#story.inroom .syCh{left:auto;right:calc(14*var(--vh));top:40%;transform:translateY(-50%)}
+#story.inroom .syCh button{min-width:calc(46*var(--vh))}
+#story .syGift{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%) scale(.3);opacity:0;display:flex;flex-direction:column;align-items:center;gap:calc(1*var(--vh));transition:.6s cubic-bezier(.3,1.6,.5,1);z-index:4;pointer-events:none}
+#story .syGift.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+#story .syGift img{height:calc(42*var(--vh));filter:drop-shadow(0 0 calc(3*var(--vh)) rgba(255,160,110,.85));animation:rkFloat 2.4s ease-in-out infinite}
+#story .syGift b{font:900 calc(4.4*var(--vh)) 'Shippori Mincho B1',serif;color:#ffe9b0;text-shadow:0 0 12px rgba(255,170,110,.9)}
+#story .sgR{position:absolute;left:50%;top:45%;width:calc(80*var(--vh));height:calc(80*var(--vh));margin:calc(-40*var(--vh)) 0 0 calc(-40*var(--vh));background:repeating-conic-gradient(rgba(255,200,140,.25) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 15%,transparent 62%);mask:radial-gradient(circle,#000 15%,transparent 62%);animation:rkSpin 14s linear infinite;z-index:-1}
+#tut{position:fixed;inset:0;z-index:8900;cursor:pointer}
+#tut.gone{opacity:0;transition:opacity .5s;pointer-events:none}
+#tut .tHole{position:absolute;box-shadow:0 0 0 200vmax rgba(0,0,0,.62),0 0 0 3px #ffe08a,0 0 24px 6px rgba(255,210,120,.8);transition:all .45s cubic-bezier(.4,0,.2,1);animation:tHp 1.4s ease-in-out infinite}
+#tut .tHole.none{left:50%!important;top:50%!important;width:0!important;height:0!important;box-shadow:0 0 0 200vmax rgba(0,0,0,.62)}
+@keyframes tHp{50%{box-shadow:0 0 0 200vmax rgba(0,0,0,.62),0 0 0 3px #fff3c0,0 0 36px 10px rgba(255,210,120,1)}}
+#tut .tCap{position:absolute;width:min(calc(96*var(--vh)),62%);box-sizing:border-box;padding:calc(3*var(--vh)) calc(4*var(--vh)) calc(3.4*var(--vh));border-radius:calc(2.4*var(--vh));background:linear-gradient(180deg,rgba(18,12,26,.94),rgba(6,4,10,.96));box-shadow:inset 0 0 0 1.5px rgba(232,200,122,.75),0 calc(1*var(--vh)) calc(4*var(--vh)) rgba(0,0,0,.6);transition:opacity .3s,left .45s,top .45s}
+#tut .tCap.mid{left:50%;top:50%;transform:translate(-50%,-50%)}
+#tut .tTx{font:600 calc(3.4*var(--vh))/1.6 'Shippori Mincho B1',serif;color:#fff}
+#tut .tTx b{color:#ffe08a}#tut .tTx small{display:block;margin-top:calc(.6*var(--vh));font:600 calc(2.3*var(--vh)) 'Zen Kaku Gothic New';color:#ffb0c0}
+#tut .tPg{position:absolute;left:calc(4*var(--vh));bottom:calc(1.2*var(--vh));font:600 calc(1.9*var(--vh)) 'Cinzel';color:#a89f92}
+#tut .syNx{position:absolute;right:calc(3*var(--vh));bottom:calc(1.6*var(--vh));font-style:normal;color:#e8c87a;font-size:calc(2.4*var(--vh));animation:syNx .9s ease-in-out infinite}
+
+@keyframes tIn{from{opacity:0}}
+
+.fuUn{position:absolute;left:50%;top:36%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:calc(.8*var(--vh));z-index:4;pointer-events:none;animation:synIn .7s cubic-bezier(.3,1.6,.5,1)}
+.fuUn.fade{opacity:.35;transition:opacity .6s}
+.fuRays{position:absolute;left:50%;top:38%;width:calc(70*var(--vh));height:calc(70*var(--vh));margin:calc(-35*var(--vh)) 0 0 calc(-35*var(--vh));background:repeating-conic-gradient(rgba(255,220,150,.28) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(circle,#000 15%,transparent 62%);mask:radial-gradient(circle,#000 15%,transparent 62%);animation:rkSpin 14s linear infinite;z-index:-1}
+.fuIc svg{width:calc(20*var(--vh));height:calc(20*var(--vh));filter:drop-shadow(0 0 calc(2.4*var(--vh)) rgba(255,210,140,.95));animation:rkFloat 2.4s ease-in-out infinite}
+.fuUn b{font:900 calc(5.6*var(--vh)) 'Shippori Mincho B1',serif;letter-spacing:.08em;background:linear-gradient(180deg,#fffbe6,#ffe08a 50%,#c08a28);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 2px 0 #4a2a08) drop-shadow(0 0 12px rgba(255,210,120,.7))}
+.fuUn span{font:800 calc(4*var(--vh)) 'Shippori Mincho B1',serif;color:#fff;padding:calc(.4*var(--vh)) calc(4*var(--vh));border-radius:99px;background:rgba(0,0,0,.5);box-shadow:inset 0 0 0 1.5px #e8c87a}
+
+#tut .tFg{position:absolute;width:calc(7*var(--vh));height:calc(7*var(--vh));pointer-events:none;z-index:3;animation:tFg 1s ease-in-out infinite}
+#tut .tFg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle,#fff 0 30%,rgba(255,224,138,.9) 31% 45%,transparent 46%);border-radius:50%;filter:drop-shadow(0 0 8px #ffd76a)}
+@keyframes tFg{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-25%,-25%) scale(.8)}}
+#tut .tCap.tapmode .syNx{display:none}
+#tut .tCap .syNx{opacity:0}#tut .tCap.ready .syNx{opacity:1}
+#tut .tCap{transition:opacity .25s,left .45s,top .45s}
 </style>
 </head>
 <body>
@@ -1800,10 +1897,106 @@ $('#playBtn').onclick=()=>{
   $('#nameOv').classList.remove('on');$('#login').classList.remove('on');$('#game').classList.add('on');
   $('#hudName').textContent=n;
   hudAvatar();
-  updHud();initRoom();try{R.rd&&R.rd.compile(R.sc,R.cam);}catch(e){}R.intro=1;R.paused=false;setTimeout(()=>{try{typeof zxLoad==='function'&&zxLoad();}catch(e){}},6000);
+  updHud();initRoom();try{R.rd&&R.rd.compile(R.sc,R.cam);}catch(e){}R.intro=1;R.paused=false;if(save.tut==='gift')setTimeout(giftStart,2600);else if(save.tut==='tut')setTimeout(tutStart,2000);else setTimeout(fuseUnlockChk,2600);setTimeout(()=>{try{typeof zxLoad==='function'&&zxLoad();}catch(e){}},6000);
 };
 $('#nameIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#playBtn').click();});
-$('#startBtn').onclick=()=>{if(!READY)return;sfx('tap');if(save.name){$('#nameIn').value=save.name;$('#playBtn').click();return;}$('#nameOv').classList.add('on');setTimeout(()=>$('#nameIn').focus(),60);};
+$('#startBtn').onclick=()=>{if(!READY)return;sfx('tap');if(save.name){$('#nameIn').value=save.name;$('#playBtn').click();return;}storyStart();};
+/* ===== はじめてのストーリー ===== */
+const STY={el:null,step:0,typing:null,full:'',done:null};
+let SY_SND='E';
+function syBlip(){try{if(!audio())return;const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();g.connect(SFXG);o.connect(g);const k=SY_SND;
+  if(k==='A'){o.type='sine';o.frequency.setValueAtTime(1180+Math.random()*60,t);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.16,t+.004);g.gain.exponentialRampToValueAtTime(.001,t+.05);o.start(t);o.stop(t+.06);}
+  else if(k==='B'){o.type='triangle';o.frequency.setValueAtTime(520,t);o.frequency.exponentialRampToValueAtTime(260,t+.03);g.gain.setValueAtTime(.22,t);g.gain.exponentialRampToValueAtTime(.001,t+.045);o.start(t);o.stop(t+.05);}
+  else if(k==='C'){o.type='sine';const f=[1568,1760,2093,2349][Math.floor(Math.random()*4)];o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.09,t+.003);g.gain.exponentialRampToValueAtTime(.001,t+.16);o.start(t);o.stop(t+.17);}
+  else if(k==='E'){o.type='sine';o.frequency.setValueAtTime(330+Math.random()*20,t);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.26,t+.004);g.gain.exponentialRampToValueAtTime(.001,t+.05);o.start(t);o.stop(t+.06);}
+  else{o.type='square';o.frequency.setValueAtTime(380+Math.random()*120,t);g.gain.setValueAtTime(.06,t);g.gain.exponentialRampToValueAtTime(.001,t+.06);o.start(t);o.stop(t+.07);}}catch(e){}}
+function syBtn(k){try{if(!audio())return;const t=AC.currentTime;const n=(f,d,v,ty)=>{const o=AC.createOscillator(),g=AC.createGain();o.type=ty||'sine';o.frequency.setValueAtTime(f,t+d);g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(v,t+d+.006);g.gain.exponentialRampToValueAtTime(.001,t+d+.22);o.connect(g);g.connect(SFXG);o.start(t+d);o.stop(t+d+.25);};
+  if(k===1){n(880,0,.08);}else if(k===2){n(784,0,.13);n(1175,.07,.12);n(1568,.14,.1);}else{n(988,0,.13);n(1480,.05,.09);}}catch(e){}}
+function syMake(cls){const el=document.createElement('div');el.id='story';if(cls)el.className=cls;el.innerHTML=`<div class="syBg"></div><div class="syLid t"></div><div class="syLid b"></div><div class="syGift"></div><div class="syBox"><div class="syNm"></div><div class="syTx"></div><i class="syNx">▼</i></div><div class="syCh"></div><div class="syForm"></div><div class="syFade"></div>`;document.body.appendChild(el);STY.el=el;
+  el.addEventListener('click',e=>{if(e.target.closest('.syCh,.syForm'))return;syTap();});return el;}
+function storyStart(){const el=syMake();
+  try{bgmStop();}catch(e){}
+  setTimeout(()=>syLine('','……ここは？',()=>{el.classList.add('wake');setTimeout(()=>syLine('？？？','よかったぁ、目が覚めた。',()=>syLine('？？？','ところで、どこから来たの？',()=>syChoice(['わからない','覚えてない'],()=>syLine('？？？','そっかぁ……。私の名前はアール！<br>あなたの名前は？',()=>syForm())))),900);}),1800);}
+function syLine(nm,tx,next){const el=STY.el,box=el.querySelector('.syBox'),n=el.querySelector('.syNm'),t=el.querySelector('.syTx');box.classList.add('on');box.classList.remove('ready');n.textContent=nm;n.style.display=nm?'':'none';
+  STY.full=tx;STY.done=next;let i=0;const plain=tx.replace(/<br>/g,'\n');clearInterval(STY.typing);t.innerHTML='';
+  STY.typing=setInterval(()=>{i++;t.innerHTML=esc(plain.slice(0,i)).replace(/\n/g,'<br>');if(!/[\s、。…！？!?・ー]/.test(plain[i-1]))syBlip();if(i>=plain.length){clearInterval(STY.typing);STY.typing=null;box.classList.add('ready');}},55);}
+function syTap(){const el=STY.el;if(!el)return;const box=el.querySelector('.syBox');if(!box.classList.contains('on'))return;
+  if(STY.typing){clearInterval(STY.typing);STY.typing=null;el.querySelector('.syTx').innerHTML=STY.full;box.classList.add('ready');return;}
+  if(!box.classList.contains('ready')||!STY.done)return;syBtn(1);const f=STY.done;STY.done=null;box.classList.remove('ready');f();}
+function syChoice(opts,next){const c=STY.el.querySelector('.syCh');c.innerHTML=opts.map((o,k)=>`<button data-k="${k}">${o}</button>`).join('');c.classList.add('on');
+  c.querySelectorAll('button').forEach(b=>b.onclick=e=>{e.stopPropagation();syBtn();c.classList.remove('on');setTimeout(next,250);});}
+function syForm(){const f=STY.el.querySelector('.syForm');let g=null;
+  f.innerHTML=`<div class="syF glass"><div class="syFt">名前と性別をきめてください</div><input class="inp" id="syName" maxlength="12" placeholder="名前を入力" autocomplete="off"><div class="syG"><button data-g="m">男の子</button><button data-g="f">女の子</button></div><button class="gbtn" id="syOk">けってい</button><small>名前と性別は後からも変更できます</small></div>`;
+  f.classList.add('on');const ok=f.querySelector('#syOk'),inp=f.querySelector('#syName');
+  const chk=()=>ok.classList.toggle('dis',!(inp.value.trim()&&g));chk();inp.addEventListener('input',chk);
+  f.querySelectorAll('.syG button').forEach(b=>b.onclick=e=>{e.stopPropagation();g=b.dataset.g;f.querySelectorAll('.syG button').forEach(x=>x.classList.toggle('on',x===b));syBtn();chk();});
+  ok.onclick=e=>{e.stopPropagation();const n=inp.value.trim();if(!n){toast('名前を入力してください');return;}if(!g){toast('性別をえらんでください');return;}
+    save.name=n;save.gender=g;persist();syBtn(2);f.classList.remove('on');
+    setTimeout(()=>syLine('アール',`よろしくね、${n}${g==='m'?'くん':'ちゃん'}！`,()=>syLine('アール','とりあえず、近くの空き部屋を<br>貸してあげるね！',()=>syEnd())),300);};}
+function syEnd(){const el=STY.el;el.querySelector('.syBox').classList.remove('on');el.classList.add('out');save.tut='gift';persist();setTimeout(()=>{$('#nameIn').value=save.name;$('#playBtn').click();setTimeout(()=>{el.classList.add('gone');setTimeout(()=>{el.remove();STY.el=null;},1200);},400);},1300);}
+/* ---- 部屋に着いてから：モンQのプレゼント → チュートリアル ---- */
+function giftStart(){if(STY.el)return;const el=syMake('inroom');const has=save.box.some(Boolean);
+  const after=()=>syLine('アール','大事にしてあげてね！',()=>syLine('アール','それじゃあ、またね！',()=>{el.querySelector('.syBox').classList.remove('on');syNarr('アールは帰っていった。',()=>{el.classList.add('gone');setTimeout(()=>{el.remove();STY.el=null;save.tut='tut';persist();tutStart();},700);});}));
+  setTimeout(()=>syLine('アール','この世界では、モンQと呼ばれる<br>モンスターたちが暮らしてるよ。',()=>{
+    if(has){after();return;}
+    syLine('アール','まだモンQを持っていないよね？<br>この子をプレゼントするね！',()=>{giftGive();setTimeout(()=>syLine('','クリスネ が仲間になった！',()=>syChoice(['かわいい！','ありがとう！'],()=>{el.querySelector('.syGift').classList.remove('on');after();})),1600);});}),400);}
+function giftGive(){const src='special:crystalkitsune#gift';if(!save.box.some(x=>x&&String(x).startsWith('special:crystalkitsune'))){const i=save.box.indexOf(null);if(i>=0)save.box[i]=src;}persist();try{updHud();applyUR();}catch(e){}
+  const g=STY.el.querySelector('.syGift');g.innerHTML=`<div class="sgR"></div><img src="${KIT_M.img}" alt=""><b>クリスネ</b>`;g.classList.add('on');try{sfx('summon');setTimeout(()=>sfx('win'),400);}catch(e){}}
+function syNarr(tx,next){syLine('',tx,next);}
+/* ---- ランク5：錬成の解放 ---- */
+function fuseUnlockChk(){try{if(save.fuseOpen||STY.el||document.getElementById('tut')||B||$('#modal').classList.contains('on')||save.tut!=='done')return;if(((save.prof&&save.prof.rank)||1)<5)return;}catch(e){return;}
+  save.fuseOpen=1;persist();const el=syMake('inroom');
+  setTimeout(()=>{const u=document.createElement('div');u.className='fuUn';u.innerHTML=`<div class="fuRays"></div><div class="fuIc"><svg viewBox="0 0 48 48"><path d="M24 4l5 13 13 1-10 9 3 14-11-7-11 7 3-14-10-9 13-1z" fill="url(#fuG)" stroke="#fff3c0" stroke-width="1.2"/><defs><linearGradient id="fuG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7ab8"/><stop offset=".35" stop-color="#ffd76a"/><stop offset=".65" stop-color="#6af0c0"/><stop offset="1" stop-color="#8aa8ff"/></linearGradient></defs></svg></div><b>新機能 解放！</b><span>錬成</span>`;el.appendChild(u);syBtn(2);try{sfx('win');}catch(e){}
+    setTimeout(()=>syNarr('プレイヤーランクが 5 になった！',()=>{u.classList.add('fade');
+      syNarr('モンQを強くできる「錬成」が<br>使えるようになりました！',()=>syNarr('さっそく錬成の画面を開いてみよう。',()=>{el.querySelector('.syBox').classList.remove('on');u.remove();el.classList.add('gone');setTimeout(()=>{el.remove();STY.el=null;fuseTut();},700);}));}),1600);},500);}
+/* 文字送り（効果音つき） */
+function tType(box,html,done){const t=box.querySelector('.tTx');clearInterval(box._ty);const parts=html.split(/(<[^>]+>)/);let out=[],pi=0,ci=0;box.classList.remove('ready');t.innerHTML='';box._full=html;box._done=done;
+  box._ty=setInterval(()=>{while(pi<parts.length&&(parts[pi].startsWith('<')||ci>=parts[pi].length)){if(parts[pi].startsWith('<'))out.push(parts[pi]);else if(ci>=parts[pi].length){}pi++;ci=0;}
+    if(pi>=parts.length){clearInterval(box._ty);box._ty=null;box.classList.add('ready');return;}const ch=parts[pi][ci++];out.push(ch);
+    let h='',open=[];t.innerHTML=out.join('')+'';if(!/[\s、。…！？!?・ー（）「」]/.test(ch))syBlip();},55);}
+function tSkip(box){if(box._ty){clearInterval(box._ty);box._ty=null;box.querySelector('.tTx').innerHTML=box._full;box.classList.add('ready');return true;}return false;}
+/* 実際に押させるガイド付きチュートリアル */
+function guide(steps,onEnd){const ov=document.createElement('div');ov.id='tut';ov.innerHTML=`<div class="tHole"></div><div class="tCap"><div class="tTx"></div><i class="syNx">▼</i><span class="tPg"></span></div><div class="tFg"></div>`;document.body.appendChild(ov);
+  let k=-1,cur=null,busy=false;const h=ov.querySelector('.tHole'),c=ov.querySelector('.tCap'),fg=ov.querySelector('.tFg');
+  const place=e=>{if(!e){h.classList.add('none');h.style.cssText='';c.className='tCap mid';c.style.left='';c.style.top='';fg.style.display='none';return;}
+    const r=tutRect(e),p=10;h.style.cssText=`left:${r.x-p}px;top:${r.y-p}px;width:${r.w+p*2}px;height:${r.h+p*2}px;border-radius:${Math.min(r.w,r.h)>90?'18px':'50%'}`;h.classList.remove('none');c.className='tCap';
+    const W=document.body.clientWidth||innerWidth,H=document.body.clientHeight||innerHeight,cw=c.offsetWidth,ch=c.offsetHeight;let L=r.x+r.w/2>W/2?r.x-p-24-cw:r.x+r.w+p+24;L=Math.max(12,Math.min(W-cw-12,L));let T=Math.max(12,Math.min(H-ch-12,r.y+r.h/2-ch/2));c.style.left=L+'px';c.style.top=T+'px';
+    if(cur&&cur.tap){fg.style.display='';fg.style.left=(r.x+r.w*.55)+'px';fg.style.top=(r.y+r.h*.55)+'px';}else fg.style.display='none';};
+  const find=st=>{if(!st.q)return null;if(typeof st.q==='function')return st.q();return document.querySelector(st.q);};
+  const show=()=>{k++;if(k>=steps.length){ov.classList.add('gone');setTimeout(()=>ov.remove(),500);onEnd&&onEnd();return;}cur=steps[k];busy=true;
+    const go=()=>{const e=find(cur);c.querySelector('.tTx').innerHTML=cur.t;place(e);c.querySelector('.tPg').textContent=(k+1)+' / '+steps.length;c.classList.toggle('tapmode',!!cur.tap);syBtn(1);tType(c,cur.t,null);busy=false;};
+    cur.wait?setTimeout(go,cur.wait):go();};
+  ov.addEventListener('click',ev=>{if(busy)return;if(tSkip(c))return;
+    if(cur&&cur.tap){const e=find(cur);if(!e)return;const r=e.getBoundingClientRect();if(ev.clientX<r.left-12||ev.clientX>r.right+12||ev.clientY<r.top-12||ev.clientY>r.bottom+12)return;
+      ov.style.pointerEvents='none';h.classList.add('none');c.style.opacity='0';fg.style.display='none';setTimeout(()=>{try{e.click();}catch(_){}setTimeout(()=>{ov.style.pointerEvents='';c.style.opacity='';show();},cur.after||450);},60);return;}
+    if(!c.classList.contains('ready'))return;show();});
+  setTimeout(show,300);return ov;}
+function fuseTut(){const fb=()=>[...document.querySelectorAll('#monMenu button,#monMenu .mi')].find(b=>/錬成/.test(b.textContent));
+  guide([{q:'#monBtn',tap:1,t:'<b>モンスター</b> ボタンを押してみよう！',after:400},
+    {q:fb,tap:1,t:'メニューに <b>錬成</b> が追加されているよ。<br>押してみよう！',after:700},
+    {q:()=>document.querySelectorAll('#modal .fslot')[0],t:'ここには、強くしたい <b>メイン</b> のモンQを入れるよ。<br><small>SR・URのモンQだけ錬成できます</small>'},
+    {q:()=>document.querySelectorAll('#modal .fslot')[1],t:'ここには <b>素材</b> にするモンQを入れるよ。<br>メインと同じレア度（SRならSR、URならUR）が必要！<br><small>素材にしたモンQはいなくなります</small>'},
+    {q:()=>[...document.querySelectorAll('#modal .gbtn')].find(b=>/錬成する/.test(b.textContent)),t:'<b>錬成する</b> を押すと、体力・攻撃・防御・会心率の<br>4つが、それぞれ 0〜3段階アップするか抽選されるよ。'},
+    {q:null,t:'結果を見て、<b>錬成前</b> と <b>錬成後</b> のどちらにするか<br>選べるから安心してね。さっそく試してみよう！'}]);}
+/* ---- チュートリアル ---- */
+const TUT=[{q:'#avJoy',t:'左下のスティックで、部屋の中を歩けるよ。'},
+ {q:'#menuBtn',t:'右上の歯車から <b>QRスキャン</b> ができるよ。<br>身の回りのQRコードやバーコードを読み取ると、新しいモンQを召喚できる！'},
+ {q:'#monBtn',t:'ここは <b>モンスター</b>。<br>BOXで持っているモンQを見たり、部屋に出したりできるよ。<br><small>錬成はプレイヤーランク5で解放されます</small>'},
+ {q:'#bagBtn',t:'ここは <b>かばん</b>。<br>冒険で手に入れた携帯品やアイテムが入っているよ。'},
+ {q:'#shopBtn',t:'ここは <b>ショップ</b>。<br>コインでポーションなどを買えるよ。'},
+ {q:'.hud2',t:'左上は <b>プロフィール</b>。<br>レベルやスタミナ、ランクを確認できるよ。'},
+ {q:null,t:'部屋の <b>ドア</b> に近づくと、冒険や対戦に出かけられるよ。'},
+ {q:'#menuBtn',t:'さっそく <b>QRスキャン</b> で、モンQを召喚してみよう！'}];
+function tutRect(e){const r=e.getBoundingClientRect();if(typeof ROT!=='undefined'&&ROT)return{x:r.top,y:innerWidth-r.right,w:r.height,h:r.width};return{x:r.left,y:r.top,w:r.width,h:r.height};}
+function tutStart(){const ov=document.createElement('div');ov.id='tut';ov.innerHTML=`<div class="tHole"></div><div class="tCap"><div class="tTx"></div><i class="syNx">▼</i><span class="tPg"></span></div>`;document.body.appendChild(ov);let k=-1;
+  const show=()=>{k++;if(k>=TUT.length){ov.classList.add('gone');setTimeout(()=>ov.remove(),500);save.tut='done';persist();return;}
+    const st=TUT[k],h=ov.querySelector('.tHole'),c=ov.querySelector('.tCap');c.querySelector('.tTx').innerHTML=st.t;const e=st.q&&document.querySelector(st.q);
+    if(e&&e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&+getComputedStyle(e).opacity>.1){const r=tutRect(e),p=Math.max(r.w,r.h)*.18+8;h.style.cssText=`left:${r.x-p}px;top:${r.y-p}px;width:${r.w+p*2}px;height:${r.h+p*2}px;border-radius:${Math.min(r.w,r.h)>120?'24px':'50%'}`;h.classList.remove('none');
+      c.className='tCap';const W=document.body.clientWidth||innerWidth,H=document.body.clientHeight||innerHeight,cw=c.offsetWidth||W*.5,ch=c.offsetHeight||H*.25,cx=r.x+r.w/2,g=Math.max(16,p+14);
+      let L=cx>W/2?r.x-p-g-cw:r.x+r.w+p+g;L=Math.max(12,Math.min(W-cw-12,L));let T=r.y+r.h/2-ch/2;T=Math.max(12,Math.min(H-ch-12,T));c.style.left=L+'px';c.style.top=T+'px';}
+    else{h.classList.add('none');h.style.cssText='';c.className='tCap mid';c.style.left='';c.style.top='';}
+    c.querySelector('.tPg').textContent=(k+1)+' / '+TUT.length;c.classList.remove('ready');c.offsetWidth;c.classList.add('ready');syBtn(1);};
+  ov.addEventListener('click',show);setTimeout(show,300);}
 $('#backBtn').onclick=()=>{sfx('tap');$('#nameOv').classList.remove('on');};
 /* ---- プロフィール・アイコン・フレーム ---- */
 const ICONS={
@@ -1828,7 +2021,10 @@ function openProfile(){profInit();sfx('tap');closeMenu();const n=save.box.filter
     <div class="prof"><div class="pav">${avatarHTML('100%')}</div><div class="pin"><div class="pnm">${esc(save.name||'サモナー')}</div><div class="prk"><span>ランク <b>${save.prof.rank}</b></span><span class="rkb"><i style="width:${rankBar()}%"></i></span><small>次のランクまで ${rankNeed(save.prof.rank)-save.prof.exp} EXP</small></div></div></div>
     <div class="pfs"><div><small>ひとりで対戦 最高連勝</small><b>${save.best||0}<i>連勝</i></b></div><div class="pfr"><small>現在のランク</small>${rkBox()}</div></div></div></div>`;
   modal(pnl('プロフィール','',body,`<button class="gbtn" onclick="closeModal()">とじる</button>`));
-  const p=$('#modal .pnl');if(p){p.insertAdjacentHTML('afterbegin',`<button class="pfset" aria-label="設定" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('on')"><svg viewBox="0 0 32 32"><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="#e2b660" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button><div class="pfsm"><button onclick="openIconSel()">アイコン変更</button><button onclick="openFrameSel()">フレーム変更</button></div>`);}}
+  const p=$('#modal .pnl');if(p){p.insertAdjacentHTML('afterbegin',`<button class="pfset" aria-label="設定" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('on')"><svg viewBox="0 0 32 32"><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="#e2b660" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button><div class="pfsm"><button onclick="openIconSel()">アイコン変更</button><button onclick="openFrameSel()">フレーム変更</button><button onclick="openRename()">名前・性別の変更</button></div>`);}}
+function openRename(){sfx('tap');let g=save.gender==='m'?'m':'f';modal(pnl('名前・性別の変更','',`<div class="rnm"><input class="inp" id="rnIn" maxlength="12" value="${esc(save.name||'')}" placeholder="名前を入力" autocomplete="off"><div class="rnG"><button data-g="m" class="${g==='m'?'on':''}">男の子</button><button data-g="f" class="${g==='f'?'on':''}">女の子</button></div></div>`,`<button class="obtn" onclick="openProfile()">もどる</button><button class="gbtn" id="rnOk">変更する</button>`));
+  document.querySelectorAll('#modal .rnG button').forEach(b=>b.onclick=()=>{g=b.dataset.g;document.querySelectorAll('#modal .rnG button').forEach(x=>x.classList.toggle('on',x===b));sfx('tap');});
+  $('#rnOk').onclick=()=>{const n=$('#rnIn').value.trim();if(!n){toast('名前を入力してください');return;}const gc=g!==avGender();save.name=n;save.gender=g;persist();$('#hudName').textContent=n;sfx('buff');if(gc){try{avLoad();}catch(e){}const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(g==='m'?'男の子':'女の子');}toast('変更しました');openProfile();};}
 function openIconSel(){sfx('tap');const p=save.prof;const g=p.icons.map(k=>`<div class="ics${p.icon===k?' on':''}" onclick="setIcon('${k}')"><span class="av" style="--s:100%">${ICONS[k].svg}</span><small>${ICONS[k].n}</small></div>`).join('');
   modal(pnl('アイコン変更',`所持アイコン ${p.icons.length}個`,`<div class="icg">${g}</div>`,`<button class="obtn" onclick="openProfile()">もどる</button>`));}
 function setIcon(k){save.prof.icon=k;persist();hudAvatar();openIconSel();}
@@ -2975,7 +3171,7 @@ function trainIn(){if(save.train.length>=3)return;pickMon('育成に預けるモ
 function trainOut(k){const t=save.train[k];if(!t)return;const g=trainGain(t),d=mst(t.s);d.lv=Math.min(MON_MAX,d.lv+g);save.train.splice(k,1);persist();sfx(g?'win':'tap');toast(g?`${gen(t.s).name} は Lv.${d.lv} になった！`:`${gen(t.s).name} を引き取りました`);renderTrain();}
 /* --- 錬成 --- */
 const FU={main:null,mat:null,pend:null};
-function openFuse(){closeMenu();sfx('open');FU.main=FU.mat=null;renderFuse();}
+function openFuse(){closeMenu();if(((save.prof&&save.prof.rank)||1)<5){sfx('tap');toast('錬成はプレイヤーランク5で解放されます');return;}sfx('open');FU.main=FU.mat=null;renderFuse();}
 function renderFuse(){const slot=(s,lab,fn)=>s?`<div class="fslot" onclick="${fn}()"><img src="${gen(s).img}" alt=""><b>${gen(s).name}</b><small>${lab}</small></div>`:`<div class="fslot em" onclick="${fn}()"><i>＋</i><small>${lab}</small></div>`;
   let info='';if(FU.main){const d=mst(FU.main);info='<div class="fst">'+STK.map(k=>`<span>${STL[k]} <em>${pips(d.pl[k])}</em></span>`).join('')+'</div>';}
   modal(pnl('錬成','SRはSR同士、URはUR同士で合わせると、メインのモンスターの体力・攻撃・防御・会心率の4つすべてが0〜3段階で抽選されます。錬成前と錬成後のどちらにするか選べます。素材のモンスターはいなくなります。',`<div class="frow">${slot(FU.main,'メイン','fuseMain')}<div class="fplus">＋</div>${slot(FU.mat,'素材','fuseMat')}</div>${info}`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" onclick="doFuse()" ${FU.main&&FU.mat?'':'disabled style="opacity:.4"'}>錬成する</button>`));}
@@ -3066,8 +3262,33 @@ function openBag(tab){tab=tab||BAGT||'eq';BAGT=tab;sfx('tap');closeMenu();const 
   let body;if(tab==='item'){stNow();const rows=SHOP.filter(x=>invN(x.k)).map(it=>`<div class="shr"><div class="shi">${POT_SVG[it.k]}</div><div class="shn"><b>${it.n}</b><small>${it.d}</small><em>所持 ${invN(it.k)}個</em></div><div class="shb"><button class="gbtn" onclick="useItem('${it.k}','bag')">使う</button></div></div>`).join('')||'<div class="pempty">アイテムを持っていません<br>ショップでポーションを買えます</div>';
     body=tabs+`<div class="shc" style="justify-content:center;width:100%;margin-bottom:calc(1*var(--vh))"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${ST_MAX}</div><div class="shl" style="margin:0 auto;width:calc(62*var(--vh));max-width:100%">${rows}</div>`;}
   else body=tabs+`<div class="bgg">${g}</div>`;
-  modal(pnl('かばん','',body,`<button class="obtn" onclick="closeModal()">とじる</button>`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP','bagP');}}
+  modal(pnl('かばん','',body,`<button class="obtn" onclick="closeModal()">とじる</button>${tab==='eq'?'<button class="gbtn" onclick="openSyn()">合成</button>':''}`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP','bagP');}}
 let BAGT='eq';
+/* ---- 携帯品の合成（銅→銀→金→金/虹） ---- */
+let SYN={r:0,sel:[]};const SYN_MAX=10,SYN_RB=.03;
+function synRate(r,n){return r>=2?1:Math.min(1,n*.1);}
+function openSyn(r){if(!save.synHelp){save.synHelp=1;persist();sfx('open');synHelp(r);return;}sfx('tap');if(r!==undefined){SYN={r,sel:[]};}else SYN.sel=SYN.sel.filter(id=>save.items.some(x=>x.id===id&&x.r===SYN.r));renderSyn();}
+function synHelp(r){const row=(a,b,c)=>`<div class="shp"><span style="color:${IRAR[a].c}">${IRAR[a].k}</span><em>➜</em><span style="color:${IRAR[b].c}">${b===3?'金以上':IRAR[b].k}</span><small>${c}</small></div>`;
+  modal(pnl('携帯品の合成とは？','同じランクの携帯品を合わせて、上のランクの携帯品を作れます',`<div class="shpw">${row(0,1,'1〜10個入れる。1個で10%、10個入れると100%成功')}${row(1,2,'1〜10個入れる。1個で10%、10個入れると100%成功')}${row(2,3,'必ず金以上になる。低確率で虹の携帯品が出る')}<div class="shpn">・銅と銀は、失敗すると入れた携帯品はなくなります<br>・できる携帯品の種類は、入れた携帯品のどれかになります<br>・装備中の携帯品は合成に使えません</div></div>`,`<button class="gbtn" onclick="openSyn(${r===undefined?'undefined':r})">わかった</button>`));}
+function synToggle(id){const i=SYN.sel.indexOf(id);if(i>=0)SYN.sel.splice(i,1);else{if(SYN.sel.length>=SYN_MAX){toast('一度に入れられるのは'+SYN_MAX+'個までです');return;}SYN.sel.push(id);}sfx('tap');renderSyn();}
+function synAuto(){const c=save.items.filter(x=>x.r===SYN.r&&!itEquippedBy(x.id)).sort((a,b)=>itLv(a)-itLv(b));SYN.sel=c.slice(0,SYN_MAX).map(x=>x.id);sfx('tap');renderSyn();}
+function renderSyn(){const r=SYN.r,n=SYN.sel.length,cnt=k=>save.items.filter(x=>x.r===k&&!itEquippedBy(x.id)).length;
+  const tabs=`<div class="bgt">${[0,1,2].map(k=>`<button class="${k===r?'on':''}" onclick="openSyn(${k})">${IRAR[k].k} <small>${cnt(k)}</small></button>`).join('')}</div>`;
+  const cand=save.items.filter(x=>x.r===r&&!itEquippedBy(x.id)).sort((a,b)=>itLv(a)-itLv(b));
+  const g=cand.map(x=>`<div class="imat${SYN.sel.includes(x.id)?' on':''}" onclick="synToggle(${x.id})">${itemArt(x)}<small>Lv.${itLv(x)}</small></div>`).join('')||`<div class="pempty" style="padding:1vh">合成できる${IRAR[r].k}の携帯品がありません<br><small>装備中の携帯品は使えません</small></div>`;
+  const to=IRAR[Math.min(3,r+1)];
+  const info=r>=2?`<div class="synr"><span class="sy3" style="--c:${IRAR[3].c}">低確率で <b style="font-size:calc(3.6*var(--vh))">虹</b></span><span class="sy3" style="--c:${IRAR[2].c}">それ以外は <b style="font-size:calc(3.6*var(--vh))">金</b></span></div><div class="synn">金の携帯品を入れると、必ず金以上の携帯品になります</div>`
+   :`<div class="synr"><span class="sy3" style="--c:${to.c}">${to.k}になる確率 <b>${Math.round(synRate(r,n)*100)}%</b></span></div><div class="synn">1個で10%、10個で100%。失敗すると入れた携帯品はなくなります</div>`;
+  const body=tabs+`<div class="syn"><div class="synL"><div class="synf">${IRAR[r].k} ×${n}<em>➜</em><span style="color:${r>=2?IRAR[2].c:to.c}">${r>=2?'金以上':to.k}</span></div>${info}</div><div class="synG">${g}</div></div>`;
+  modal(pnl('携帯品の合成',`${IRAR[r].k}の携帯品を1〜${SYN_MAX}個えらんでください（${n}/${SYN_MAX}）`,body,`<button class="obtn" onclick="openBag('eq')">もどる</button><button class="obtn" onclick="synAuto()">おまかせ選択</button><button class="gbtn${n?'':' dis'}" onclick="synGo()">合成する</button>`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP','bagP');}}
+function synGo(){const r=SYN.r,mats=SYN.sel.map(id=>save.items.find(x=>x.id===id)).filter(x=>x&&x.r===r&&!itEquippedBy(x.id));if(!mats.length)return;
+  const ok=Math.random()<synRate(r,mats.length);const t=mats[Math.floor(Math.random()*mats.length)].t;
+  save.items=save.items.filter(x=>!mats.some(m=>m.id===x.id));SYN.sel=[];
+  let it=null;if(ok){const nr=r>=2?(Math.random()<SYN_RB?3:2):r+1;it=addItem(nr);it.t=t;if(IRANGE[nr]){delete it.pv;delete it.pcv;if(t==='crit')it.pcv=wPick(...IRANGE[nr].cv);else it.pv=wPick(...IRANGE[nr].v);}}
+  persist();
+  if(!ok){sfx('lose');modal(pnl('合成失敗…','',`<div class="synres fail"><b>うまくいきませんでした</b><span>入れた携帯品 ${mats.length}個 はなくなりました</span></div>`,`<button class="gbtn" onclick="openSyn()">合成にもどる</button>`));return;}
+  const rb=it.r===3;sfx(rb?'win':'buff');if(rb)setTimeout(()=>sfx('summon'),250);
+  modal(pnl(rb?'虹の携帯品！':'合成成功！','',`<div class="synres${rb?' rb':''}" style="--c:${IRAR[it.r].c}"><div class="synart">${itemCard(it)}</div><b>${itemName(it)}</b><span>${itemDesc(it)}</span></div>`,`<button class="obtn" onclick="openBag('eq')">かばんへ</button><button class="gbtn" onclick="openSyn()">続けて合成</button>`));}
 /* ---- 携帯品の強化 ---- */
 const IEXP=[10,25,60,150];
 const itNeed=lv=>Math.round(40*Math.pow(1.45,lv-1));
@@ -3924,9 +4145,9 @@ function npSet(){if(!B)return;const on=!!(B.peerAway||B.selfRe)&&!B.busy;B.npaus
   if(o){if(!on){o.remove();return;}o.innerHTML=B.selfRe?'<b>再接続しています…</b><span>そのままお待ちください</span>':`<b>相手が離れています</b><span>あと ${Math.max(0,Math.ceil(60-(Date.now()-B.peerAway)/1000))} 秒戻らなければ勝ち</span>`;}}
 function rkLoseNow(why){if(!save.rkPend)return null;delete save.rkPend;const x=rkApply(1);toast(why+(x.d<0?`（${x.d} pt）`:''));return x;}
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のオンライン対戦は途中で切断したため負けになりました');}catch(e){}},3000);
-function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.net&&B.mode==='online'&&save.rkPend&&!(force&&B.busy))rkLoseNow('対戦から退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;}
+function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.net&&B.mode==='online'&&save.rkPend&&!(force&&B.busy))rkLoseNow('対戦から退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.23-0040</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.23-1430</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
