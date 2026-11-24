@@ -1323,6 +1323,7 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 .xfMsg{min-height:1.4em;color:#ffd77a;font-weight:700}
 .xfIn{text-transform:uppercase;width:calc(60*var(--vh));max-width:100%;text-align:center;font:800 calc(3.6*var(--vh)) ui-monospace,Menlo,monospace!important;letter-spacing:.1em;user-select:text;-webkit-user-select:text}
 .xfS{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(1*var(--vh));margin:calc(1*var(--vh)) 0}.xfS div{padding:calc(.8*var(--vh)) calc(1.5*var(--vh));border-radius:10px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(217,180,106,.3)}.xfS small{display:block;color:#a8987a;font-size:calc(2*var(--vh))}.xfS b{color:#ffe9b0;font-size:calc(3*var(--vh))}
+.xfPR{display:flex;justify-content:center;gap:calc(1.2*var(--vh));margin:calc(1*var(--vh)) 0}.xfPin::placeholder{letter-spacing:0;font:600 calc(2.2*var(--vh)) 'Zen Kaku Gothic New',sans-serif}.xfPin{width:calc(30*var(--vh));text-align:center;font:800 calc(3.2*var(--vh)) ui-monospace,Menlo,monospace!important;letter-spacing:.3em;user-select:text;-webkit-user-select:text}.xfK{display:inline-block;margin:0 calc(1*var(--vh))}.xfK small{display:block;color:#a8987a;font-size:calc(2*var(--vh))}.xfCp{letter-spacing:.4em}
 </style>
 </head>
 <body>
@@ -1385,6 +1386,7 @@ document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)apply
     <button class="mi" id="genBtn" onclick="toggleGender()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/></svg><span><b>アバター：女の子</b><small>男の子 / 女の子 を切り替え</small></span></button>
     <button class="mi" id="bgmBtn" onclick="bgmToggle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span><b>BGM：ON</b><small>音楽のオン・オフ</small></span></button>
     <button class="mi" onclick="openXfer()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e2b660" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9M20 4v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15M4 20v-5h5"/></svg><span><b>引き継ぎコード</b><small>データのバックアップ・機種変更</small></span></button>
+    <button class="mi" onclick="openReset()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#ff8a7a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg><span><b>はじめから（テスト用）</b><small>データを消して最初から</small></span></button>
     <button class="mi" onclick="toTitle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b>タイトルへ</b><small>ログイン画面にもどる</small></span></button>
   </div>
   <div class="toast glass" id="toast"></div>
@@ -1876,35 +1878,57 @@ try{const d=JSON.parse(localStorage.getItem(KEY)||'null');
   else{const o=JSON.parse(localStorage.getItem('qrSummoners')||'null');if(o&&Array.isArray(o.col)){o.col.slice(0,600).forEach((s,i)=>save.box[i]=s);save.room=o.col.slice(0,8);save.best=o.best||0;}}
 }catch(e){}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}try{xfSched();}catch(e){}}
-/* ===== 引き継ぎコード（Supabase RPC：qr_save_put / qr_save_get） ===== */
+/* ===== 引き継ぎコード＋4桁パスワード（Supabase RPC：qr_save_new / qr_save_put / qr_save_get） ===== */
 const XF={t:0,busy:false,last:0};
 const XF_CH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function xfNew(){const a=new Uint32Array(16);crypto.getRandomValues(a);let c='';for(const v of a)c+=XF_CH[v%32];return c;}
 function xfFmt(c){return (c||'').replace(/(.{4})(?=.)/g,'$1-');}
 function xfNorm(v){return (v||'').toUpperCase().replace(/[^A-Z0-9]/g,'');}
-async function xfRpc(fn,body,keep){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),9000);const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',signal:ac.signal,keepalive:!!keep,headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)}).finally(()=>clearTimeout(tm));if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
-async function xfPush(keep){if(!save.xfer||XF.busy)return false;XF.busy=true;clearTimeout(XF.t);XF.t=0;try{const d=JSON.parse(JSON.stringify(save));const at=await xfRpc('qr_save_put',{p_code:save.xfer,p_data:d},keep);save.xfAt=at||new Date().toISOString();XF.last=Date.now();try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}return true;}catch(e){console.warn('xfer',e);return false;}finally{XF.busy=false;}}
+function xfOn(){return !!(save.xfer&&save.xfTok);}
+function xfData(){const d=JSON.parse(JSON.stringify(save));delete d.xfTok;delete d.xfLost;return d;}
+async function xfRpc(fn,body,keep){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),9000);const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',signal:ac.signal,keepalive:!!keep,headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)}).finally(()=>clearTimeout(tm));if(!r.ok){let t='';try{t=await r.text();}catch(_){}throw new Error('HTTP '+r.status+' '+t);}return r.json();}
+function xfLose(){save.xfer=null;save.xfTok=null;save.xfLost=1;try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}try{toast('このデータは別の端末に引き継がれたため、自動バックアップを止めました');}catch(_){}}
+async function xfPush(keep){if(!xfOn()||XF.busy)return false;XF.busy=true;clearTimeout(XF.t);XF.t=0;try{const at=await xfRpc('qr_save_put',{p_code:save.xfer,p_tok:save.xfTok,p_data:xfData()},keep);save.xfAt=at||new Date().toISOString();XF.last=Date.now();try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}return true;}catch(e){console.warn('xfer',e);if(/denied/.test(e.message||''))xfLose();return false;}finally{XF.busy=false;}}
 async function xfSafe(){for(let i=0;i<50&&XF.busy;i++)await new Promise(r=>setTimeout(r,200));if(!navigator.onLine)return false;return xfPush();}
-function xfNow(){if(!save.xfer)return;if(XF.busy){XF.again=1;return;}XF.last=0;xfPush().then(ok=>{if(XF.again){XF.again=0;xfNow();}else if(!ok)xfSched();});}
-function xfSched(){if(!save.xfer||XF.t)return;const wait=Math.max(15000,60000-(Date.now()-XF.last));XF.t=setTimeout(()=>{XF.t=0;xfPush();},wait);}
-document.addEventListener('visibilitychange',()=>{if(document.hidden&&save.xfer&&Date.now()-XF.last>5000)xfPush(true);});
+function xfNow(){if(!xfOn())return;if(XF.busy){XF.again=1;return;}XF.last=0;xfPush().then(ok=>{if(XF.again){XF.again=0;xfNow();}else if(!ok)xfSched();});}
+function xfSched(){if(!xfOn()||XF.t)return;const wait=Math.max(15000,60000-(Date.now()-XF.last));XF.t=setTimeout(()=>{XF.t=0;xfPush();},wait);}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&xfOn()&&Date.now()-XF.last>5000)xfPush(true);});
 function xfWhen(t){if(!t)return'まだ保存されていません';const d=new Date(t);const z=n=>String(n).padStart(2,'0');return `${d.getMonth()+1}/${d.getDate()} ${z(d.getHours())}:${z(d.getMinutes())}`;}
-function openXfer(){closeMenu&&closeMenu();sfx('tap');
-  if(!save.xfer){modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB"><p>引き継ぎコードを発行すると、データが自動でバックアップされます。<br>機種変更やデータが消えたときも、コードを入力すれば復旧できます。</p><p class="xfW">※コードを知っている人は誰でもデータを引き継げます。他の人には教えないでください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfGo" onclick="xfIssue()">コードを発行する</button>`));return;}
-  modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB"><div class="xfC" id="xfC">${xfFmt(save.xfer)}</div><div class="xfR"><button class="obtn" onclick="xfCopy()">コピー</button><button class="obtn" id="xfNow" onclick="xfNowSave()">今すぐ保存</button></div><p class="xfT">最終バックアップ：<b id="xfAt">${xfWhen(save.xfAt)}</b>　（遊んでいると自動で保存されます）</p><p class="xfW">スクリーンショットやメモで、このコードを必ず控えておいてください。<br>※他の人には教えないでください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="gbtn" onclick="closeModal()">とじる</button>`));}
-async function xfIssue(){const b=$('#xfGo');if(b){b.disabled=true;b.textContent='発行中…';}const old=save.xfer;save.xfer=xfNew();const ok=await xfPush();if(!ok){save.xfer=old;persist();const m=$('#xfMsg');if(m)m.textContent='通信できませんでした。ネットにつながっているか確認して、もう一度お試しください。';if(b){b.disabled=false;b.textContent='コードを発行する';}return;}sfx('buff');openXfer();}
-async function xfNowSave(){const b=$('#xfNow');if(b){b.disabled=true;b.textContent='保存中…';}const ok=await xfPush();if(b){b.disabled=false;b.textContent='今すぐ保存';}const m=$('#xfMsg');if(ok){sfx('buff');const a=$('#xfAt');if(a)a.textContent=xfWhen(save.xfAt);if(m)m.textContent='バックアップしました';}else if(m)m.textContent='通信できませんでした。少し時間をおいてお試しください。';}
+const XF_PIN=(id,ph)=>`<input class="inp xfPin" id="${id}" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="${ph}" autocomplete="off">`;
+function xfPinOnly(e){e.value=e.value.replace(/[^0-9]/g,'').slice(0,4);}
+function openReset(){try{closeMenu();}catch(_){}sfx('tap');modal(pnl('はじめから','テスト用',`<div class="xfB"><p>この端末のデータをすべて消して、最初のストーリーから始めます。</p><p class="xfW">モンスター・コイン・ランクなどは元に戻せません。<br>（引き継ぎコードを発行していれば、そのデータから復旧できます）</p></div>`,`<button class="obtn" onclick="closeModal()">やめる</button><button class="gbtn" onclick="doReset()">消してはじめから</button>`));}
+function doReset(){try{clearTimeout(XF.t);XF.t=0;localStorage.removeItem(KEY);localStorage.removeItem('qrSummoners');}catch(e){}window.onbeforeunload=null;save={name:'',box:[]};persist=()=>{};location.reload();}
+function openXfer(){try{closeMenu();}catch(_){}sfx('tap');
+  if(!xfOn()){const lost=save.xfLost?'<p class="xfW">このデータは別の端末に引き継がれたため、前のコードは使えなくなりました。新しく発行してください。</p>':'';
+    modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB">${lost}<p>引き継ぎコードと<b>4桁のパスワード</b>で、データを自動バックアップします。<br>機種変更やデータが消えたときも、2つを入力すれば復旧できます。</p><div class="xfPR">${XF_PIN('xfP1','パスワード 数字4桁')}${XF_PIN('xfP2','もう一度')}</div><p class="xfW">※パスワードを忘れると復旧できません。必ず覚えておいてください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfGo" onclick="xfIssue()">コードを発行する</button>`));
+    ['xfP1','xfP2'].forEach(i=>{const e=$('#'+i);if(e)e.oninput=()=>xfPinOnly(e);});return;}
+  modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB"><div class="xfC" id="xfC">${xfFmt(save.xfer)}</div><div class="xfR"><button class="obtn" onclick="xfCopy()">コピー</button><button class="obtn" id="xfNow" onclick="xfNowSave()">今すぐ保存</button></div><p class="xfT">パスワード：<b>●●●●（設定済み）</b>　最終バックアップ：<b id="xfAt">${xfWhen(save.xfAt)}</b></p><p class="xfW">このコードはスクショやメモで控えてください。パスワードは自分で覚えておいてください。<br>※コードもパスワードも他の人には教えないでください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="gbtn" onclick="closeModal()">とじる</button>`));}
+async function xfIssue(){const p1=($('#xfP1')||{}).value||'',p2=($('#xfP2')||{}).value||'',m=$('#xfMsg'),b=$('#xfGo');
+  if(!/^[0-9]{4}$/.test(p1)){if(m)m.textContent='パスワードは数字4桁で入力してください';sfx('miss');return;}
+  if(p1!==p2){if(m)m.textContent='2回目のパスワードが違います';sfx('miss');return;}
+  if(b){b.disabled=true;b.textContent='発行中…';}const code=xfNew();let tok=null;
+  try{tok=await xfRpc('qr_save_new',{p_code:code,p_pin:p1,p_data:Object.assign(xfData(),{xfer:code})});}catch(e){console.warn(e);}
+  if(!tok||typeof tok!=='string'){if(m)m.textContent='通信できませんでした。ネットにつながっているか確認して、もう一度お試しください。';if(b){b.disabled=false;b.textContent='コードを発行する';}return;}
+  save.xfer=code;save.xfTok=tok;save.xfLost=0;save.xfAt=new Date().toISOString();XF.last=Date.now();persist();sfx('buff');
+  modal(pnl('発行しました！','この2つを必ず控えてください',`<div class="xfB"><div class="xfK"><small>引き継ぎコード</small><div class="xfC" id="xfC">${xfFmt(code)}</div></div><div class="xfK"><small>パスワード</small><div class="xfC xfCp">${p1}</div></div><div class="xfR"><button class="obtn" onclick="xfCopy()">コードをコピー</button></div><p class="xfW">この画面をスクリーンショットしておくと安心です。<br>パスワードはこのあと表示されません。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="gbtn" onclick="closeModal()">控えました</button>`));}
+async function xfNowSave(){const b=$('#xfNow');if(b){b.disabled=true;b.textContent='保存中…';}const ok=await xfPush();if(b){b.disabled=false;b.textContent='今すぐ保存';}const m=$('#xfMsg');if(ok){sfx('buff');const a=$('#xfAt');if(a)a.textContent=xfWhen(save.xfAt);if(m)m.textContent='バックアップしました';}else if(!xfOn())openXfer();else if(m)m.textContent='通信できませんでした。少し時間をおいてお試しください。';}
 function xfCopy(){const c=xfFmt(save.xfer);const done=()=>{const m=$('#xfMsg');if(m)m.textContent='コピーしました';sfx('tap');};try{navigator.clipboard.writeText(c).then(done,()=>{xfSel();});}catch(e){xfSel();}}
 function xfSel(){const e=$('#xfC');if(!e)return;const r=document.createRange();r.selectNodeContents(e);const s=getSelection();s.removeAllRanges();s.addRange(r);const m=$('#xfMsg');if(m)m.textContent='コードを長押ししてコピーしてください';}
-function openXferIn(){sfx('tap');modal(pnl('データ引き継ぎ','引き継ぎコードで復旧',`<div class="xfB"><p>発行した引き継ぎコード（16文字）を入力してください。</p><input class="inp xfIn" id="xfIn" maxlength="24" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfFind" onclick="xfFind()">データをさがす</button>`));}
+function openXferIn(){sfx('tap');modal(pnl('データ引き継ぎ','引き継ぎコードとパスワードで復旧',`<div class="xfB"><input class="inp xfIn" id="xfIn" maxlength="24" placeholder="引き継ぎコード（16文字）" autocomplete="off" autocapitalize="characters" spellcheck="false"><div class="xfPR">${XF_PIN('xfPi','パスワード 数字4桁')}</div><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfFind" onclick="xfFind()">データをさがす</button>`));{const e=$('#xfPi');if(e)e.oninput=()=>xfPinOnly(e);}}
 let XFD=null;
-async function xfFind(){const c=xfNorm(($('#xfIn')||{}).value),m=$('#xfMsg'),b=$('#xfFind');if(!/^[A-Z2-9]{16}$/.test(c)){if(m)m.textContent='コードは16文字です。もう一度確認してください。';sfx('miss');return;}
-  if(b){b.disabled=true;b.textContent='さがしています…';}let r=null;try{r=await xfRpc('qr_save_get',{p_code:c});}catch(e){if(m)m.textContent='通信できませんでした。ネットにつながっているか確認してください。';}if(b){b.disabled=false;b.textContent='データをさがす';}
-  if(!r||!r.data){if(m&&!m.textContent)m.textContent='このコードのデータは見つかりませんでした。';sfx('miss');return;}
-  if(save.xfer&&c===save.xfer){if(m)m.textContent='これは今この端末で使っているデータのコードです。';sfx('miss');return;}const d=r.data;if(!d||!Array.isArray(d.box)){if(m)m.textContent='データが正しくありません。';return;}XFD={c,d};
-  const n=d.box.filter(Boolean).length,rk=(()=>{try{return RANKS[(d.prof&&d.prof.rk&&d.prof.rk.r)||0].n;}catch(_){return'';}})();
-  modal(pnl('このデータを引き継ぎますか？','',`<div class="xfB"><div class="xfS"><div><small>サモナー名</small><b>${esc(d.name||'サモナー')}</b></div><div><small>モンスター</small><b>${n}体</b></div><div><small>コイン</small><b>${d.coin||0}</b></div><div><small>バックアップ日時</small><b>${xfWhen(r.at)}</b></div></div><p class="xfW">今この端末にあるデータは、引き継いだデータで上書きされます。</p></div>`,`<button class="obtn" onclick="openXferIn()">もどる</button><button class="gbtn" onclick="xfApply()">引き継ぐ</button>`));}
-function xfApply(){if(!XFD)return;const d=XFD.d;d.xfer=XFD.c;try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}sfx('buff');modal(pnl('引き継ぎ完了','',`<div class="xfB"><p>データを引き継ぎました。<br>ゲームを読み込み直します。</p></div>`,''));setTimeout(()=>location.reload(),1200);}
+function xfErr(r,m){if(!m)return;if(r.err==='pin')m.textContent=`コードかパスワードが違います（あと${r.left}回まちがえると1時間ロック）`;else if(r.err==='lock')m.textContent=`まちがいが続いたため、${xfWhen(r.until).replace(/^.* /,'')}まで入力できません`;else m.textContent='コードかパスワードが違います';sfx('miss');}
+async function xfFind(){const c=xfNorm(($('#xfIn')||{}).value),pin=($('#xfPi')||{}).value||'',m=$('#xfMsg'),b=$('#xfFind');
+  if(!/^[A-Z2-9]{16}$/.test(c)){if(m)m.textContent='コードは16文字です。もう一度確認してください。';sfx('miss');return;}
+  if(!/^[0-9]{4}$/.test(pin)){if(m)m.textContent='パスワードは数字4桁です';sfx('miss');return;}
+  if(save.xfer&&c===save.xfer&&xfOn()){if(m)m.textContent='これは今この端末で使っているデータのコードです。';sfx('miss');return;}
+  if(b){b.disabled=true;b.textContent='さがしています…';}let r=null;try{r=await xfRpc('qr_save_get',{p_code:c,p_pin:pin,p_take:false});}catch(e){if(m)m.textContent='通信できませんでした。ネットにつながっているか確認してください。';}if(b){b.disabled=false;b.textContent='データをさがす';}
+  if(!r)return;if(r.err){xfErr(r,m);return;}
+  const d=r.data;if(!d||!Array.isArray(d.box)){if(m)m.textContent='データが正しくありません。';return;}XFD={c,pin};
+  const n=d.box.filter(Boolean).length;
+  modal(pnl('このデータを引き継ぎますか？','',`<div class="xfB"><div class="xfS"><div><small>サモナー名</small><b>${esc(d.name||'サモナー')}</b></div><div><small>モンスター</small><b>${n}体</b></div><div><small>コイン</small><b>${d.coin||0}</b></div><div><small>バックアップ日時</small><b>${xfWhen(r.at)}</b></div></div><p class="xfW">今この端末にあるデータは、引き継いだデータで上書きされます。<br>前の端末では、このデータの自動バックアップが止まります。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="openXferIn()">もどる</button><button class="gbtn" id="xfAp" onclick="xfApply()">引き継ぐ</button>`));}
+async function xfApply(){if(!XFD)return;const m=$('#xfMsg'),b=$('#xfAp');if(b){b.disabled=true;b.textContent='引き継ぎ中…';}let r=null;try{r=await xfRpc('qr_save_get',{p_code:XFD.c,p_pin:XFD.pin,p_take:true});}catch(e){if(m)m.textContent='通信できませんでした。もう一度お試しください。';}if(b){b.disabled=false;b.textContent='引き継ぐ';}
+  if(!r)return;if(r.err||!r.tok||!r.data){if(r.err)xfErr(r,m);return;}
+  const d=r.data;d.xfer=XFD.c;d.xfTok=r.tok;d.xfAt=r.at;d.xfLost=0;try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}sfx('buff');modal(pnl('引き継ぎ完了','',`<div class="xfB"><p>データを引き継ぎました。<br>ゲームを読み込み直します。</p></div>`,''));setTimeout(()=>location.reload(),1200);}
 const owned=()=>save.box.filter(Boolean).length;
 
 /* ================= 音（効果音＋BGM） ================= */
@@ -1983,7 +2007,8 @@ function battleStep(s,t,bus){const sp=60/152/4,bar=Math.floor(s/16),i=s%16,[bs,c
   if(i===0&&bar%2===0)strings(bus,t,ch[0]+12,sp*32,.06);
   return sp;}
 function bgmToggle(){save.bgm=save.bgm===false;persist();if(audio())BGMG.gain.setTargetAtTime(save.bgm===false?0:.34,AC.currentTime,.2);const b=$('#bgmBtn');if(b)b.querySelector('b').textContent='BGM：'+(save.bgm===false?'OFF':'ON');sfx('tap');}
-addEventListener('pointerdown',()=>{if(audio()&&!BGM.cur)bgmPlay(B?'battle':'room');},{capture:true});
+let SY_MUTE=false;
+addEventListener('pointerdown',()=>{if(SY_MUTE)return;if(audio()&&!BGM.cur)bgmPlay(B?'battle':'room');},{capture:true});
 document.addEventListener('visibilitychange',()=>{if(!AC)return;if(document.hidden)AC.suspend();else AC.resume();});
 
 /* ================= ログイン ================= */
@@ -2020,7 +2045,7 @@ function syBtn(k){try{if(!audio())return;const t=AC.currentTime;const n=(f,d,v,t
   if(k===1){n(880,0,.08);}else if(k===2){n(784,0,.13);n(1175,.07,.12);n(1568,.14,.1);}else{n(988,0,.13);n(1480,.05,.09);}}catch(e){}}
 function syMake(cls){const el=document.createElement('div');el.id='story';if(cls)el.className=cls;el.innerHTML=`<div class="syBg"></div><div class="syLid t"></div><div class="syLid b"></div><div class="syGift"></div><div class="syBox"><div class="syNm"></div><div class="syTx"></div><i class="syNx">▼</i></div><div class="syCh"></div><div class="syForm"></div><div class="syFade"></div>`;document.body.appendChild(el);STY.el=el;
   el.addEventListener('click',e=>{if(e.target.closest('.syCh,.syForm'))return;syTap();});return el;}
-function storyStart(){const el=syMake();
+function storyStart(){const el=syMake();SY_MUTE=true;
   try{bgmStop();}catch(e){}
   setTimeout(()=>syLine('','……ここは？',()=>{el.classList.add('wake');setTimeout(()=>syLine('？？？','よかったぁ、目が覚めた。',()=>syLine('？？？','ところで、どこから来たの？',()=>syChoice(['わからない','覚えてない'],()=>syLine('？？？','そっかぁ……。私の名前はアール！<br>あなたの名前は？',()=>syForm())))),900);}),1800);}
 function syLine(nm,tx,next){const el=STY.el,box=el.querySelector('.syBox'),n=el.querySelector('.syNm'),t=el.querySelector('.syTx');box.classList.add('on');box.classList.remove('ready');n.textContent=nm;n.style.display=nm?'':'none';
@@ -2039,9 +2064,9 @@ function syForm(){const f=STY.el.querySelector('.syForm');let g=null;
   ok.onclick=e=>{e.stopPropagation();const n=inp.value.trim();if(!n){toast('名前を入力してください');return;}if(!g){toast('性別をえらんでください');return;}
     save.name=n;save.gender=g;persist();syBtn(2);f.classList.remove('on');
     setTimeout(()=>syLine('アール',`よろしくね、${n}${g==='m'?'くん':'ちゃん'}！`,()=>syLine('アール','とりあえず、近くの空き部屋を<br>貸してあげるね！',()=>syEnd())),300);};}
-function syEnd(){const el=STY.el;el.querySelector('.syBox').classList.remove('on');el.classList.add('out');save.tut='gift';persist();setTimeout(()=>{$('#nameIn').value=save.name;$('#playBtn').click();setTimeout(()=>{el.classList.add('gone');setTimeout(()=>{el.remove();STY.el=null;},1200);},400);},1300);}
+function syEnd(){const el=STY.el;el.querySelector('.syBox').classList.remove('on');el.classList.add('out');save.tut='gift';persist();setTimeout(()=>{STY.el=null;SY_MUTE=false;$('#nameIn').value=save.name;$('#playBtn').click();try{if(audio())bgmPlay('room');}catch(e){}setTimeout(()=>{el.classList.add('gone');setTimeout(()=>{el.remove();if(STY.el===el)STY.el=null;},1200);},400);},1300);}
 /* ---- 部屋に着いてから：モンQのプレゼント → チュートリアル ---- */
-function giftStart(){if(STY.el)return;const el=syMake('inroom');const has=save.box.some(Boolean);
+function giftStart(n){n=n||0;if(STY.el||document.getElementById('tut')||$('#modal').classList.contains('on')){if(n<40)setTimeout(()=>giftStart(n+1),500);return;}if(save.tut!=='gift')return;const el=syMake('inroom');const has=save.box.some(Boolean);
   const after=()=>syLine('アール','大事にしてあげてね！',()=>syLine('アール','それじゃあ、またね！',()=>{el.querySelector('.syBox').classList.remove('on');syNarr('アールは帰っていった。',()=>{el.classList.add('gone');setTimeout(()=>{el.remove();STY.el=null;save.tut='tut';persist();tutStart();},700);});}));
   setTimeout(()=>syLine('アール','この世界では、モンQと呼ばれる<br>モンスターたちが暮らしてるよ。',()=>{
     if(has){after();return;}
@@ -2102,7 +2127,7 @@ const TUT=[{q:'#avJoy',t:'左下のスティックで、部屋の中を歩ける
  {q:null,t:'部屋の <b>ドア</b> に近づくと、冒険や対戦に出かけられるよ。'},
  {q:'#menuBtn',t:'さっそく <b>QRスキャン</b> で、モンQを召喚してみよう！'}];
 function tutRect(e){const r=e.getBoundingClientRect();if(typeof ROT!=='undefined'&&ROT)return{x:r.top,y:innerWidth-r.right,w:r.height,h:r.width};return{x:r.left,y:r.top,w:r.width,h:r.height};}
-function tutStart(){const ov=document.createElement('div');ov.id='tut';ov.innerHTML=`<div class="tHole"></div><div class="tCap"><div class="tTx"></div><i class="syNx">▼</i><span class="tPg"></span></div>`;document.body.appendChild(ov);let k=-1;
+function tutStart(n){n=n||0;if(document.getElementById('tut'))return;if(STY.el||$('#modal').classList.contains('on')){if(n<40)setTimeout(()=>tutStart(n+1),500);return;}const ov=document.createElement('div');ov.id='tut';ov.innerHTML=`<div class="tHole"></div><div class="tCap"><div class="tTx"></div><i class="syNx">▼</i><span class="tPg"></span></div>`;document.body.appendChild(ov);let k=-1;
   const show=()=>{k++;if(k>=TUT.length){ov.classList.add('gone');setTimeout(()=>ov.remove(),500);save.tut='done';persist();return;}
     const st=TUT[k],h=ov.querySelector('.tHole'),c=ov.querySelector('.tCap');c.querySelector('.tTx').innerHTML=st.t;const e=st.q&&document.querySelector(st.q);
     if(e&&e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&+getComputedStyle(e).opacity>.1){const r=tutRect(e),p=Math.max(r.w,r.h)*.18+8;h.style.cssText=`left:${r.x-p}px;top:${r.y-p}px;width:${r.w+p*2}px;height:${r.h+p*2}px;border-radius:${Math.min(r.w,r.h)>120?'24px':'50%'}`;h.classList.remove('none');
@@ -3124,7 +3149,7 @@ async function summon(src){
   let isUR=false,isSR=false;{const r=Math.random(),c=r<UR_RATE?URLIST():r<UR_RATE+SR_RATE?SRLIST():null;if(c){src=c[Math.floor(Math.random()*c.length)].src+'#'+Date.now().toString(36);isUR=r<UR_RATE;isSR=!isUR;}}
   if(!isUR&&!isSR&&save.box.indexOf(src)>=0)src=src+'#~'+Date.now().toString(36);
   const m=gen(src),had=-1;let idx=had;
-  if(had<0){idx=save.box.indexOf(null);if(idx<0){summoning=false;toast('BOXがいっぱいです');return;}save.box[idx]=src;scDay().n++;persist();if(save.xfer){toast('通信中…');const okP=await xfSafe();if(!okP){save.box[idx]=null;scDay().n--;persist();summoning=false;sfx('miss');toast('通信できないため召喚できませんでした。電波のよい所でもう一度試してね');return;}}updHud();applyUR();}
+  if(had<0){idx=save.box.indexOf(null);if(idx<0){summoning=false;toast('BOXがいっぱいです');return;}save.box[idx]=src;scDay().n++;persist();if(xfOn()){toast('通信中…');const okP=await xfSafe();if(!okP&&xfOn()){save.box[idx]=null;scDay().n--;persist();summoning=false;sfx('miss');toast('通信できないため召喚できませんでした。電波のよい所でもう一度試してね');return;}}updHud();applyUR();}
   if(!R.sc){sfx('summon');showCard(m,{mode:'new',ur:isUR,sr:isSR,had:had>=0,box:Math.floor(idx/PER)+1,onClose:()=>{summoning=false;setTimeout(openQR,250);}});return;}
   let o=null;try{
   if(isUR||isSR){const K=isUR?'UR':'SR';rfxLoad(K);R.boost=1;R.focus=1;await wait(60);if(!RFX_BUF[K])await wait(250);let rel;const appear=new Promise(r=>rel=r);rfxPlay(K,()=>rel()).then(()=>{});await appear;}
@@ -3421,7 +3446,7 @@ function gachaHTML(){const own=fxOwn(),sel=gSel;
 function gachaSel(id){gSel=id;sfx('tap');const m=document.querySelector('#modal .gMac');if(!m)return;m.style.setProperty('--c',FX_COL[id]);const c=document.getElementById('gPrev');if(c&&c._fxv)c._fxv.id=id;m.querySelector('.gPn').textContent=PFX.META[id].n;m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');document.querySelectorAll('#modal .gCh').forEach(b=>b.classList.toggle('on',b.getAttribute('onclick').includes("'"+id+"'")));}
 let G_BUSY=0;
 async function gachaPull(){if(document.querySelector('.gOv')||G_BUSY)return;if(coins()<GACHA_P){toast('コインが足りません');return;}const snap=JSON.stringify(save);addCoin(-GACHA_P);const id=gachaRoll(),dup=fxOwn().includes(id),col=FX_COL[id];if(!dup)fxOwn().push(id);else addCoin(GACHA_DUP);persist();
-  if(save.xfer){G_BUSY=1;const gb=document.querySelector('#modal .gGo b');if(gb)gb.textContent='通信中…';const ok=await xfSafe();G_BUSY=0;if(!ok){save=JSON.parse(snap);persist();hudAvatar();sfx('miss');renderShop('gacha');toast('通信できないためガチャを引けませんでした。電波のよい所でもう一度試してね');return;}}
+  if(xfOn()){G_BUSY=1;const gb=document.querySelector('#modal .gGo b');if(gb)gb.textContent='通信中…';const ok=await xfSafe();G_BUSY=0;if(!ok&&xfOn()){save=JSON.parse(snap);persist();hudAvatar();sfx('miss');renderShop('gacha');toast('通信できないためガチャを引けませんでした。電波のよい所でもう一度試してね');return;}}
   sfx('charge');
   const sp=Array.from({length:28},(_,i)=>{const a=Math.random()*360,d=30+Math.random()*28,z=.5+Math.random();return `<i style="--a:${a}deg;--d:calc(${d}*var(--vh));--z:${z};--w:${(Math.random()*.5).toFixed(2)}s"></i>`;}).join('');
   const ov=document.createElement('div');ov.className='gOv';ov.style.setProperty('--c',col);
@@ -4363,7 +4388,7 @@ function rkLoseNow(why){if(!save.rkPend)return null;delete save.rkPend;const x=r
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のオンライン対戦は途中で切断したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.net&&B.mode==='online'&&save.rkPend&&!(force&&B.busy))rkLoseNow('対戦から退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-1320</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-1345</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
