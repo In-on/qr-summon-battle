@@ -1313,6 +1313,16 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 .fxc i{display:block;font:900 calc(1.8*var(--vh)) sans-serif;font-style:normal;color:#ffd75a}
 .fxc em{position:absolute;top:calc(.5*var(--vh));left:calc(.5*var(--vh));font:700 calc(1.7*var(--vh)) sans-serif;font-style:normal;color:#2a1a06;background:#ffd77a;border-radius:10px;padding:0 calc(.7*var(--vh))}
 .fxb{position:absolute;right:calc(1.6*var(--vh));bottom:calc(1.2*var(--vh));z-index:6;display:flex;align-items:center;gap:calc(.5*var(--vh));padding:calc(.5*var(--vh)) calc(1.4*var(--vh));border-radius:30px;border:1.5px solid #c9a058;background:radial-gradient(circle at 35% 30%,#3d3020,#0e0b08);color:#d8c49a;font:700 calc(2.3*var(--vh)) 'Zen Kaku Gothic New',sans-serif}.fxb i{font-style:normal;color:#b48cff}.fxb.on{color:#ffe6a0;border-color:#ffd77a;box-shadow:0 0 calc(1.2*var(--vh)) rgba(255,210,120,.45)}.fxb.on i{color:#ff9af0}
+.qsCnt{margin:calc(.8*var(--vh)) 0;font:700 calc(2.4*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#d8c49a}.qsCnt b{color:#ffe08a;font-size:1.25em}.qsCnt.z b{color:#ff7a7a}
+.qsRt{display:flex;justify-content:center;gap:calc(1.2*var(--vh));margin:0 0 calc(1.4*var(--vh))}.qsRt span{padding:calc(.4*var(--vh)) calc(1.8*var(--vh));border-radius:20px;font:800 calc(2.4*var(--vh)) sans-serif;background:rgba(0,0,0,.35)}.qsRt .ur{color:#ff9af0;box-shadow:inset 0 0 0 1px rgba(255,123,242,.6),0 0 10px rgba(255,123,242,.3)}.qsRt .sr{color:#ffd75a;box-shadow:inset 0 0 0 1px rgba(255,215,90,.6)}.qsRt b{font-size:1.15em}
+.xfL{position:absolute;right:calc(2.5*var(--vh));top:calc(2.5*var(--vh));z-index:5;display:flex;align-items:center;gap:calc(.8*var(--vh));padding:calc(1*var(--vh)) calc(2*var(--vh));border-radius:30px;border:1.5px solid rgba(217,180,106,.7);background:rgba(10,7,14,.6);color:#e8d3a0;font:700 calc(2.5*var(--vh)) 'Zen Kaku Gothic New',sans-serif;backdrop-filter:blur(4px)}
+.xfB{max-width:calc(90*var(--vh));margin:0 auto;text-align:center;font:600 calc(2.6*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#e8e0d0;line-height:1.6}.xfB p{margin:calc(.8*var(--vh)) 0}
+.xfW{color:#d9a46a!important;font-size:calc(2.2*var(--vh))}.xfT{font-size:calc(2.3*var(--vh));color:#bba987}.xfT b{color:#ffe08a}
+.xfC{display:inline-block;padding:calc(1.2*var(--vh)) calc(3*var(--vh));border-radius:14px;background:rgba(0,0,0,.45);box-shadow:inset 0 0 0 1.5px #d9b46a,0 0 calc(2*var(--vh)) rgba(255,210,120,.25);font:800 calc(4.6*var(--vh)) ui-monospace,Menlo,monospace;letter-spacing:.12em;color:#ffe9b0;user-select:text;-webkit-user-select:text}
+.xfR{display:flex;justify-content:center;gap:calc(1.2*var(--vh));margin-top:calc(1.2*var(--vh))}
+.xfMsg{min-height:1.4em;color:#ffd77a;font-weight:700}
+.xfIn{text-transform:uppercase;width:calc(60*var(--vh));max-width:100%;text-align:center;font:800 calc(3.6*var(--vh)) ui-monospace,Menlo,monospace!important;letter-spacing:.1em;user-select:text;-webkit-user-select:text}
+.xfS{display:grid;grid-template-columns:repeat(2,1fr);gap:calc(1*var(--vh));margin:calc(1*var(--vh)) 0}.xfS div{padding:calc(.8*var(--vh)) calc(1.5*var(--vh));border-radius:10px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px rgba(217,180,106,.3)}.xfS small{display:block;color:#a8987a;font-size:calc(2*var(--vh))}.xfS b{color:#ffe9b0;font-size:calc(3*var(--vh))}
 </style>
 </head>
 <body>
@@ -1334,7 +1344,7 @@ document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)apply
   <svg class="ring" viewBox="0 0 200 200"><g fill="none" stroke="#d9b46a"><circle cx="100" cy="100" r="96" stroke-width=".6"/><circle cx="100" cy="100" r="88" stroke-width=".3" stroke-dasharray="1 2"/><circle cx="100" cy="100" r="60" stroke-width=".5"/><path d="M100 12L176 144H24Z M100 188L24 56H176Z" stroke-width=".5"/><circle cx="100" cy="100" r="30" stroke-width=".4"/></g></svg>
   <svg class="ring ring2" viewBox="0 0 200 200"><g fill="none" stroke="#d9b46a"><circle cx="100" cy="100" r="96" stroke-width=".6"/><circle cx="100" cy="100" r="70" stroke-width=".5" stroke-dasharray="2 3"/><path d="M100 4V196M4 100H196M32 32L168 168M168 32L32 168" stroke-width=".3"/></g></svg>
   <div id="dusts"></div>
-  <div id="lbgx"></div><div id="lstage"><div class="lg2"><div class="show" id="show"></div></div><button class="gbtn" id="startBtn" aria-label="あそぶ"></button></div>
+  <div id="lbgx"></div><div id="lstage"><div class="lg2"><div class="show" id="show"></div></div><button class="gbtn" id="startBtn" aria-label="あそぶ"></button></div><button class="xfL" onclick="openXferIn()"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9M20 4v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15M4 20v-5h5"/></svg>データ引き継ぎ</button>
   <div class="nameOv" id="nameOv">
     <div class="lgR glass">
       <div class="t">SUMMONER LOGIN</div>
@@ -1374,6 +1384,7 @@ document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)apply
     <button class="mi hl" onclick="openQR()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><rect x="7" y="7" width="4" height="4"/><rect x="13" y="7" width="4" height="4"/><rect x="7" y="13" width="4" height="4"/><path d="M13 13h4v4h-4z" stroke-dasharray="1.5 1"/></svg><span><b>QRスキャン</b><small>QRコードからモンスターを召喚</small></span></button>
     <button class="mi" id="genBtn" onclick="toggleGender()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 21c0-4 3.1-7 7-7s7 3 7 7"/></svg><span><b>アバター：女の子</b><small>男の子 / 女の子 を切り替え</small></span></button>
     <button class="mi" id="bgmBtn" onclick="bgmToggle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><span><b>BGM：ON</b><small>音楽のオン・オフ</small></span></button>
+    <button class="mi" onclick="openXfer()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#e2b660" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 9M20 4v5h-5M20 12a8 8 0 0 1-13.7 5.6L4 15M4 20v-5h5"/></svg><span><b>引き継ぎコード</b><small>データのバックアップ・機種変更</small></span></button>
     <button class="mi" onclick="toTitle()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h10"/></svg><span><b>タイトルへ</b><small>ログイン画面にもどる</small></span></button>
   </div>
   <div class="toast glass" id="toast"></div>
@@ -1864,7 +1875,36 @@ try{const d=JSON.parse(localStorage.getItem(KEY)||'null');
   if(d&&Array.isArray(d.box)){save=Object.assign(save,d);while(save.box.length<NBOX*PER)save.box.push(null);}
   else{const o=JSON.parse(localStorage.getItem('qrSummoners')||'null');if(o&&Array.isArray(o.col)){o.col.slice(0,600).forEach((s,i)=>save.box[i]=s);save.room=o.col.slice(0,8);save.best=o.best||0;}}
 }catch(e){}
-function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}try{xfSched();}catch(e){}}
+/* ===== 引き継ぎコード（Supabase RPC：qr_save_put / qr_save_get） ===== */
+const XF={t:0,busy:false,last:0};
+const XF_CH='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+function xfNew(){const a=new Uint32Array(16);crypto.getRandomValues(a);let c='';for(const v of a)c+=XF_CH[v%32];return c;}
+function xfFmt(c){return (c||'').replace(/(.{4})(?=.)/g,'$1-');}
+function xfNorm(v){return (v||'').toUpperCase().replace(/[^A-Z0-9]/g,'');}
+async function xfRpc(fn,body,keep){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),9000);const r=await fetch(SB_URL+'/rest/v1/rpc/'+fn,{method:'POST',signal:ac.signal,keepalive:!!keep,headers:{'apikey':SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)}).finally(()=>clearTimeout(tm));if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}
+async function xfPush(keep){if(!save.xfer||XF.busy)return false;XF.busy=true;clearTimeout(XF.t);XF.t=0;try{const d=JSON.parse(JSON.stringify(save));const at=await xfRpc('qr_save_put',{p_code:save.xfer,p_data:d},keep);save.xfAt=at||new Date().toISOString();XF.last=Date.now();try{localStorage.setItem(KEY,JSON.stringify(save));}catch(e){}return true;}catch(e){console.warn('xfer',e);return false;}finally{XF.busy=false;}}
+async function xfSafe(){for(let i=0;i<50&&XF.busy;i++)await new Promise(r=>setTimeout(r,200));if(!navigator.onLine)return false;return xfPush();}
+function xfNow(){if(!save.xfer)return;if(XF.busy){XF.again=1;return;}XF.last=0;xfPush().then(ok=>{if(XF.again){XF.again=0;xfNow();}else if(!ok)xfSched();});}
+function xfSched(){if(!save.xfer||XF.t)return;const wait=Math.max(15000,60000-(Date.now()-XF.last));XF.t=setTimeout(()=>{XF.t=0;xfPush();},wait);}
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&save.xfer&&Date.now()-XF.last>5000)xfPush(true);});
+function xfWhen(t){if(!t)return'まだ保存されていません';const d=new Date(t);const z=n=>String(n).padStart(2,'0');return `${d.getMonth()+1}/${d.getDate()} ${z(d.getHours())}:${z(d.getMinutes())}`;}
+function openXfer(){closeMenu&&closeMenu();sfx('tap');
+  if(!save.xfer){modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB"><p>引き継ぎコードを発行すると、データが自動でバックアップされます。<br>機種変更やデータが消えたときも、コードを入力すれば復旧できます。</p><p class="xfW">※コードを知っている人は誰でもデータを引き継げます。他の人には教えないでください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfGo" onclick="xfIssue()">コードを発行する</button>`));return;}
+  modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB"><div class="xfC" id="xfC">${xfFmt(save.xfer)}</div><div class="xfR"><button class="obtn" onclick="xfCopy()">コピー</button><button class="obtn" id="xfNow" onclick="xfNowSave()">今すぐ保存</button></div><p class="xfT">最終バックアップ：<b id="xfAt">${xfWhen(save.xfAt)}</b>　（遊んでいると自動で保存されます）</p><p class="xfW">スクリーンショットやメモで、このコードを必ず控えておいてください。<br>※他の人には教えないでください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="gbtn" onclick="closeModal()">とじる</button>`));}
+async function xfIssue(){const b=$('#xfGo');if(b){b.disabled=true;b.textContent='発行中…';}const old=save.xfer;save.xfer=xfNew();const ok=await xfPush();if(!ok){save.xfer=old;persist();const m=$('#xfMsg');if(m)m.textContent='通信できませんでした。ネットにつながっているか確認して、もう一度お試しください。';if(b){b.disabled=false;b.textContent='コードを発行する';}return;}sfx('buff');openXfer();}
+async function xfNowSave(){const b=$('#xfNow');if(b){b.disabled=true;b.textContent='保存中…';}const ok=await xfPush();if(b){b.disabled=false;b.textContent='今すぐ保存';}const m=$('#xfMsg');if(ok){sfx('buff');const a=$('#xfAt');if(a)a.textContent=xfWhen(save.xfAt);if(m)m.textContent='バックアップしました';}else if(m)m.textContent='通信できませんでした。少し時間をおいてお試しください。';}
+function xfCopy(){const c=xfFmt(save.xfer);const done=()=>{const m=$('#xfMsg');if(m)m.textContent='コピーしました';sfx('tap');};try{navigator.clipboard.writeText(c).then(done,()=>{xfSel();});}catch(e){xfSel();}}
+function xfSel(){const e=$('#xfC');if(!e)return;const r=document.createRange();r.selectNodeContents(e);const s=getSelection();s.removeAllRanges();s.addRange(r);const m=$('#xfMsg');if(m)m.textContent='コードを長押ししてコピーしてください';}
+function openXferIn(){sfx('tap');modal(pnl('データ引き継ぎ','引き継ぎコードで復旧',`<div class="xfB"><p>発行した引き継ぎコード（16文字）を入力してください。</p><input class="inp xfIn" id="xfIn" maxlength="24" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off" autocapitalize="characters" spellcheck="false"><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfFind" onclick="xfFind()">データをさがす</button>`));}
+let XFD=null;
+async function xfFind(){const c=xfNorm(($('#xfIn')||{}).value),m=$('#xfMsg'),b=$('#xfFind');if(!/^[A-Z2-9]{16}$/.test(c)){if(m)m.textContent='コードは16文字です。もう一度確認してください。';sfx('miss');return;}
+  if(b){b.disabled=true;b.textContent='さがしています…';}let r=null;try{r=await xfRpc('qr_save_get',{p_code:c});}catch(e){if(m)m.textContent='通信できませんでした。ネットにつながっているか確認してください。';}if(b){b.disabled=false;b.textContent='データをさがす';}
+  if(!r||!r.data){if(m&&!m.textContent)m.textContent='このコードのデータは見つかりませんでした。';sfx('miss');return;}
+  if(save.xfer&&c===save.xfer){if(m)m.textContent='これは今この端末で使っているデータのコードです。';sfx('miss');return;}const d=r.data;if(!d||!Array.isArray(d.box)){if(m)m.textContent='データが正しくありません。';return;}XFD={c,d};
+  const n=d.box.filter(Boolean).length,rk=(()=>{try{return RANKS[(d.prof&&d.prof.rk&&d.prof.rk.r)||0].n;}catch(_){return'';}})();
+  modal(pnl('このデータを引き継ぎますか？','',`<div class="xfB"><div class="xfS"><div><small>サモナー名</small><b>${esc(d.name||'サモナー')}</b></div><div><small>モンスター</small><b>${n}体</b></div><div><small>コイン</small><b>${d.coin||0}</b></div><div><small>バックアップ日時</small><b>${xfWhen(r.at)}</b></div></div><p class="xfW">今この端末にあるデータは、引き継いだデータで上書きされます。</p></div>`,`<button class="obtn" onclick="openXferIn()">もどる</button><button class="gbtn" onclick="xfApply()">引き継ぐ</button>`));}
+function xfApply(){if(!XFD)return;const d=XFD.d;d.xfer=XFD.c;try{localStorage.setItem(KEY,JSON.stringify(d));}catch(e){}sfx('buff');modal(pnl('引き継ぎ完了','',`<div class="xfB"><p>データを引き継ぎました。<br>ゲームを読み込み直します。</p></div>`,''));setTimeout(()=>location.reload(),1200);}
 const owned=()=>save.box.filter(Boolean).length;
 
 /* ================= 音（効果音＋BGM） ================= */
@@ -2095,7 +2135,7 @@ function openProfile(){profInit();sfx('tap');closeMenu();const n=save.box.filter
     <div class="prof"><div class="pav">${avatarHTML('100%')}</div><div class="pin"><div class="pnm">${esc(save.name||'サモナー')}</div><div class="prk"><span>ランク <b>${save.prof.rank}</b></span><span class="rkb"><i style="width:${rankBar()}%"></i></span><small>次のランクまで ${rankNeed(save.prof.rank)-save.prof.exp} EXP</small></div></div></div>
     <div class="pfs"><div><small>ひとりで対戦 最高連勝</small><b>${save.best||0}<i>連勝</i></b></div><div class="pfr"><small>現在のランク</small>${rkBox()}</div></div></div></div>`;
   modal(pnl('プロフィール','',body,`<button class="gbtn" onclick="closeModal()">とじる</button>`));
-  const p=$('#modal .pnl');if(p){p.insertAdjacentHTML('afterbegin',`<button class="pfset" aria-label="設定" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('on')"><svg viewBox="0 0 32 32"><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="#e2b660" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button><div class="pfsm"><button onclick="openIconSel()">アイコン変更</button><button onclick="openFrameSel()">フレーム変更</button><button onclick="openRename()">名前・性別の変更</button></div>`);}}
+  const p=$('#modal .pnl');if(p){p.insertAdjacentHTML('afterbegin',`<button class="pfset" aria-label="設定" onclick="event.stopPropagation();this.nextElementSibling.classList.toggle('on')"><svg viewBox="0 0 32 32"><path d="M13.6 2.5h4.8l.8 3.7 2.6 1.1 3.2-2 3.4 3.4-2 3.2 1.1 2.6 3.7.8v4.8l-3.7.8-1.1 2.6 2 3.2-3.4 3.4-3.2-2-2.6 1.1-.8 3.7h-4.8l-.8-3.7-2.6-1.1-3.2 2-3.4-3.4 2-3.2-1.1-2.6-3.7-.8v-4.8l3.7-.8 1.1-2.6-2-3.2 3.4-3.4 3.2 2 2.6-1.1z" fill="#e2b660" stroke="#4a3010" stroke-width=".9"/><circle cx="16" cy="16" r="5" fill="#2a1c10" stroke="#4a3010"/></svg></button><div class="pfsm"><button onclick="openIconSel()">アイコン変更</button><button onclick="openFrameSel()">フレーム変更</button><button onclick="openRename()">名前・性別の変更</button><button onclick="openXfer()">引き継ぎコード</button></div>`);}}
 function openRename(){sfx('tap');let g=save.gender==='m'?'m':'f';modal(pnl('名前・性別の変更','',`<div class="rnm"><input class="inp" id="rnIn" maxlength="12" value="${esc(save.name||'')}" placeholder="名前を入力" autocomplete="off"><div class="rnG"><button data-g="m" class="${g==='m'?'on':''}">男の子</button><button data-g="f" class="${g==='f'?'on':''}">女の子</button></div></div>`,`<button class="obtn" onclick="openProfile()">もどる</button><button class="gbtn" id="rnOk">変更する</button>`));
   document.querySelectorAll('#modal .rnG button').forEach(b=>b.onclick=()=>{g=b.dataset.g;document.querySelectorAll('#modal .rnG button').forEach(x=>x.classList.toggle('on',x===b));sfx('tap');});
   $('#rnOk').onclick=()=>{const n=$('#rnIn').value.trim();if(!n){toast('名前を入力してください');return;}const gc=g!==avGender();save.name=n;save.gender=g;persist();$('#hudName').textContent=n;sfx('buff');if(gc){try{avLoad();}catch(e){}const b=$('#genBtn');if(b)b.querySelector('b').textContent='アバター：'+(g==='m'?'男の子':'女の子');}toast('変更しました');openProfile();};}
@@ -2231,7 +2271,9 @@ function SRLIST(){return[PRISM_M,CCRY_M,KIT_M,EWD_M,JEL_M,CRB_M,EMF_M,WSP_M,MNK_
 const SR_NERF=.92;function srNerf(L){for(const o of L)if(o&&!o._nf){o._nf=1;o.hp=Math.round(o.hp*SR_NERF);o.atk=Math.round(o.atk*SR_NERF);o.def=Math.round(o.def*SR_NERF);}return L;}
 const ALLSP=()=>[...URLIST(),...srNerf(SRLIST())];
 /* URは最初は持っていない（QR読み取りで0.5%の確率で出現） */
-const UR_RATE=.04,SR_RATE=.05;
+const UR_RATE=.02,SR_RATE=.05,SCAN_DAY=10;
+function scDay(){const d=new Date(),k=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();if(!save.scan||save.scan.d!==k)save.scan={d:k,n:0};return save.scan;}
+function scLeft(){return Math.max(0,SCAN_DAY-scDay().n);}
 const urBase=s=>String(s).split('#')[0];
 const SR_RAR=SRR;
 /* SRも最初は持っていない（QR読み取りで5%の確率で出現） */
@@ -2276,7 +2318,7 @@ async function makeModel(Z,M,px,pz,size,aura,tone){const{mesh,D}=await urMesh(Z,
   const sh=new THREE.Mesh(new THREE.PlaneGeometry(1.8,1.8),new THREE.MeshBasicMaterial({map:R.shadowTex,transparent:true,depthWrite:false}));sh.rotation.x=-Math.PI/2;R.sc.add(sh);
   const au=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex(aura),blending:THREE.AdditiveBlending,depthWrite:false,opacity:.4,transparent:true}));R.sc.add(au);
   size=UNI_H/Math.max(.3,D.hi[1]-D.lo[1]);const o={src:M.src,m:M,special:true,model3d:true,sp:box,sh,aura:au,tex:{dispose(){}},size,x:px,z:pz,y:0,tx:px,tz:pz,yoff:(-D.lo[1]),state:'idle',timer:2,hop:0,jump:0,face:1,grow:1,leave:false,ang:0};
-  R.mons.push(o);applyUR();return o;
+  R.mons.push(o);applyUR();try{fxApply(box,fxOf(M.src));}catch(_){}return o;
 }
 const UNI_H=1.69;
 function applyUR(){if(!R.sc)return;const vis=spVis();for(const o of R.mons){if(!o.special)continue;const hid=!vis.includes(o.src)&&!o.tempUR;for(const x of[o.sp,o.sh,o.aura]){if(!x)continue;if(hid&&x.parent)R.sc.remove(x);else if(!hid&&!x.parent)R.sc.add(x);}}}
@@ -2578,7 +2620,7 @@ function view3D(wrap,m){
     const R0=Math.max(sz.x,sz.y,sz.z)*.6,d=R0/Math.tan(THREE.MathUtils.degToRad(15))*({'special:crystaria':1.28,'special:wingfox':1.28}[m.src]||1);VW.cam.position.set(0,R0*.25,d);VW.cam.lookAt(0,0,0);
     VW.yaw=VW.ty=-.35;
     wrap.appendChild(VW.rd.domElement);
-    const fit=()=>{const w=wrap.clientWidth,h=wrap.clientHeight;if(w&&h){VW.rd.setPixelRatio(Math.min(2,devicePixelRatio||1));VW.rd.setSize(w,h,false);VW.cam.aspect=w/h;VW.cam.updateProjectionMatrix();}};
+    const fit=()=>{const w=wrap.clientWidth,h=wrap.clientHeight;if(w&&h){VW.rd.setPixelRatio(Math.min(1.5,devicePixelRatio||1));VW.rd.setSize(w,h,false);VW.cam.aspect=w/h;VW.cam.updateProjectionMatrix();}};
     fit();wrap.parentElement.classList.add('has3d');
     const id=++VW.run,clk=new THREE.Clock();
     const tick=()=>{if(id!==VW.run||!wrap.isConnected||!VW.rd.domElement.isConnected)return;fit();
@@ -2798,7 +2840,7 @@ function openStage(i){const s=STAGES[i];sfx('tap');
 function initRoom(){
   if(R.ready)return;R.ready=true;
   let rd;try{rd=new THREE.WebGLRenderer({canvas:$('#gl'),antialias:true});}catch(e){toast('3D表示に対応していない端末です');return;}
-  rd.setPixelRatio(Math.min(2,window.devicePixelRatio||1));rd.outputEncoding=THREE.sRGBEncoding;rd.toneMapping=THREE.ACESFilmicToneMapping;rd.toneMappingExposure=1.15;rd.shadowMap.enabled=true;rd.shadowMap.type=THREE.PCFSoftShadowMap;
+  rd.setPixelRatio(Math.min(1.5,window.devicePixelRatio||1));rd.outputEncoding=THREE.sRGBEncoding;rd.toneMapping=THREE.ACESFilmicToneMapping;rd.toneMappingExposure=1.15;rd.shadowMap.enabled=true;rd.shadowMap.type=THREE.PCFShadowMap;rd.shadowMap.autoUpdate=false;rd.shadowMap.needsUpdate=true;
   const sc=new THREE.Scene();sc.background=new THREE.Color(0x07060b);sc.fog=new THREE.Fog(0x07060b,18,38);
   const cam=new THREE.PerspectiveCamera(46,1,.1,100);Object.assign(R,{rd,sc,cam});
   const M=(o)=>new THREE.MeshStandardMaterial(o);
@@ -2842,7 +2884,7 @@ function initRoom(){
   const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:radialTex('rgba(255,210,140,.7)'),blending:THREE.AdditiveBlending,depthWrite:false}));halo.scale.set(4,4,1);halo.position.y=.25;ch.add(halo);
   // ライト
   sc.add(new THREE.HemisphereLight(0xffe2b8,0x1a0e24,.55));
-  const cl=new THREE.PointLight(0xffc27a,1.7,24,1.4);cl.position.set(0,5.2,0);cl.castShadow=true;cl.shadow.mapSize.set(1024,1024);cl.shadow.bias=-.002;sc.add(cl);R.cl=cl;
+  const cl=new THREE.PointLight(0xffc27a,1.7,24,1.4);cl.position.set(0,5.2,0);cl.castShadow=true;cl.shadow.mapSize.set(512,512);cl.shadow.bias=-.002;sc.add(cl);R.cl=cl;
   const moon=new THREE.DirectionalLight(0x8fb0ff,.5);moon.position.set(-5,8,-12);sc.add(moon);
   R.pl=new THREE.PointLight(0xffd27a,0,7,1.5);R.pl.position.set(0,1.4,0);sc.add(R.pl);
   // 光の粒
@@ -2907,7 +2949,7 @@ function loop(){
     if(o.aura){o.aura.position.set(o.x,o.y+s*.45+o.hop+jy,o.z);o.aura.scale.setScalar(s*1.5+Math.sin(t*3)*.1);}
   }
   R.mons.filter(o=>o.leave&&o.grow<=.01).forEach(removeMon);
-  R.rd.render(R.sc,R.cam);
+  ((R.fc=(R.fc||0)+1)%3===1&&(R.rd.shadowMap.needsUpdate=true)),R.rd.render(R.sc,R.cam);
 }
 function bindInput(){
   const cv=$('#gl'),ptr=new Map();let sx=0,sy=0,moved=0,pd=0;
@@ -2940,22 +2982,21 @@ function zxDecodeCanvas(cv){const Z=window.ZXing,r=zxReader();if(!Z||!r)return n
 function bdGet(){if(SCN.bd!==null)return SCN.bd;SCN.bd=false;if('BarcodeDetector' in window){try{SCN.bd=new BarcodeDetector({formats:['qr_code','ean_13','ean_8','upc_a','upc_e','code_128','code_39','code_93','itf','codabar']});}catch(e){try{SCN.bd=new BarcodeDetector();}catch(e2){}}}return SCN.bd;}
 function stopScan(){SCN.on=false;clearTimeout(SCN.tm);if(SCN.st){try{SCN.st.getTracks().forEach(t=>t.stop());}catch(e){}SCN.st=null;}}
 function openQR(){
-  closeMenu();sfx('open');
+  closeMenu();if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${SCAN_DAY}回まで。明日また来てね`);return;}sfx('open');
   modal(`<div class="qsc"><button class="x" onclick="closeModal()">×</button>
     <div class="qsL"><div class="qsRing r1"></div><div class="qsRing r2"></div><div class="qsV" id="qsV"><video id="qsVid" playsinline muted autoplay></video><div class="qsMsg" id="qsMsg">カメラを起動中…</div>
       <div class="qsF"><i></i><i></i><i></i><i></i><b></b></div></div></div>
-    <div class="qsR"><div class="mt gt">QR SCAN</div><div class="ms">QRコード・バーコードを<br>カメラにかざすだけで召喚！</div>
-      <div class="qsB"><button class="obtn" onclick="$('#picIn').click()">画像から選ぶ</button><button class="obtn" onclick="$('#camIn').click()">撮影する</button></div>
-      <div class="txt"><input class="inp" id="txtIn" placeholder="文字やURLでも召喚" maxlength="300"><button class="gbtn" onclick="summonText()">召喚</button></div></div>
+    <div class="qsR"><div class="mt gt">QR SCAN</div><div class="ms">QRコード・バーコードを<br>カメラにかざすだけで召喚！</div><div class="qsCnt${scLeft()?'':' z'}">今日の召喚 あと <b>${scLeft()}</b> / ${SCAN_DAY} 回</div>
+      <div class="qsRt"><span class="ur">UR <b>${Math.round(UR_RATE*1000)/10}%</b></span><span class="sr">SR <b>${Math.round(SR_RATE*1000)/10}%</b></span></div>
+      <div class="qsB"><button class="obtn" onclick="$('#picIn').click()">画像から選ぶ</button></div></div>
   </div>`);
-  $('#txtIn').addEventListener('keydown',e=>{if(e.key==='Enter')summonText();});
   setTimeout(()=>{if($('#qsVid'))startScan();},180);
 }
 async function startScan(){const msg=t=>{const m=$('#qsMsg');if(m){m.textContent=t;m.style.display=t?'':'none';}};
   zxLoad();
   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){msg('この端末ではカメラが使えません\n「撮影する」から読み取ってください');return;}
   let st;try{st=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}},audio:false});}
-  catch(e){msg('カメラを使えませんでした\n設定でカメラを許可するか「撮影する」を使ってください');return;}
+  catch(e){msg('カメラを使えませんでした\n設定でカメラを許可するか「画像から選ぶ」を使ってください');return;}
   const v=$('#qsVid');if(!v){st.getTracks().forEach(t=>t.stop());return;}
   SCN.st=st;SCN.on=true;v.style.transform=ROT?'rotate(-90deg)':'';v.srcObject=st;try{await v.play();}catch(e){}msg('');$('#qsV').classList.add('live');
   SCN.cv=SCN.cv||document.createElement('canvas');let n=0;
@@ -2987,7 +3028,7 @@ async function onFile(e){
   const f=e.target.files[0];e.target.value='';if(!f)return;
   modal(`<div class="qrm glass"><div class="frame"><i></i><i></i><i></i><i></i><b></b></div><div class="ms" style="margin:0">QRコードを解析中…</div></div>`);
   let d=null;try{d=await decodeFile(f);}catch(err){}
-  if(d===null){modal(`<div class="qrm glass"><div class="mt" style="font-size:calc(3.42*var(--vh));letter-spacing:.2em">QR・バーコードが見つかりません</div><div class="ms">コードを画面いっぱいに、明るく、まっすぐ撮って再挑戦してください</div><div class="row"><button class="gbtn" onclick="$('#camIn').click()">もう一度撮る</button><button class="obtn" onclick="closeModal()">とじる</button></div></div>`);return;}
+  if(d===null){modal(`<div class="qrm glass"><div class="mt" style="font-size:calc(3.42*var(--vh));letter-spacing:.2em">QR・バーコードが見つかりません</div><div class="ms">コードが大きく、はっきり写った画像を選んでください</div><div class="row"><button class="gbtn" onclick="closeModal();openQR()">スキャンにもどる</button><button class="gbtn" onclick="$('#picIn').click()">画像を選びなおす</button><button class="obtn" onclick="closeModal()">とじる</button></div></div>`);return;}
   summon(d);
 }
 $('#camIn').onchange=onFile;$('#picIn').onchange=onFile;
@@ -3079,11 +3120,11 @@ function rfxPlay(kind,onFlash){return new Promise(res=>{let c=$('#rfxc');if(!c){
 
 let SUMT=0;setInterval(()=>{if(!summoning&&R.mons&&!$('#modal').classList.contains('on')){let ch=0;for(const o of R.mons){if(o.temp&&!o.leave){o.leave=true;R.focus=0;R.boost=0;}if(o.tempUR){o.tempUR=0;ch=1;}}if(ch){R.focus=0;R.boost=0;applyUR();}}if(summoning&&!$('#modal').classList.contains('on')&&Date.now()-SUMT>20000){summoning=false;try{R.boost=0;R.focus=0;}catch(e){}}},2000);
 async function summon(src){
-  if(summoning)return;summoning=true;SUMT=Date.now();closeModal();closeMenu();
+  if(summoning)return;if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${SCAN_DAY}回まで。明日また来てね`);return;}summoning=true;SUMT=Date.now();closeModal();closeMenu();
   let isUR=false,isSR=false;{const r=Math.random(),c=r<UR_RATE?URLIST():r<UR_RATE+SR_RATE?SRLIST():null;if(c){src=c[Math.floor(Math.random()*c.length)].src+'#'+Date.now().toString(36);isUR=r<UR_RATE;isSR=!isUR;}}
   if(!isUR&&!isSR&&save.box.indexOf(src)>=0)src=src+'#~'+Date.now().toString(36);
   const m=gen(src),had=-1;let idx=had;
-  if(had<0){idx=save.box.indexOf(null);if(idx<0){summoning=false;toast('BOXがいっぱいです');return;}save.box[idx]=src;persist();updHud();applyUR();}
+  if(had<0){idx=save.box.indexOf(null);if(idx<0){summoning=false;toast('BOXがいっぱいです');return;}save.box[idx]=src;scDay().n++;persist();if(save.xfer){toast('通信中…');const okP=await xfSafe();if(!okP){save.box[idx]=null;scDay().n--;persist();summoning=false;sfx('miss');toast('通信できないため召喚できませんでした。電波のよい所でもう一度試してね');return;}}updHud();applyUR();}
   if(!R.sc){sfx('summon');showCard(m,{mode:'new',ur:isUR,sr:isSR,had:had>=0,box:Math.floor(idx/PER)+1,onClose:()=>{summoning=false;setTimeout(openQR,250);}});return;}
   let o=null;try{
   if(isUR||isSR){const K=isUR?'UR':'SR';rfxLoad(K);R.boost=1;R.focus=1;await wait(60);if(!RFX_BUF[K])await wait(250);let rel;const appear=new Promise(r=>rel=r);rfxPlay(K,()=>rel()).then(()=>{});await appear;}
@@ -3339,10 +3380,10 @@ const META={kira:{r:1},leaf:{r:1},doku:{r:1},kori:{r:1},kessho:{r:2},star:{r:2},
 const FN={};IDS.forEach((id,i)=>{FN[id]=D[i][1];META[id].n=D[i][0];});
 function draw(ctx,id,cx,gy,s,T,ph,sbk){const f=FN[id];if(!f)return;g=ctx;SBK=sbk==null?1:sbk;const se=s*.74,ey=gy-se*.42;try{f(cx,ey,se,T,ph,gy);}catch(_){}}
 /* 3D：エフェクトごとに共有のアニメテクスチャ（後ろ・前の2枚） */
-const C=224,TX={},TS={cx:C/2,gy:C*.82,s:140},MPX=119;
+const C=192,TX={},TS={cx:C/2,gy:C*.82,s:120},MPX=102;
 function tex(id){if(TX[id])return TX[id];const mk=()=>{const c=document.createElement('canvas');c.width=c.height=C;const t=new THREE.CanvasTexture(c);return{c,x:c.getContext('2d'),t};};return TX[id]={b:mk(),f:mk(),seen:0,last:0};}
 function render(id,T){const o=tex(id);for(const[k,ph]of[['b',0],['f',1]]){const L=o[k];L.x.clearRect(0,0,C,C);draw(L.x,id,TS.cx,TS.gy,TS.s,T,ph,0);L.t.needsUpdate=true;}}
-let on=false;function tick(ts){requestAnimationFrame(tick);const now=performance.now();for(const id in TX){const o=TX[id];if(now-o.seen>600||now-o.last<40)continue;o.last=now;render(id,now/1000);}}
+let on=false;function tick(ts){requestAnimationFrame(tick);const now=performance.now();for(const id in TX){const o=TX[id];if(now-o.seen>600||now-o.last<50)continue;o.last=now;render(id,now/1000);}}
 function detach(obj){if(!obj)return;const L=[];obj.traverse(c=>{if(c.name==='pfx')L.push(c);});L.forEach(c=>c.parent&&c.parent.remove(c));}
 function attach(obj,id,lh,foot){detach(obj);if(!obj||!id||!FN[id]||!window.THREE)return;if(!on){on=true;requestAnimationFrame(tick);}
   const o=tex(id),k=MPX/lh,sc=C/k,y=(foot||0)+(TS.gy-C/2)/k,G=new THREE.Group();G.name='pfx';
@@ -3353,12 +3394,12 @@ const FX_STAR=r=>'★'.repeat(r);
 const FX_COL={kira:'#fff1a8',leaf:'#7dff9a',mahou:'#ff7ae8',kessho:'#8fe3ff',star:'#ffd75a',doku:'#c07bff',kori:'#b8f0ff',ring:'#a8a0ff'};let gSel='ring';const GACHA_P=100,GACHA_DUP=50;
 function fxOwn(){return save.fxOwn||(save.fxOwn=[]);}
 function fxOf(src){const d=save.mon&&save.mon[src];if(d&&d.fx)return d.fx;const b=(save.box||[]).find(x=>x!==src&&urBase(x)===src);return b&&save.mon[b]&&save.mon[b].fx||null;}
-function fxH(obj){try{const p=obj.position.clone(),q=obj.quaternion.clone(),s=obj.scale.clone(),pa=obj.parent;if(pa)pa.remove(obj);obj.position.set(0,0,0);obj.quaternion.identity();obj.scale.set(1,1,1);obj.updateMatrixWorld(true);PFX.detach(obj);const bb=new THREE.Box3().setFromObject(obj);obj.position.copy(p);obj.quaternion.copy(q);obj.scale.copy(s);if(pa)pa.add(obj);const h=bb.max.y-Math.min(0,bb.min.y);return isFinite(h)&&h>.1?{h,f:Math.min(0,bb.min.y)}:{h:1.45,f:0};}catch(_){return{h:1.45,f:0};}}
+function fxH(obj){try{const p=obj.position.clone(),q=obj.quaternion.clone(),s=obj.scale.clone(),pa=obj.parent;if(pa)pa.remove(obj);obj.position.set(0,0,0);obj.quaternion.identity();obj.scale.set(1,1,1);obj.updateMatrixWorld(true);PFX.detach(obj);const bb=new THREE.Box3().setFromObject(obj);obj.position.copy(p);obj.quaternion.copy(q);obj.scale.copy(s);if(pa)pa.add(obj);const h=bb.max.y-bb.min.y;return isFinite(h)&&h>.1?{h,f:bb.min.y}:{h:1.45,f:0};}catch(_){return{h:1.45,f:0};}}
 function fxApply(obj,id){if(!obj||!window.THREE)return;obj.traverse(c=>{if(c.isMesh&&c.renderOrder<2)c.renderOrder=2;});if(!id){PFX.detach(obj);return;}const b=fxH(obj);PFX.attach(obj,id,b.h,b.f);}
 function fxRoomRefresh(s){if(typeof R==='undefined'||!R.mons)return;R.mons.forEach(o=>{if(o.src===s||o.src===urBase(s))fxApply(o.sp,fxOf(o.src));});}
 /* 2Dプレビュー（モンスター画像＋エフェクト） */
 const FXV=new Set();let fxvOn=false;
-let fxvLast=0;function fxvTick(){if(!FXV.size){fxvOn=false;return;}requestAnimationFrame(fxvTick);const now=performance.now();if(now-fxvLast<32)return;fxvLast=now;const T=now/1000;FXV.forEach(v=>{const md=v.c.closest('#modal');if(!document.body.contains(v.c)||(md&&!md.classList.contains('on'))){FXV.delete(v);v.c._fxv=null;return;}const x=v.x,W=v.c.width,H=v.c.height;x.clearRect(0,0,W,H);const s=Math.min(W*1.05,H)*.86,cx=W/2,gy=H*.9;if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,0,.6);x.save();x.globalAlpha=.5;x.fillStyle='#000';x.beginPath();x.ellipse(cx,gy,s*.24,s*.045,0,0,7);x.fill();x.restore();if(v.img&&v.img.complete&&v.img.naturalWidth){const M=s*.98,bb=Math.sin(T*2+v.o)*s*.012;x.drawImage(v.img,cx-M/2,gy-M*.95+bb,M,M);}if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,1,.6);});}
+let fxvLast=0;function fxvTick(){if(!FXV.size){fxvOn=false;return;}requestAnimationFrame(fxvTick);const now=performance.now();if(now-fxvLast<40)return;fxvLast=now;const T=now/1000;FXV.forEach(v=>{const md=v.c.closest('#modal');if(!document.body.contains(v.c)||(md&&!md.classList.contains('on'))){FXV.delete(v);v.c._fxv=null;return;}const x=v.x,W=v.c.width,H=v.c.height;x.clearRect(0,0,W,H);const s=Math.min(W*1.05,H)*.86,cx=W/2,gy=H*.9;if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,0,.6);x.save();x.globalAlpha=.5;x.fillStyle='#000';x.beginPath();x.ellipse(cx,gy,s*.24,s*.045,0,0,7);x.fill();x.restore();if(v.img&&v.img.complete&&v.img.naturalWidth){const M=s*.98,bb=Math.sin(T*2+v.o)*s*.012;x.drawImage(v.img,cx-M/2,gy-M*.95+bb,M,M);}if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,1,.6);});}
 function fxvMount(root){(root||document).querySelectorAll('canvas.fxv').forEach((c,i)=>{if(c._fxv)return;const r=c.getBoundingClientRect();const k=2;c.width=Math.max(60,Math.round((c.offsetWidth||r.width||120)*k));c.height=Math.max(60,Math.round((c.offsetHeight||r.height||120)*k));const im=new Image();im.src=c.dataset.img||KIT_M.img;const v={c,x:c.getContext('2d'),id:c.dataset.fx||null,img:im,o:i*.37};c._fxv=v;FXV.add(v);});if(!fxvOn&&FXV.size){fxvOn=true;requestAnimationFrame(fxvTick);}}
 /* 装備 */
 function openFxPick(){const s=save.box[BX.sel];if(!s)return;sfx('tap');const d=mst(s),own=fxOwn(),img=monStat(s).img;
@@ -3378,7 +3419,10 @@ function gachaHTML(){const own=fxOwn(),sel=gSel;
   <div class="gNote">所持 ${own.length}/${PFX.IDS.length}　・　持っているエフェクトが出たら ${GACHA_DUP}コイン返却</div>
   <button class="gGo${coins()<GACHA_P?' dis':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small><span class="cico">${COIN_SVG}</span>${GACHA_P}</small></button></div></div>`;}
 function gachaSel(id){gSel=id;sfx('tap');const m=document.querySelector('#modal .gMac');if(!m)return;m.style.setProperty('--c',FX_COL[id]);const c=document.getElementById('gPrev');if(c&&c._fxv)c._fxv.id=id;m.querySelector('.gPn').textContent=PFX.META[id].n;m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');document.querySelectorAll('#modal .gCh').forEach(b=>b.classList.toggle('on',b.getAttribute('onclick').includes("'"+id+"'")));}
-function gachaPull(){if(document.querySelector('.gOv'))return;if(coins()<GACHA_P){toast('コインが足りません');return;}addCoin(-GACHA_P);const id=gachaRoll(),dup=fxOwn().includes(id),col=FX_COL[id];if(!dup)fxOwn().push(id);else addCoin(GACHA_DUP);persist();sfx('charge');
+let G_BUSY=0;
+async function gachaPull(){if(document.querySelector('.gOv')||G_BUSY)return;if(coins()<GACHA_P){toast('コインが足りません');return;}const snap=JSON.stringify(save);addCoin(-GACHA_P);const id=gachaRoll(),dup=fxOwn().includes(id),col=FX_COL[id];if(!dup)fxOwn().push(id);else addCoin(GACHA_DUP);persist();
+  if(save.xfer){G_BUSY=1;const gb=document.querySelector('#modal .gGo b');if(gb)gb.textContent='通信中…';const ok=await xfSafe();G_BUSY=0;if(!ok){save=JSON.parse(snap);persist();hudAvatar();sfx('miss');renderShop('gacha');toast('通信できないためガチャを引けませんでした。電波のよい所でもう一度試してね');return;}}
+  sfx('charge');
   const sp=Array.from({length:28},(_,i)=>{const a=Math.random()*360,d=30+Math.random()*28,z=.5+Math.random();return `<i style="--a:${a}deg;--d:calc(${d}*var(--vh));--z:${z};--w:${(Math.random()*.5).toFixed(2)}s"></i>`;}).join('');
   const ov=document.createElement('div');ov.className='gOv';ov.style.setProperty('--c',col);
   ov.innerHTML=`<div class="gMc"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div><div class="gBeam"></div><div class="gOrb"><i></i></div><div class="gFlash"></div>
@@ -4319,7 +4363,7 @@ function rkLoseNow(why){if(!save.rkPend)return null;delete save.rkPend;const x=r
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のオンライン対戦は途中で切断したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.net&&B.mode==='online'&&save.rkPend&&!(force&&B.busy))rkLoseNow('対戦から退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-0820</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-1320</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
