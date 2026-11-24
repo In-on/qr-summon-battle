@@ -1146,7 +1146,7 @@ button{font-family:inherit;cursor:pointer}
 .acts .ab.a3.ready{border-color:#ffe08a!important;box-shadow:0 0 0 3px rgba(18,12,24,.9),0 0 0 4px #ffcf6a,0 0 22px rgba(255,190,90,.95)!important;animation:ulRdy 1.1s ease-in-out infinite!important}
 @keyframes skRdy{0%,100%{filter:drop-shadow(0 0 2px rgba(140,220,255,.6))}50%{filter:drop-shadow(0 0 12px rgba(140,220,255,1)) brightness(1.15)}}
 @keyframes ulRdy{0%,100%{filter:drop-shadow(0 0 3px rgba(255,200,90,.7))}50%{filter:drop-shadow(0 0 16px rgba(255,200,90,1)) brightness(1.2)}}
-html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
+html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:none}
 #npOv{position:absolute;left:50%;top:calc(20*var(--vh));transform:translateX(-50%);z-index:30;display:flex;flex-direction:column;align-items:center;gap:calc(.6*var(--vh));padding:calc(1.2*var(--vh)) calc(4*var(--vh));border-radius:99px;background:rgba(4,3,10,.7);box-shadow:inset 0 0 0 1px rgba(232,200,122,.5);pointer-events:none}
 #npOv b{font:800 calc(3.4*var(--vh)) 'Shippori Mincho B1',serif;color:#ffe9b0;text-shadow:0 0 14px rgba(255,210,120,.6);animation:rkBlink 1.4s ease-in-out infinite}
 #npOv span{font:600 calc(2.2*var(--vh)) 'Zen Kaku Gothic New';color:#ddd}
@@ -1250,37 +1250,59 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
 .shTab{display:flex;justify-content:center;gap:calc(1*var(--vh));margin:0 0 calc(1.4*var(--vh))}
 .shTab button{min-width:calc(20*var(--vh));padding:calc(.7*var(--vh)) calc(2.4*var(--vh));border-radius:30px;border:1px solid rgba(217,180,106,.5);background:rgba(0,0,0,.35);color:#cdb88a;font:700 calc(2.7*var(--vh)) 'Shippori Mincho B1'}
 .shTab button.on{background:linear-gradient(180deg,#f3d58a,#b8873a);color:#2a1a06;border-color:#ffe6a8;box-shadow:0 0 calc(1.5*var(--vh)) rgba(255,210,120,.5)}
-.gWrap{display:flex;gap:calc(2*var(--vh));align-items:stretch;width:calc(86*var(--vh));max-width:100%;margin:0 auto}
-.gMac{position:relative;width:calc(30*var(--vh));flex:none;border-radius:16px;background:radial-gradient(circle at 50% 60%,#2a1d40,#0b0812 75%);box-shadow:inset 0 0 0 1px rgba(217,180,106,.45),inset 0 0 calc(4*var(--vh)) rgba(120,90,200,.35)}
-.gMac canvas{width:100%;height:calc(30*var(--vh));display:block}
-.gTag{position:absolute;left:0;right:0;bottom:calc(1*var(--vh));text-align:center;font:800 calc(2.5*var(--vh)) 'Shippori Mincho B1';color:#ffe9b0;text-shadow:0 0 6px #b070ff}
-.gSide{flex:1;display:flex;flex-direction:column;gap:calc(1*var(--vh));text-align:left}
-.gRates{display:flex;flex-direction:column;gap:calc(.7*var(--vh))}
-.gRt{display:flex;flex-wrap:wrap;align-items:center;gap:calc(.6*var(--vh));padding:calc(.6*var(--vh)) calc(1.2*var(--vh));border-radius:10px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(217,180,106,.25)}
-.gRt em{margin-left:auto;font:700 calc(2.2*var(--vh)) sans-serif;color:#cdb88a;font-style:normal}
-.gS{font:900 calc(2.4*var(--vh)) sans-serif;letter-spacing:-.1em;margin-right:calc(.4*var(--vh))}.gS.s1,.gSt.s1{color:#9fd8ff}.gS.s2,.gSt.s2{color:#ffd75a}.gS.s3,.gSt.s3{color:#ff9af0;text-shadow:0 0 6px #c060ff}
-.gN{font:700 calc(2.3*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#e8e0d0;padding:calc(.2*var(--vh)) calc(.9*var(--vh));border-radius:20px;background:rgba(0,0,0,.35)}.gN.own{color:#ffe6a0;box-shadow:inset 0 0 0 1px rgba(255,220,140,.55)}
-.gNote{font:600 calc(2.1*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#b8a98a}
-.gGo{align-self:center;margin-top:auto;font-size:calc(3*var(--vh))!important;padding:calc(1*var(--vh)) calc(4*var(--vh))!important}
-.gOv{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(30,20,50,.97),rgba(0,0,0,.99))}
-.gCap{position:absolute;width:calc(22*var(--vh));height:calc(22*var(--vh));animation:gShk .25s ease-in-out 4,gIn .35s ease-out}
-.gCt,.gCb{position:absolute;left:0;right:0;height:50%;transition:transform .45s ease-in,opacity .45s}
-.gCt{top:0;border-radius:calc(11*var(--vh)) calc(11*var(--vh)) 0 0;background:linear-gradient(180deg,#9fdcff,#3a7ad8);box-shadow:inset 0 -3px 0 rgba(0,0,0,.25)}
-.gCb{bottom:0;border-radius:0 0 calc(11*var(--vh)) calc(11*var(--vh));background:linear-gradient(180deg,#f4f0ff,#b8b0d8)}
-.gOv.r2 .gCt{background:linear-gradient(180deg,#ffe58a,#d89a2a)}.gOv.r3 .gCt{background:linear-gradient(180deg,#ffb0f4,#a050ff)}
-.gOv.open .gCt{transform:translateY(-140%) rotate(-25deg);opacity:0}.gOv.open .gCb{transform:translateY(140%);opacity:0}
-.gOv:before{content:'';position:absolute;width:calc(30*var(--vh));height:calc(30*var(--vh));border-radius:50%;background:radial-gradient(circle,#fff,rgba(255,255,255,0) 70%);opacity:0;transform:scale(.2)}
-.gOv.open:before{animation:gFl .7s ease-out}.gOv.r3.open:before{background:radial-gradient(circle,#fff,#ff9af0 35%,rgba(160,80,255,0) 70%)}.gOv.r2.open:before{background:radial-gradient(circle,#fff,#ffd75a 35%,rgba(255,200,80,0) 70%)}
-.gRes{display:flex;flex-direction:column;align-items:center;opacity:0;transform:scale(.6);transition:opacity .4s .15s,transform .5s .15s cubic-bezier(.2,1.6,.4,1)}
+.gWrap{display:flex;gap:calc(2.2*var(--vh));align-items:stretch;width:calc(100*var(--vh));max-width:100%;margin:0 auto}
+.gMac{position:relative;width:calc(36*var(--vh));height:calc(40*var(--vh));flex:none;border-radius:18px;overflow:hidden;background:radial-gradient(circle at 50% 62%,color-mix(in srgb,var(--c) 22%,#1a1228),#07050c 78%);box-shadow:inset 0 0 0 1.5px #d9b46a,inset 0 0 0 4px rgba(0,0,0,.6),inset 0 0 0 5px rgba(217,180,106,.35),0 0 calc(3*var(--vh)) color-mix(in srgb,var(--c) 35%,transparent);transition:box-shadow .4s}
+.gMac canvas{position:absolute;left:0;top:0;width:100%;height:calc(36*var(--vh))}
+.gRay{position:absolute;inset:-45%;top:-55%;bottom:-35%;background:repeating-conic-gradient(from 0deg,color-mix(in srgb,var(--c) 30%,transparent) 0 8deg,transparent 8deg 22deg);-webkit-mask:radial-gradient(closest-side,#000 15%,transparent 100%);mask:radial-gradient(closest-side,#000 15%,transparent 100%);animation:gSpin 22s linear infinite}
+.gRg{position:absolute;left:50%;top:82%;width:70%;aspect-ratio:1;transform:translate(-50%,-50%) scaleY(.28);border-radius:50%;border:2px solid color-mix(in srgb,var(--c) 70%,#fff);box-shadow:0 0 14px var(--c),inset 0 0 14px var(--c);opacity:.55}
+.gPn{position:absolute;left:0;right:0;bottom:calc(1.2*var(--vh));text-align:center;font:800 calc(3*var(--vh)) 'Shippori Mincho B1';color:#fff8e0;text-shadow:0 0 8px var(--c),0 0 2px #000}
+.gMac.pop .gPn{animation:gPop .4s cubic-bezier(.2,1.8,.4,1)}
+.gK{position:absolute;width:calc(3.2*var(--vh));height:calc(3.2*var(--vh));border:2px solid #e8c77a;opacity:.85}.gK.k1{left:6px;top:6px;border-right:0;border-bottom:0}.gK.k2{right:6px;top:6px;border-left:0;border-bottom:0}.gK.k3{left:6px;bottom:6px;border-right:0;border-top:0}.gK.k4{right:6px;bottom:6px;border-left:0;border-top:0}
+.gSide{flex:1;display:flex;flex-direction:column;gap:calc(1.1*var(--vh));text-align:left;min-width:0}
+.gTi b{display:block;font:900 calc(3.8*var(--vh)) 'Shippori Mincho B1';background:linear-gradient(90deg,#fff3c4,#e4b45a 40%,#fff6d8 50%,#e4b45a 60%,#fff3c4);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gShine 3.5s linear infinite;letter-spacing:.06em}
+.gTi span{font:600 calc(2.1*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#bba987}
+.gChs{display:grid;grid-template-columns:repeat(4,1fr);gap:calc(.8*var(--vh))}
+.gCh{position:relative;display:flex;align-items:center;justify-content:center;gap:calc(.6*var(--vh));padding:calc(1*var(--vh)) calc(.4*var(--vh));border-radius:12px;border:1px solid rgba(217,180,106,.35);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(0,0,0,.35));color:#e9e0cc;font:700 calc(2.3*var(--vh)) 'Zen Kaku Gothic New',sans-serif;white-space:nowrap}
+.gCh i{width:calc(1.4*var(--vh));height:calc(1.4*var(--vh));border-radius:50%;background:var(--c);box-shadow:0 0 6px var(--c);flex:none}
+.gCh em{position:absolute;top:calc(-.9*var(--vh));right:calc(-.4*var(--vh));font:800 calc(1.5*var(--vh)) sans-serif;font-style:normal;color:#2a1a06;background:#ffd77a;border-radius:8px;padding:0 calc(.6*var(--vh))}
+.gCh.on{border-color:var(--c);background:linear-gradient(180deg,color-mix(in srgb,var(--c) 30%,transparent),rgba(0,0,0,.4));box-shadow:0 0 calc(1.4*var(--vh)) color-mix(in srgb,var(--c) 60%,transparent);color:#fff}
+.gNote{font:600 calc(2*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#a8987a}
+.gGo{position:relative;overflow:hidden;align-self:stretch;margin-top:auto;display:flex;align-items:center;justify-content:center;gap:calc(1.6*var(--vh));padding:calc(1.3*var(--vh));border-radius:40px;border:2px solid #fff0c0;background:linear-gradient(180deg,#ffe9a8,#e0a948 45%,#a8701e);color:#2a1604;box-shadow:0 0 calc(2.4*var(--vh)) rgba(255,200,100,.55),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -3px 0 rgba(0,0,0,.25);animation:gGlow 2s ease-in-out infinite}
+.gGo b{font:900 calc(3.6*var(--vh)) 'Shippori Mincho B1';letter-spacing:.08em}.gGo small{display:flex;align-items:center;gap:4px;font:800 calc(2.8*var(--vh)) sans-serif;background:rgba(0,0,0,.18);border-radius:20px;padding:0 calc(1.2*var(--vh))}
+.gGs{position:absolute;top:0;bottom:0;width:30%;left:-40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent);animation:gSw 2.6s ease-in-out infinite}
+.gGo.dis{filter:grayscale(.8) brightness(.6);animation:none}
+.gOv{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 55%,#1a1030,#030207 70%);transition:opacity .3s}.gOv.out{opacity:0}
+.gMc{position:absolute;left:50%;top:72%;width:calc(80*var(--vh));aspect-ratio:1;transform:translate(-50%,-50%) scaleY(.3) scale(.2);opacity:0;transition:transform .8s cubic-bezier(.2,1.2,.4,1),opacity .5s}
+.gOv.s1 .gMc{transform:translate(-50%,-50%) scaleY(.3) scale(1);opacity:1}.gOv.open .gMc{opacity:0;transition:opacity .6s}
+.gMc i{position:absolute;inset:0;border-radius:50%;border:3px solid var(--c);box-shadow:0 0 18px var(--c),inset 0 0 18px var(--c)}
+.gMc .m1{animation:gSpin 6s linear infinite;border-style:dashed}.gMc .m2{inset:12%;border-width:2px;animation:gSpin 4s linear infinite reverse;border-style:dotted}.gMc .m3{inset:26%;background:repeating-conic-gradient(var(--c) 0 3deg,transparent 3deg 30deg);-webkit-mask:radial-gradient(circle,transparent 55%,#000 57%);mask:radial-gradient(circle,transparent 55%,#000 57%);animation:gSpin 8s linear infinite;border:0}
+.gBeam{position:absolute;left:50%;bottom:28%;width:calc(16*var(--vh));height:0;transform:translateX(-50%);background:linear-gradient(0deg,var(--c),rgba(255,255,255,.9) 40%,transparent);filter:blur(4px);opacity:0;transition:height .7s ease-out,opacity .4s}
+.gOv.s2 .gBeam{height:90%;opacity:.8}.gOv.open .gBeam{opacity:0}
+.gOrb{position:absolute;left:50%;top:-25%;width:calc(20*var(--vh));aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,color-mix(in srgb,var(--c) 70%,#fff) 30%,var(--c) 60%,color-mix(in srgb,var(--c) 40%,#000));box-shadow:0 0 calc(6*var(--vh)) var(--c),0 0 calc(14*var(--vh)) color-mix(in srgb,var(--c) 50%,transparent);transition:top .9s cubic-bezier(.3,1.4,.5,1)}
+.gOrb i{position:absolute;inset:-30%;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,.55) 0 4deg,transparent 4deg 24deg);-webkit-mask:radial-gradient(circle,#000 30%,transparent 70%);mask:radial-gradient(circle,#000 30%,transparent 70%);animation:gSpin 3s linear infinite;opacity:0;transition:opacity .4s}
+.gOv.s2 .gOrb{top:48%}.gOv.s3 .gOrb{animation:gShk2 .12s linear infinite}.gOv.s3 .gOrb i{opacity:1}.gOv.open .gOrb{transform:translate(-50%,-50%) scale(3);opacity:0;transition:transform .35s ease-in,opacity .35s}
+.gFlash{position:absolute;inset:0;background:radial-gradient(circle,#fff 20%,color-mix(in srgb,var(--c) 60%,#fff) 50%,transparent 80%);opacity:0;pointer-events:none}
+.gOv.open .gFlash{animation:gFl2 .9s ease-out}
+.gRes{position:relative;display:flex;flex-direction:column;align-items:center;opacity:0;transform:scale(.5);transition:opacity .4s .1s,transform .6s .1s cubic-bezier(.2,1.6,.4,1)}
 .gOv.open .gRes{opacity:1;transform:none}
-.gRes canvas{width:calc(50*var(--vh));height:calc(50*var(--vh))}
-.gSt{font:900 calc(4.5*var(--vh)) sans-serif;margin-top:calc(-2*var(--vh))}
-.gNm{font:800 calc(4.6*var(--vh)) 'Shippori Mincho B1';color:#fff4d0;text-shadow:0 0 calc(1.5*var(--vh)) rgba(255,200,120,.8)}
+.gRay2{position:absolute;left:50%;top:40%;width:calc(150*var(--vh));height:calc(150*var(--vh));margin:calc(-75*var(--vh)) 0 0 calc(-75*var(--vh));background:repeating-conic-gradient(color-mix(in srgb,var(--c) 40%,transparent) 0 6deg,transparent 6deg 18deg);-webkit-mask:radial-gradient(closest-side,#000 8%,transparent 100%);mask:radial-gradient(closest-side,#000 8%,transparent 100%);animation:gSpin 16s linear infinite;opacity:0;transition:opacity .6s .1s}.gOv.open .gRay2{opacity:1}
+.gSp{position:absolute;left:50%;top:38%;width:0;height:0}
+.gSp i{position:absolute;width:calc(1.6*var(--vh)*var(--z));height:calc(1.6*var(--vh)*var(--z));background:#fff;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 4px var(--c));opacity:0}
+.gOv.open .gSp i{animation:gSpk 1.6s var(--w) ease-out forwards}
+.gRes canvas{width:calc(48*var(--vh));height:calc(48*var(--vh))}
+.gBdg{position:absolute;top:calc(3*var(--vh));right:calc(-3*var(--vh));font:900 calc(3.4*var(--vh)) sans-serif;color:#fff;background:linear-gradient(180deg,#ff6f8f,#d22e5a);padding:calc(.3*var(--vh)) calc(1.6*var(--vh));border-radius:20px;transform:rotate(12deg);box-shadow:0 0 12px rgba(255,90,130,.7);border:2px solid #ffd0dc}
+.gNm{margin-top:calc(-2*var(--vh));font:900 calc(5.4*var(--vh)) 'Shippori Mincho B1';background:linear-gradient(90deg,#fff,color-mix(in srgb,var(--c) 60%,#fff) 30%,#fff 50%,color-mix(in srgb,var(--c) 60%,#fff) 70%,#fff);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gShine 2.5s linear infinite;filter:drop-shadow(0 0 calc(1.2*var(--vh)) var(--c))}
+.gNm small{font-size:.5em;margin-left:.3em}
 .gSb{font:700 calc(2.6*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#ffe08a;margin-top:calc(.6*var(--vh))}
-.gTp{font:600 calc(2.2*var(--vh)) sans-serif;color:rgba(255,255,255,.5);margin-top:calc(1.6*var(--vh));opacity:0;transition:opacity .4s}.gOv.done .gTp{opacity:1;animation:gBl 1.4s infinite}
-@keyframes gShk{0%,100%{transform:rotate(0)}25%{transform:rotate(-12deg)}75%{transform:rotate(12deg)}}
-@keyframes gIn{from{transform:scale(.3)}to{transform:scale(1)}}
-@keyframes gFl{0%{opacity:1;transform:scale(.2)}100%{opacity:0;transform:scale(3.5)}}
+.gTp{font:600 calc(2.2*var(--vh)) sans-serif;color:rgba(255,255,255,.5);margin-top:calc(1.4*var(--vh));opacity:0;transition:opacity .4s}.gOv.done .gTp{opacity:1;animation:gBl 1.4s infinite}
+@keyframes gSpin{to{rotate:360deg}}
+@keyframes gShk2{0%{margin-left:-3px}50%{margin-left:3px}100%{margin-left:-3px}}
+@keyframes gFl2{0%{opacity:1}100%{opacity:0}}
+@keyframes gSpk{0%{opacity:1;transform:rotate(var(--a)) translateX(0) scale(.2)}70%{opacity:1}100%{opacity:0;transform:rotate(var(--a)) translateX(var(--d)) scale(1)}}
+@keyframes gShine{to{background-position:-200% 0}}
+@keyframes gSw{0%{left:-40%}60%,100%{left:120%}}
+@keyframes gGlow{50%{box-shadow:0 0 calc(4*var(--vh)) rgba(255,210,120,.85),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -3px 0 rgba(0,0,0,.25)}}
+@keyframes gPop{0%{transform:scale(.6)}100%{transform:none}}
 @keyframes gBl{50%{opacity:.35}}
 .fxP{width:auto!important;max-width:min(94%,calc(120*var(--vh)))}
 .fxg{display:grid;grid-template-columns:repeat(5,calc(17*var(--vh)));gap:calc(1*var(--vh));justify-content:center;max-height:calc(60*var(--vh));overflow:auto}
@@ -3317,10 +3339,10 @@ const META={kira:{r:1},leaf:{r:1},doku:{r:1},kori:{r:1},kessho:{r:2},star:{r:2},
 const FN={};IDS.forEach((id,i)=>{FN[id]=D[i][1];META[id].n=D[i][0];});
 function draw(ctx,id,cx,gy,s,T,ph,sbk){const f=FN[id];if(!f)return;g=ctx;SBK=sbk==null?1:sbk;const se=s*.74,ey=gy-se*.42;try{f(cx,ey,se,T,ph,gy);}catch(_){}}
 /* 3D：エフェクトごとに共有のアニメテクスチャ（後ろ・前の2枚） */
-const C=320,TX={},TS={cx:C/2,gy:C*.82,s:200},MPX=170;
+const C=224,TX={},TS={cx:C/2,gy:C*.82,s:140},MPX=119;
 function tex(id){if(TX[id])return TX[id];const mk=()=>{const c=document.createElement('canvas');c.width=c.height=C;const t=new THREE.CanvasTexture(c);return{c,x:c.getContext('2d'),t};};return TX[id]={b:mk(),f:mk(),seen:0,last:0};}
-function render(id,T){const o=tex(id);for(const[k,ph]of[['b',0],['f',1]]){const L=o[k];L.x.clearRect(0,0,C,C);draw(L.x,id,TS.cx,TS.gy,TS.s,T,ph,.6);L.t.needsUpdate=true;}}
-let on=false;function tick(ts){requestAnimationFrame(tick);const now=performance.now();for(const id in TX){const o=TX[id];if(now-o.seen>600||now-o.last<33)continue;o.last=now;render(id,now/1000);}}
+function render(id,T){const o=tex(id);for(const[k,ph]of[['b',0],['f',1]]){const L=o[k];L.x.clearRect(0,0,C,C);draw(L.x,id,TS.cx,TS.gy,TS.s,T,ph,0);L.t.needsUpdate=true;}}
+let on=false;function tick(ts){requestAnimationFrame(tick);const now=performance.now();for(const id in TX){const o=TX[id];if(now-o.seen>600||now-o.last<40)continue;o.last=now;render(id,now/1000);}}
 function detach(obj){if(!obj)return;const L=[];obj.traverse(c=>{if(c.name==='pfx')L.push(c);});L.forEach(c=>c.parent&&c.parent.remove(c));}
 function attach(obj,id,lh,foot){detach(obj);if(!obj||!id||!FN[id]||!window.THREE)return;if(!on){on=true;requestAnimationFrame(tick);}
   const o=tex(id),k=MPX/lh,sc=C/k,y=(foot||0)+(TS.gy-C/2)/k,G=new THREE.Group();G.name='pfx';
@@ -3328,7 +3350,7 @@ function attach(obj,id,lh,foot){detach(obj);if(!obj||!id||!FN[id]||!window.THREE
   obj.traverse(c=>{if(c.isMesh||(c.isSprite&&c.name!=='pfx'))c.renderOrder=Math.max(c.renderOrder,2);});obj.add(G);if(!o.last)render(id,performance.now()/1000);return G;}
 return{IDS,META,draw,attach,detach};})();
 const FX_STAR=r=>'★'.repeat(r);
-const FX_RATE={1:18,2:8,3:4};const GACHA_P=100,GACHA_DUP=50;
+const FX_COL={kira:'#fff1a8',leaf:'#7dff9a',mahou:'#ff7ae8',kessho:'#8fe3ff',star:'#ffd75a',doku:'#c07bff',kori:'#b8f0ff',ring:'#a8a0ff'};let gSel='ring';const GACHA_P=100,GACHA_DUP=50;
 function fxOwn(){return save.fxOwn||(save.fxOwn=[]);}
 function fxOf(src){const d=save.mon&&save.mon[src];if(d&&d.fx)return d.fx;const b=(save.box||[]).find(x=>x!==src&&urBase(x)===src);return b&&save.mon[b]&&save.mon[b].fx||null;}
 function fxH(obj){try{const p=obj.position.clone(),q=obj.quaternion.clone(),s=obj.scale.clone(),pa=obj.parent;if(pa)pa.remove(obj);obj.position.set(0,0,0);obj.quaternion.identity();obj.scale.set(1,1,1);obj.updateMatrixWorld(true);PFX.detach(obj);const bb=new THREE.Box3().setFromObject(obj);obj.position.copy(p);obj.quaternion.copy(q);obj.scale.copy(s);if(pa)pa.add(obj);const h=bb.max.y-Math.min(0,bb.min.y);return isFinite(h)&&h>.1?{h,f:Math.min(0,bb.min.y)}:{h:1.45,f:0};}catch(_){return{h:1.45,f:0};}}
@@ -3336,23 +3358,36 @@ function fxApply(obj,id){if(!obj||!window.THREE)return;obj.traverse(c=>{if(c.isM
 function fxRoomRefresh(s){if(typeof R==='undefined'||!R.mons)return;R.mons.forEach(o=>{if(o.src===s||o.src===urBase(s))fxApply(o.sp,fxOf(o.src));});}
 /* 2Dプレビュー（モンスター画像＋エフェクト） */
 const FXV=new Set();let fxvOn=false;
-function fxvTick(){if(!FXV.size){fxvOn=false;return;}requestAnimationFrame(fxvTick);const T=performance.now()/1000;FXV.forEach(v=>{if(!document.body.contains(v.c)){FXV.delete(v);return;}const x=v.x,W=v.c.width,H=v.c.height;x.clearRect(0,0,W,H);const s=Math.min(W*1.05,H)*.86,cx=W/2,gy=H*.9;if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,0,.6);x.save();x.globalAlpha=.5;x.fillStyle='#000';x.beginPath();x.ellipse(cx,gy,s*.24,s*.045,0,0,7);x.fill();x.restore();if(v.img&&v.img.complete&&v.img.naturalWidth){const M=s*.98,bb=Math.sin(T*2+v.o)*s*.012;x.drawImage(v.img,cx-M/2,gy-M*.95+bb,M,M);}if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,1,.6);});}
+let fxvLast=0;function fxvTick(){if(!FXV.size){fxvOn=false;return;}requestAnimationFrame(fxvTick);const now=performance.now();if(now-fxvLast<32)return;fxvLast=now;const T=now/1000;FXV.forEach(v=>{const md=v.c.closest('#modal');if(!document.body.contains(v.c)||(md&&!md.classList.contains('on'))){FXV.delete(v);v.c._fxv=null;return;}const x=v.x,W=v.c.width,H=v.c.height;x.clearRect(0,0,W,H);const s=Math.min(W*1.05,H)*.86,cx=W/2,gy=H*.9;if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,0,.6);x.save();x.globalAlpha=.5;x.fillStyle='#000';x.beginPath();x.ellipse(cx,gy,s*.24,s*.045,0,0,7);x.fill();x.restore();if(v.img&&v.img.complete&&v.img.naturalWidth){const M=s*.98,bb=Math.sin(T*2+v.o)*s*.012;x.drawImage(v.img,cx-M/2,gy-M*.95+bb,M,M);}if(v.id)PFX.draw(x,v.id,cx,gy,s,T+v.o,1,.6);});}
 function fxvMount(root){(root||document).querySelectorAll('canvas.fxv').forEach((c,i)=>{if(c._fxv)return;const r=c.getBoundingClientRect();const k=2;c.width=Math.max(60,Math.round((c.offsetWidth||r.width||120)*k));c.height=Math.max(60,Math.round((c.offsetHeight||r.height||120)*k));const im=new Image();im.src=c.dataset.img||KIT_M.img;const v={c,x:c.getContext('2d'),id:c.dataset.fx||null,img:im,o:i*.37};c._fxv=v;FXV.add(v);});if(!fxvOn&&FXV.size){fxvOn=true;requestAnimationFrame(fxvTick);}}
 /* 装備 */
 function openFxPick(){const s=save.box[BX.sel];if(!s)return;sfx('tap');const d=mst(s),own=fxOwn(),img=monStat(s).img;
-  const cell=(id)=>`<div class="fxc${(d.fx||null)===id?' on':''}" data-fx="${id||''}"><canvas class="fxv" data-fx="${id||''}" data-img="${img}"></canvas><b>${id?PFX.META[id].n:'なし'}</b>${id?`<i>${FX_STAR(PFX.META[id].r)}</i>`:''}${(d.fx||null)===id?'<em>装備中</em>':''}</div>`;
+  const cell=(id)=>`<div class="fxc${(d.fx||null)===id?' on':''}" data-fx="${id||''}"><canvas class="fxv" data-fx="${id||''}" data-img="${img}"></canvas><b>${id?PFX.META[id].n:'なし'}</b>${(d.fx||null)===id?'<em>装備中</em>':''}</div>`;
   const ids=PFX.IDS.filter(id=>own.includes(id));
   modal(pnl('エフェクトを装備','タップで装備・見た目だけが変わります',ids.length?`<div class="fxg">${cell(null)}${ids.map(cell).join('')}</div>`:'<div class="pempty">エフェクトをまだ持っていません<br>ショップの「ガチャ」で手に入れよう</div>',`<button class="obtn" onclick="closeModal()">もどる</button>`));
   {const P=document.querySelector('#modal .pnl');if(P)P.classList.add('fxP');}
   document.querySelectorAll('#modal .fxc').forEach(e=>e.onclick=()=>{const id=e.dataset.fx||null;d.fx=id;persist();sfx(id?'buff':'tap');fxRoomRefresh(s);toast(id?`${PFX.META[id].n}エフェクトを装備した`:'エフェクトをはずした');closeModal();renderDetail();});
   fxvMount(document.getElementById('modal'));}
 /* ガチャ */
-function gachaRoll(){const r=Math.random()*100;let a=0;for(const id of PFX.IDS){a+=FX_RATE[PFX.META[id].r];if(r<a)return id;}return PFX.IDS[0];}
-function gachaHTML(){const L=[3,2,1].map(r=>`<div class="gRt"><span class="gS s${r}">${FX_STAR(r)}</span>${PFX.IDS.filter(id=>PFX.META[id].r===r).map(id=>`<span class="gN${fxOwn().includes(id)?' own':''}">${PFX.META[id].n}</span>`).join('')}<em>各${FX_RATE[r]}%</em></div>`).join('');
-  return `<div class="gWrap"><div class="gMac"><canvas class="fxv" data-fx="ring" data-img="${KIT_M.img}"></canvas><div class="gTag">エフェクトガチャ</div></div><div class="gSide"><div class="gRates">${L}</div><div class="gNote">所持 ${fxOwn().length}/${PFX.IDS.length}　・　持っているエフェクトが出たら ${GACHA_DUP}コイン返却</div><button class="gbtn gGo${coins()<GACHA_P?' dis':''}" onclick="gachaPull()">1回ひく　<span class="cico">${COIN_SVG}</span>${GACHA_P}</button></div></div>`;}
-function gachaPull(){if(document.querySelector('.gOv'))return;if(coins()<GACHA_P){toast('コインが足りません');return;}addCoin(-GACHA_P);const id=gachaRoll(),dup=fxOwn().includes(id),r=PFX.META[id].r;if(!dup)fxOwn().push(id);else addCoin(GACHA_DUP);persist();sfx('tap');
-  const ov=document.createElement('div');ov.className='gOv r'+r;ov.innerHTML=`<div class="gCap"><div class="gCt"></div><div class="gCb"></div></div><div class="gRes"><canvas class="fxv" data-fx="${id}" data-img="${KIT_M.img}"></canvas><div class="gSt s${r}">${FX_STAR(r)}</div><div class="gNm">${PFX.META[id].n}エフェクト</div><div class="gSb">${dup?`もう持っていた！ ${GACHA_DUP}コイン返ってきた`:'NEW！ 手に入れた'}</div><div class="gTp">タップでとじる</div></div>`;
-  document.body.appendChild(ov);setTimeout(()=>{ov.classList.add('open');sfx(r>=3?'summon':r>=2?'light':'buff');fxvMount(ov);},1250);setTimeout(()=>{ov.classList.add('done');ov.onclick=()=>{ov.remove();renderShop('gacha');};},1900);}
+function gachaRoll(){return PFX.IDS[Math.floor(Math.random()*PFX.IDS.length)];}
+function gachaRate(){return Math.round(1000/PFX.IDS.length)/10;}
+function gachaHTML(){const own=fxOwn(),sel=gSel;
+  const chips=PFX.IDS.map(id=>`<button class="gCh${id===sel?' on':''}${own.includes(id)?' own':''}" style="--c:${FX_COL[id]}" onclick="gachaSel('${id}')"><i></i>${PFX.META[id].n}${own.includes(id)?'<em>所持</em>':''}</button>`).join('');
+  return `<div class="gWrap"><div class="gMac" style="--c:${FX_COL[sel]}"><div class="gRay"></div><div class="gRg"></div><canvas class="fxv" id="gPrev" data-fx="${sel}" data-img="${KIT_M.img}"></canvas><div class="gPn">${PFX.META[sel].n}</div><i class="gK k1"></i><i class="gK k2"></i><i class="gK k3"></i><i class="gK k4"></i></div>
+  <div class="gSide"><div class="gTi"><b>エフェクトガチャ</b><span>タップで見た目をチェック・全${PFX.IDS.length}種 各${gachaRate()}%</span></div><div class="gChs">${chips}</div>
+  <div class="gNote">所持 ${own.length}/${PFX.IDS.length}　・　持っているエフェクトが出たら ${GACHA_DUP}コイン返却</div>
+  <button class="gGo${coins()<GACHA_P?' dis':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small><span class="cico">${COIN_SVG}</span>${GACHA_P}</small></button></div></div>`;}
+function gachaSel(id){gSel=id;sfx('tap');const m=document.querySelector('#modal .gMac');if(!m)return;m.style.setProperty('--c',FX_COL[id]);const c=document.getElementById('gPrev');if(c&&c._fxv)c._fxv.id=id;m.querySelector('.gPn').textContent=PFX.META[id].n;m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');document.querySelectorAll('#modal .gCh').forEach(b=>b.classList.toggle('on',b.getAttribute('onclick').includes("'"+id+"'")));}
+function gachaPull(){if(document.querySelector('.gOv'))return;if(coins()<GACHA_P){toast('コインが足りません');return;}addCoin(-GACHA_P);const id=gachaRoll(),dup=fxOwn().includes(id),col=FX_COL[id];if(!dup)fxOwn().push(id);else addCoin(GACHA_DUP);persist();sfx('charge');
+  const sp=Array.from({length:28},(_,i)=>{const a=Math.random()*360,d=30+Math.random()*28,z=.5+Math.random();return `<i style="--a:${a}deg;--d:calc(${d}*var(--vh));--z:${z};--w:${(Math.random()*.5).toFixed(2)}s"></i>`;}).join('');
+  const ov=document.createElement('div');ov.className='gOv';ov.style.setProperty('--c',col);
+  ov.innerHTML=`<div class="gMc"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div><div class="gBeam"></div><div class="gOrb"><i></i></div><div class="gFlash"></div>
+  <div class="gRay2"></div><div class="gRes"><div class="gSp">${sp}</div><canvas class="fxv" data-fx="${id}" data-img="${KIT_M.img}"></canvas><div class="gBdg">${dup?'GET':'NEW!'}</div><div class="gNm">${PFX.META[id].n}<small>エフェクト</small></div><div class="gSb">${dup?`もう持っていた！ ${GACHA_DUP}コイン返ってきた`:'手に入れた！ BOXで装備できます'}</div><div class="gTp">タップでとじる</div></div>`;
+  document.body.appendChild(ov);requestAnimationFrame(()=>ov.classList.add('s1'));
+  setTimeout(()=>{ov.classList.add('s2');sfx('whoosh');},900);
+  setTimeout(()=>{ov.classList.add('s3');sfx('summon');},1900);
+  setTimeout(()=>{ov.classList.add('open');sfx('light');fxvMount(ov);},2500);
+  setTimeout(()=>{ov.classList.add('done');ov.onclick=()=>{ov.classList.add('out');setTimeout(()=>ov.remove(),300);gSel=id;renderShop('gacha');};},3300);}
 
 function stNow(){const S=save.st||(save.st={v:ST_MAX,t:Date.now()});const now=Date.now();if(S.v>=ST_MAX){S.t=now;return S.v;}const k=Math.floor((now-S.t)/ST_MS);if(k>0){S.v=Math.min(ST_MAX,S.v+k);S.t=S.v>=ST_MAX?now:S.t+k*ST_MS;persist();}return S.v;}
 function stUse(){stNow();if(save.st.v<=0)return false;if(save.st.v>=ST_MAX)save.st.t=Date.now();save.st.v--;persist();hudAvatar();return true;}
@@ -4264,7 +4299,10 @@ function gPop(p){if(!B||!B.guest)return;const f=B.f[OMAP(p.i)];if(!f)return;B._f
 (function(){const W=(name,pre,post)=>{const o=window[name];window[name]=function(i){const f=B&&B.f&&B.f[i],a=f?pre(f,arguments):null;const r=o.apply(this,arguments);try{if(f&&B.net&&B.net.role==='host'&&post(f,a,arguments))hEv({e:'a',k:name==='doMelee'?'melee':name==='doSkill'?'skill':name==='startUlt'?'ult':'dodge',i});}catch(e){}return r;};};
   W('doMelee',f=>f.cmb,(f,a,ar)=>ar[1]===undefined&&!a&&f.cmb);W('doSkill',f=>f.cd,(f,a)=>a<=0&&f.cd>0);W('startUlt',f=>f.g,(f,a)=>a>=100&&f.g<100);W('doDodge',f=>f.dodge,(f,a)=>!(a>0)&&f.dodge>0);})();
 
-(function(){const pv=e=>{e.preventDefault();};document.addEventListener('gesturestart',pv,{passive:false});document.addEventListener('gesturechange',pv,{passive:false});document.addEventListener('gestureend',pv,{passive:false});document.addEventListener('dblclick',pv,{passive:false});document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)e.preventDefault();},{passive:false});})();
+(function(){const pv=e=>{e.preventDefault();};document.addEventListener('gesturestart',pv,{passive:false});document.addEventListener('gesturechange',pv,{passive:false});document.addEventListener('gestureend',pv,{passive:false});document.addEventListener('dblclick',pv,{passive:false});const scl=t=>{for(let e=t;e&&e!==document.body&&e.nodeType===1;e=e.parentElement){const cs=getComputedStyle(e);if((/(auto|scroll)/.test(cs.overflowY)&&e.scrollHeight>e.clientHeight+1)||(/(auto|scroll)/.test(cs.overflowX)&&e.scrollWidth>e.clientWidth+1))return true;if(e.tagName==='INPUT'||e.tagName==='TEXTAREA')return true;}return false;};
+  document.addEventListener('touchmove',e=>{if((e.touches&&e.touches.length>1)||!scl(e.target))e.preventDefault();},{passive:false});
+  const fixScroll=()=>{if(window.scrollX||window.scrollY)window.scrollTo(0,0);if(document.documentElement.scrollTop||document.documentElement.scrollLeft){document.documentElement.scrollTop=0;document.documentElement.scrollLeft=0;}if(document.body.scrollTop||document.body.scrollLeft){document.body.scrollTop=0;document.body.scrollLeft=0;}};
+  window.addEventListener('scroll',fixScroll,{passive:true});document.addEventListener('scroll',fixScroll,{passive:true,capture:false});setInterval(fixScroll,1000);})();
 document.addEventListener('visibilitychange',()=>{if(!B||!B.net||B.mode!=='online'||B.busy)return;
   if(document.hidden){B.awayT=Date.now();try{netSend({e:'away'});}catch(e){}return;}
   const gone=Date.now()-(B.awayT||Date.now());B.awayT=0;
@@ -4281,7 +4319,7 @@ function rkLoseNow(why){if(!save.rkPend)return null;delete save.rkPend;const x=r
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のオンライン対戦は途中で切断したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.net&&B.mode==='online'&&save.rkPend&&!(force&&B.busy))rkLoseNow('対戦から退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.23-2240</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-0820</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
