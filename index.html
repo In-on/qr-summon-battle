@@ -1344,6 +1344,30 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 .gfI .cico{display:inline-block;width:calc(2.8*var(--vh));height:calc(2.8*var(--vh))}.gfI .cico svg{width:100%;height:100%}.gfFx{font-style:normal;color:#ff9af0}
 .gfR .gbtn,.gfR em{position:absolute;right:calc(1.4*var(--vh));bottom:calc(1.2*var(--vh))}.gfR .gbtn{padding:calc(.7*var(--vh)) calc(2.2*var(--vh))!important;font-size:calc(2.4*var(--vh))!important}.gfR em{font:700 calc(2.1*var(--vh)) sans-serif;font-style:normal;color:#a8987a}
 .shTab button.lk{opacity:.5;filter:grayscale(.7)}
+.cur{width:calc(23*var(--vh))!important}
+.cur.dia .ci{filter:drop-shadow(0 0 5px rgba(120,210,255,.7))}
+.dpP{width:auto!important;min-width:calc(84*var(--vh))}
+.dpi{display:inline-block;width:calc(3.6*var(--vh));height:calc(3.6*var(--vh));vertical-align:middle}.dpi svg{width:100%;height:100%}
+.dpH{display:flex;align-items:center;justify-content:center;gap:calc(.8*var(--vh));font:700 calc(2.6*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#cfe8ff;margin-bottom:calc(1.4*var(--vh))}.dpH b{color:#fff;font-size:1.3em}
+.dpL{display:flex;gap:calc(1.6*var(--vh));justify-content:center}
+.dpk{position:relative;width:calc(24*var(--vh));padding:calc(1.6*var(--vh)) 0 calc(1.2*var(--vh));border-radius:16px;border:1.5px solid rgba(140,210,255,.6);background:radial-gradient(circle at 50% 30%,rgba(90,170,255,.25),rgba(10,16,40,.9) 70%);display:flex;flex-direction:column;align-items:center;gap:calc(.6*var(--vh));color:#fff;box-shadow:0 0 calc(1.6*var(--vh)) rgba(90,180,255,.25)}
+.dpk .dpi{width:calc(8*var(--vh));height:calc(8*var(--vh));filter:drop-shadow(0 0 8px rgba(120,210,255,.8))}
+.dpk b{font:800 calc(2.8*var(--vh)) 'Shippori Mincho B1'}.dpk span{font:800 calc(2.8*var(--vh)) sans-serif;padding:calc(.4*var(--vh)) calc(2.4*var(--vh));border-radius:20px;background:linear-gradient(180deg,#ffe9a8,#d9a04a);color:#2a1604}
+.dpk em{position:absolute;top:calc(-1.2*var(--vh));font:800 calc(1.8*var(--vh)) sans-serif;font-style:normal;background:#ff5d7d;color:#fff;border-radius:10px;padding:0 calc(1*var(--vh))}
+.dpN{margin:calc(1.2*var(--vh)) 0 0;font:600 calc(2.1*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#a8b8cc;text-align:center}
+.cxB{text-align:center}.cxR{display:flex;align-items:center;justify-content:center;gap:calc(2*var(--vh));margin:calc(1*var(--vh)) 0}
+.cxP{display:flex;align-items:center;gap:calc(.8*var(--vh));padding:calc(.8*var(--vh)) calc(2.4*var(--vh));border-radius:30px;background:rgba(0,0,0,.4);box-shadow:inset 0 0 0 1px rgba(217,180,106,.4)}.cxP .dpi{width:calc(5*var(--vh));height:calc(5*var(--vh))}.cxP b{font:800 calc(4*var(--vh)) 'Shippori Mincho B1';color:#fff}
+.cxA{color:#e2b660;font-size:calc(3*var(--vh))}.cxS{display:flex;justify-content:center;gap:calc(.8*var(--vh));margin-top:calc(1.2*var(--vh))}.cxS .obtn{padding:calc(.6*var(--vh)) calc(1.8*var(--vh))!important;font-size:calc(2.4*var(--vh))!important}
+.fxc.lk{opacity:.4;filter:grayscale(.6)}.fxc .fxq{display:block;font:700 calc(1.7*var(--vh)) sans-serif;font-style:normal;color:#cdb88a}
+.shopP{max-width:min(96%,calc(170*var(--vh)))!important}
+.gWrap{width:calc(122*var(--vh))!important;gap:calc(2.6*var(--vh))!important}
+.gChs{gap:calc(1.3*var(--vh)) calc(1.4*var(--vh))!important}
+.gCh{padding:calc(1.1*var(--vh)) calc(1*var(--vh))!important}
+.gTi{text-align:center}.gNote{text-align:center}
+.shopP .btns .gGo,.shopP .btns .gCl{width:calc(36*var(--vh))!important;height:calc(7*var(--vh));margin:0!important;align-self:center;padding:0!important;box-sizing:border-box}
+.shopP .btns .gCl{font-size:calc(3.2*var(--vh))!important;border-radius:40px}
+.shopP .btns .gGo b{font-size:calc(3*var(--vh))}.shopP .btns .gGo small{font-size:calc(2.4*var(--vh))}
+.shopP .btns:has(.gGo){display:flex;justify-content:center;gap:calc(2*var(--vh))}
 </style>
 </head>
 <body>
@@ -1387,7 +1411,7 @@ document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)apply
     <div class="hinfo"><div class="hnm"><span id="hudName"></span><button class="hed" aria-label="プロフィール" onclick="event.stopPropagation();openProfile()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.8" stroke-linejoin="round"><path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/></svg></button></div>
       <div class="hlv"><b>Lv.<span id="hLv">1</span></b><span class="gbar"><i id="hLvB"></i></span><small id="hLvN"></small></div>
       <div class="hst"><span class="pbar"><i id="hStB"></i></span><em class="stt" id="hStT"></em><small id="hStN"></small></div></div></div>
-  <div class="curs"><div class="cur" onclick="openShop()"><i class="ci" id="hCoinI"></i><b id="hCoin">0</b><button class="cplus" aria-label="ショップ"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div></div>
+  <div class="curs"><div class="cur dia" onclick="openDiaShop()"><i class="ci" id="hDiaI"></i><b id="hDia">0</b><button class="cplus" aria-label="ダイヤ購入" onclick="event.stopPropagation();openDiaShop()"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div><div class="cur" onclick="openShop()"><i class="ci" id="hCoinI"></i><b id="hCoin">0</b><button class="cplus" aria-label="コイン交換" onclick="event.stopPropagation();openCoinEx()"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div></div>
   <button class="sideBtn" id="shopBtn" aria-label="ショップ" onclick="openShop()"><svg viewBox="0 0 32 32"><path d="M4 12l2.5-6h19L28 12z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M4 12q2 3 4 0q2 3 4 0q2 3 4 0q2 3 4 0q2 3 4 0q2 3 4 0" fill="#c9a058" stroke="#5a3a18" stroke-width="1.1"/><path d="M6.5 14.5V26h19V14.5" fill="none" stroke="#f3e4c0" stroke-width="2"/><rect x="13" y="18" width="6" height="8" rx="1" fill="#f3e4c0" stroke="#5a3a18"/><circle cx="23" cy="20" r="2.4" fill="#ffd76a" stroke="#5a3a18"/></svg></button>
   <button class="sideBtn" id="monBtn" aria-label="モンスター" onclick="toggleSub('monMenu')"><svg viewBox="0 0 32 32"><path d="M6 13L3.5 4.5 11 8.5M26 13l2.5-8.5L21 8.5" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><path d="M16 7.5C9 7.5 4 12.5 4 18.5 4 24 9.2 28 16 28s12-4 12-9.5c0-6-5-11-12-11z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/><ellipse cx="11.2" cy="18" rx="2.1" ry="2.6" fill="#3a2410"/><ellipse cx="20.8" cy="18" rx="2.1" ry="2.6" fill="#3a2410"/><circle cx="11.9" cy="17.1" r=".8" fill="#fff"/><circle cx="21.5" cy="17.1" r=".8" fill="#fff"/><path d="M13.5 23c1.6 1.1 3.4 1.1 5 0" fill="none" stroke="#3a2410" stroke-width="1.4" stroke-linecap="round"/><path d="M14.5 7.8l1.5-3 1.5 3" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
   <button class="sideBtn" id="bagBtn" aria-label="かばん" onclick="closeMenu();openBag()"><svg viewBox="0 0 32 32"><path d="M11 10V8a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v2" fill="none" stroke="#f3e4c0" stroke-width="2.2"/><path d="M6 12q0-2 2-2h16q2 0 2 2v12q0 3-3 3H9q-3 0-3-3z" fill="#f3e4c0" stroke="#5a3a18" stroke-width="1.2"/><path d="M6 16q10 4 20 0" fill="none" stroke="#5a3a18" stroke-width="1.2"/><rect x="14" y="15.5" width="4" height="4" rx="1" fill="#c9a058" stroke="#5a3a18"/></svg></button>
@@ -1923,7 +1947,7 @@ function gfGot(){return save.giftGot||(save.giftGot=[]);}
 function gfNew(){return GIFTS.filter(g=>!gfGot().includes(g.id));}
 async function giftFetch(force){if(!force&&Date.now()-GF_T<5*60000)return GIFTS;GF_T=Date.now();try{const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),8000);const r=await fetch(SB_URL+'/rest/v1/qr_gifts?select=id,title,body,items,starts_at,ends_at&order=starts_at.desc&limit=50',{headers:{apikey:SB_KEY},signal:ac.signal}).finally(()=>clearTimeout(tm));if(r.ok){const L=await r.json();if(Array.isArray(L))GIFTS=L.filter(g=>g&&g.id!=null&&Array.isArray(g.items)).map(g=>Object.assign(g,{id:String(g.id)}));}}catch(e){}gfBadge();return GIFTS;}
 function gfBadge(){const n=gfNew().length;document.querySelectorAll('#menuBtn,#giftBtn').forEach(e=>e.classList.toggle('gfOn',n>0));}
-function gfItem(it){const n=it.n||1;if(it.t==='coin')return `<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${n}</span>`;if(it.t==='st')return `<span class="gfI"><i class="cico">${ST_SVG}</i>スタミナ ×${n}</span>`;if(it.t==='item'){const S=SHOP.find(x=>x.k===it.k);return S?`<span class="gfI"><i class="cico">${POT_SVG[it.k]||''}</i>${S.n} ×${n}</span>`:'';}if(it.t==='fx'&&PFX.META[it.id])return `<span class="gfI"><i class="gfFx">✦</i>${PFX.META[it.id].n}エフェクト</span>`;return '';}
+function gfItem(it){const n=it.n||1;if(it.t==='dia')return `<span class="gfI"><i class="cico">${DIA_SVG}</i>ダイヤ ×${n}</span>`;if(it.t==='coin')return `<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${n}</span>`;if(it.t==='st')return `<span class="gfI"><i class="cico">${ST_SVG}</i>スタミナ ×${n}</span>`;if(it.t==='item'){const S=SHOP.find(x=>x.k===it.k);return S?`<span class="gfI"><i class="cico">${POT_SVG[it.k]||''}</i>${S.n} ×${n}</span>`:'';}if(it.t==='fx'&&PFX.META[it.id])return `<span class="gfI"><i class="gfFx">✦</i>${PFX.META[it.id].n}エフェクト</span>`;return '';}
 function gfDate(t){if(!t)return'';const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()}まで`;}
 async function openGifts(){try{closeMenu();}catch(_){}sfx('open');modal(pnl('プレゼント','',`<div class="gfL"><div class="onw"><i class="spn"></i><p>読み込み中…</p></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));await giftFetch(true);renderGifts();}
 function renderGifts(){const L=GIFTS,got=gfGot(),nw=gfNew();
@@ -1931,11 +1955,33 @@ function renderGifts(){const L=GIFTS,got=gfGot(),nw=gfNew();
   modal(pnl('プレゼント',nw.length?`未受け取り ${nw.length} 件`:'',`<div class="gfL">${rows}</div>`,`${nw.length>1?`<button class="gbtn" onclick="gfClaim('*')">まとめて受け取る</button>`:''}<button class="obtn" onclick="closeModal()">とじる</button>`));
   const P=document.querySelector('#modal .pnl');if(P)P.classList.add('gfP');gfBadge();}
 function gfApply(g){let back=0;for(const it of g.items){const n=Math.max(1,Math.min(99999,it.n||1));
-    if(it.t==='coin')save.coin=coins()+n;else if(it.t==='st'){stNow();save.st.v+=n;}else if(it.t==='item'&&SHOP.find(x=>x.k===it.k))invAdd(it.k,n);else if(it.t==='fx'&&PFX.META[it.id]){if(fxOwn().includes(it.id)){save.coin=coins()+GACHA_DUP;back+=GACHA_DUP;}else fxOwn().push(it.id);}}
+    if(it.t==='coin')save.coin=coins()+n;else if(it.t==='dia')save.dia=dias()+n;else if(it.t==='st'){stNow();save.st.v+=n;}else if(it.t==='item'&&SHOP.find(x=>x.k===it.k))invAdd(it.k,n);else if(it.t==='fx'&&PFX.META[it.id]){fxAdd(it.id,Math.min(99,n));}}
   gfGot().push(g.id);return back;}
 function gfClaim(id){const L=id==='*'?gfNew():gfNew().filter(g=>g.id===id);if(!L.length)return;let back=0;L.forEach(g=>back+=gfApply(g));persist();try{xfNow();}catch(_){}hudAvatar();sfx('buff');
   toast(L.length>1?`${L.length}件のプレゼントを受け取りました`:'プレゼントを受け取りました'+(back?`（持っているエフェクトは${back}コインに）`:''));renderGifts();}
 setInterval(()=>{if(save&&save.name)giftFetch();},10*60000);
+
+/* ===== ダイヤ（有料通貨）・コイン交換 ===== */
+const DIA_SVG='<svg viewBox="0 0 24 24"><defs><linearGradient id="dgA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8fbff"/><stop offset=".5" stop-color="#6fd8ff"/><stop offset="1" stop-color="#2a6ad8"/></linearGradient></defs><path d="M6 3h12l4 6-10 12L2 9z" fill="url(#dgA)" stroke="#123a7a" stroke-width="1.2" stroke-linejoin="round"/><path d="M2 9h20M8.5 3L12 9l3.5-6M12 9v12M6 3l2.5 6M18 3l-2.5 6" fill="none" stroke="#ffffff" stroke-opacity=".7" stroke-width=".8"/></svg>';
+const DIA_PACK=[{id:'dia10',n:10,yen:500},{id:'dia30',n:30,yen:1300},{id:'dia50',n:50,yen:2000}];
+const DIA_RATE=200;
+function dias(){return save.dia||0;}
+function addDia(n){save.dia=Math.max(0,dias()+n);persist();hudAvatar();}
+function openDiaShop(){try{closeMenu();}catch(_){}sfx('open');
+  const L=DIA_PACK.map((p,i)=>`<button class="dpk" onclick="buyDia(${i})"><i class="dpi">${DIA_SVG}</i><b>ダイヤ ×${p.n}</b>${i?`<em>${['','お得','いちばんお得'][i]}</em>`:''}<span>¥${p.yen.toLocaleString()}</span></button>`).join('');
+  modal(pnl('ダイヤ','',`<div class="dpH"><i class="dpi">${DIA_SVG}</i>所持 <b>${dias()}</b></div><div class="dpL">${L}</div><p class="dpN">ダイヤはコインと交換できます（1ダイヤ＝${DIA_RATE}コイン）</p>`,`<button class="obtn" onclick="openCoinEx()">コインと交換</button><button class="obtn" onclick="closeModal()">とじる</button>`));
+  const P=document.querySelector('#modal .pnl');if(P)P.classList.add('dpP');}
+function buyDia(i){const p=DIA_PACK[i];if(!p)return;sfx('tap');
+  if(window.QRIAP&&typeof QRIAP.buy==='function'){QRIAP.buy(p.id).then(ok=>{if(ok){addDia(p.n);try{xfNow();}catch(_){}sfx('buff');toast(`ダイヤを${p.n}個手に入れた！`);openDiaShop();}}).catch(()=>toast('購入できませんでした'));return;}
+  modal(pnl('ダイヤの購入','',`<div class="xfB"><p>ダイヤの購入は、App Store / Google Play のアプリ版で使えるようになります。</p><p class="xfW">（Web版では購入できません）</p></div>`,`<button class="gbtn" onclick="openDiaShop()">もどる</button>`));}
+let CEX=1;
+function openCoinEx(){try{closeMenu();}catch(_){}sfx('open');CEX=Math.min(Math.max(1,CEX),Math.max(1,dias()));renderCoinEx();}
+function renderCoinEx(){const d=dias(),n=Math.min(CEX,Math.max(d,1));
+  modal(pnl('コインと交換',`1ダイヤ → ${DIA_RATE}コイン`,`<div class="cxB"><div class="cxR"><span class="cxP"><i class="dpi">${DIA_SVG}</i><b>${n}</b></span><span class="cxA">▶</span><span class="cxP"><i class="dpi">${COIN_SVG}</i><b>${(n*DIA_RATE).toLocaleString()}</b></span></div>
+    <div class="cxS"><button class="obtn" onclick="cxSet(-10)">−10</button><button class="obtn" onclick="cxSet(-1)">−1</button><button class="obtn" onclick="cxSet(1)">＋1</button><button class="obtn" onclick="cxSet(10)">＋10</button><button class="obtn" onclick="cxSet(9999)">最大</button></div>
+    <p class="dpN">所持ダイヤ ${d}　／　所持コイン ${coins().toLocaleString()}</p></div>`,`<button class="obtn" onclick="${d?'closeModal()':'openDiaShop()'}">${d?'やめる':'ダイヤを買う'}</button><button class="gbtn${d<1?' dis':''}" onclick="cxGo()">交換する</button>`));}
+function cxSet(k){sfx('tap');CEX=Math.max(1,Math.min(Math.max(1,dias()),CEX+k));renderCoinEx();}
+function cxGo(){const n=Math.min(CEX,dias());if(n<1){toast('ダイヤが足りません');sfx('miss');return;}save.dia=dias()-n;save.coin=coins()+n*DIA_RATE;persist();try{xfNow();}catch(_){}hudAvatar();sfx('buff');toast(`${(n*DIA_RATE).toLocaleString()}コインと交換しました`);CEX=1;renderCoinEx();}
 function openXfer(){try{closeMenu();}catch(_){}sfx('tap');
   if(!xfOn()){const lost=save.xfLost?'<p class="xfW">このデータは別の端末に引き継がれたため、前のコードは使えなくなりました。新しく発行してください。</p>':'';
     modal(pnl('引き継ぎコード','データのバックアップ',`<div class="xfB">${lost}<p>引き継ぎコードと<b>4桁のパスワード</b>で、データを自動バックアップします。<br>機種変更やデータが消えたときも、2つを入力すれば復旧できます。</p><div class="xfPR">${XF_PIN('xfP1','パスワード 数字4桁')}${XF_PIN('xfP2','もう一度')}</div><p class="xfW">※パスワードを忘れると復旧できません。必ず覚えておいてください。</p><div class="xfMsg" id="xfMsg"></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button><button class="gbtn" id="xfGo" onclick="xfIssue()">コードを発行する</button>`));
@@ -2214,7 +2260,7 @@ function profInit(){save.prof=save.prof||{};save.prof.rank=save.prof.rank||1;sav
 function avatarHTML(sz){const p=save.prof||{},I=ICONS[p.icon]||ICONS.egg,F=p.frame&&FRAMES[p.frame];return `<span class="av${F?' fr':''}" style="--s:${sz}">${I.svg}${F?F.svg:''}</span>`;}
 function hudAvatar(){profInit();const f=n=>Math.floor(n||0).toLocaleString('en-US'),P=save.prof,T=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;},Wd=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+'%';};
   const c=$('#hCrest');if(c)c.innerHTML=avatarHTML('100%');T('hLv',P.rank);Wd('hLvB',rankBar());T('hLvN',`${f(P.exp)} / ${f(rankNeed(P.rank))}`);
-  stNow();Wd('hStB',save.st.v/ST_MAX*100);T('hStN',`${save.st.v} / ${ST_MAX}`);T('hStT',stLeft());T('hCoin',f(coins()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;}
+  stNow();Wd('hStB',save.st.v/ST_MAX*100);T('hStN',`${save.st.v} / ${ST_MAX}`);T('hStT',stLeft());T('hCoin',f(coins()));T('hDia',f(dias()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;const di=$('#hDiaI');if(di&&!di.firstChild)di.innerHTML=DIA_SVG;}
 let AVSNAP=null;function avSnap(){try{if(!AV.obj||!window.THREE)return null;if(!AVSNAP){const rd=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});rd.setSize(360,480,false);rd.setPixelRatio(1);rd.outputEncoding=THREE.sRGBEncoding;rd.setClearColor(0,0);
     const sc=new THREE.Scene();sc.add(new THREE.HemisphereLight(0xffffff,0x40304a,.95));const k=new THREE.DirectionalLight(0xffffff,1.0);k.position.set(-2,3,4);sc.add(k);const f=new THREE.DirectionalLight(0xffd8c0,.45);f.position.set(3,1,2);sc.add(f);AVSNAP={rd,sc,cam:new THREE.PerspectiveCamera(26,360/480,.1,60)};}
   const o=AV.obj,par=o.parent,p=o.position.clone(),ry=o.rotation.y;AVSNAP.sc.add(o);o.position.set(0,0,0);o.rotation.y=.3;o.updateMatrixWorld(true);const H=AV_H;AVSNAP.cam.position.set(0,H*.55,H*2.9);AVSNAP.cam.lookAt(0,H*.5,0);
@@ -3439,7 +3485,7 @@ const star5=(x,y,r,rot,c,a=1)=>{g.save();g.globalAlpha=a;g.translate(x,y);g.rota
 const ellS=(cx,cy,rx,ry,c,lw,a=1,a0=0,a1=7,rot=0)=>{g.save();g.globalAlpha=a;g.strokeStyle=c;g.lineWidth=lw;g.shadowColor=c;g.shadowBlur=SBK*lw*4;g.beginPath();g.ellipse(cx,cy,rx,ry,rot,a0,a1);g.stroke();g.restore();};
 const leaf=(x,y,s,rot,a)=>{g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(rot);glow(0,0,s*2.2,'rgba(120,255,110,.8)',.6);const gr=g.createLinearGradient(-s,0,s,0);gr.addColorStop(0,'#3fd84a');gr.addColorStop(1,'#d6ffb0');g.fillStyle=gr;g.beginPath();g.moveTo(-s,0);g.quadraticCurveTo(0,-s*.6,s,0);g.quadraticCurveTo(0,s*.6,-s,0);g.fill();g.strokeStyle='rgba(255,255,255,.6)';g.lineWidth=1;g.beginPath();g.moveTo(-s*.8,0);g.lineTo(s*.8,0);g.stroke();g.restore();};
 const gem=(x,y,s,rot,c1,c2,a)=>{g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(rot);glow(0,0,s*3,c1,.7);const gr=g.createLinearGradient(-s,-s*1.6,s,s);gr.addColorStop(0,'#fff');gr.addColorStop(.4,c2);gr.addColorStop(1,c1);g.fillStyle=gr;g.shadowColor=c1;g.shadowBlur=SBK*s*1.5;g.beginPath();g.moveTo(0,-s*1.7);g.lineTo(s*.6,-s*.3);g.lineTo(0,s*1.1);g.lineTo(-s*.6,-s*.3);g.closePath();g.fill();g.shadowBlur=SBK*0;g.fillStyle='rgba(255,255,255,.55)';g.beginPath();g.moveTo(0,-s*1.7);g.lineTo(s*.6,-s*.3);g.lineTo(0,-s*.1);g.fill();g.restore();};
-const flake=(x,y,s,rot,a)=>{g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(rot);glow(0,0,s*2.2,'rgba(150,220,255,.9)',.6);g.strokeStyle='#eefaff';g.lineWidth=Math.max(1.5,s*.14);g.lineCap='round';g.shadowColor='#9fdcff';g.shadowBlur=SBK*8;for(let j=0;j<6;j++){g.rotate(Math.PI/3);g.beginPath();g.moveTo(0,0);g.lineTo(s,0);g.moveTo(s*.55,0);g.lineTo(s*.8,-s*.25);g.moveTo(s*.55,0);g.lineTo(s*.8,s*.25);g.stroke();}g.restore();};
+const flake=(x,y,s,rot,a,gk)=>{gk=gk==null?1:gk;g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(rot);if(gk>0)glow(0,0,s*(1.2+gk),`rgba(150,220,255,${.9*gk})`,.6);g.strokeStyle='#eefaff';g.lineWidth=Math.max(1.2,s*.16);g.lineCap='round';g.shadowColor='#9fdcff';g.shadowBlur=SBK*8*gk;for(let j=0;j<6;j++){g.rotate(Math.PI/3);g.beginPath();g.moveTo(0,0);g.lineTo(s,0);g.moveTo(s*.55,0);g.lineTo(s*.8,-s*.25);g.moveTo(s*.55,0);g.lineTo(s*.8,s*.25);g.stroke();}g.restore();};
 const skull=(x,y,s,a)=>{g.save();g.globalAlpha=a;g.translate(x,y);glow(0,0,s*2.4,'rgba(210,80,255,.9)',.7);g.fillStyle='#ffb0f6';g.shadowColor='#d050ff';g.shadowBlur=SBK*s;g.beginPath();g.arc(0,-s*.15,s*.8,Math.PI*.85,Math.PI*2.15);g.lineTo(s*.45,s*.75);g.lineTo(-s*.45,s*.75);g.closePath();g.fill();g.shadowBlur=SBK*0;g.fillStyle='#3a0a40';g.beginPath();g.ellipse(-s*.3,-s*.1,s*.2,s*.24,0,0,7);g.ellipse(s*.3,-s*.1,s*.2,s*.24,0,0,7);g.fill();g.beginPath();g.moveTo(0,s*.15);g.lineTo(s*.1,s*.35);g.lineTo(-s*.1,s*.35);g.fill();g.restore();};
 const orb=(cx,cy,rx,ry,tilt,a)=>{const x=Math.cos(a)*rx,y=Math.sin(a)*ry,c=Math.cos(tilt),sn=Math.sin(tilt);return[cx+x*c-y*sn,cy+x*sn+y*c,Math.sin(a)];};
 const ring2=(cx,cy,s,T,ph,cols,gems)=>{L(()=>{if(!ph)glow(cx,cy,s*.7,cols[0][2]);
@@ -3460,12 +3506,11 @@ const D=[
  else{for(let i=0;i<4;i++){const a=i*1.57+T*.6,fr=Math.sin(a)>0,x=cx+Math.cos(a)*s*.55,y=cy-s*.15+Math.sin(a)*s*.12+Math.sin(T*2+i)*s*.05;gem(x,y,s*.035,0,'rgba(255,80,220,1)','#ffc8f6',fr?1:.6);}for(let i=0;i<18;i++){const y=(R(i,1)+T*.35)%1,a=R(i,2)*6.28;dust(cx+Math.cos(a)*s*.5*R(i,3),gy-y*s*1.0,s*.008,Math.sin(y*3.14),'rgba(255,140,240,1)');}}});}],
 ['結晶',(cx,cy,s,T,ph,gy)=>{L(()=>{if(!ph){glow(cx,cy,s*.7,'rgba(120,200,255,.3)');glow(cx,gy,s*.5,'rgba(170,120,255,.35)');}for(let i=0;i<6;i++){const a=T*.9+i*1.047,fr=Math.sin(a)>0;if(fr!==!!ph)continue;const rx=s*.56,ry=s*.16,yb=cy-s*.02+Math.sin(T*2+i)*s*.06;for(let k=1;k<10;k++){const b=a-k*.06;dust(cx+Math.cos(b)*rx,yb+Math.sin(b)*ry,s*.006,(1-k/10)*.6,i%2?'rgba(200,140,255,1)':'rgba(110,230,255,1)');}gem(cx+Math.cos(a)*rx,yb+Math.sin(a)*ry,s*(fr?.045:.035),Math.sin(T*1.5+i)*.4,i%2?'rgba(180,110,255,1)':'rgba(80,220,255,1)',i%2?'#e8d0ff':'#d0f8ff',fr?1:.55);}if(ph)for(let i=0;i<10;i++)flare(cx+(R(i,1)-.5)*s*1.1,cy+(R(i,2)-.5)*s*.9,s*.02,Math.max(0,Math.sin(T*3+i*2)),'rgba(160,220,255,1)');});}],
 ['スター',(cx,cy,s,T,ph,gy)=>{L(()=>{if(!ph)glow(cx,cy+s*.1,s*.7,'rgba(255,210,90,.28)');for(let r=0;r<2;r++){const rx=s*(.58-r*.12),ry=s*(.17-r*.04),y0=cy+s*(.18-r*.38);band(cx,y0,rx,ry,T*(r?-1.6:1.6)*(r?-1:1),3.0,r?'rgba(200,170,255,.6)':'rgba(255,220,120,.65)',s*.014,!!ph);for(let i=0;i<3;i++){const a=T*(r?-1.6:1.6)+i*2.094,fr=Math.sin(a)>0;if(fr!==!!ph)continue;for(let k=1;k<12;k++){const b=a-(r?-1:1)*k*.07;dust(cx+Math.cos(b)*rx,y0+Math.sin(b)*ry,s*.007,(1-k/12)*.7,r?'rgba(210,180,255,1)':'rgba(255,230,140,1)');}star5(cx+Math.cos(a)*rx,y0+Math.sin(a)*ry,s*(fr?.07:.05),T*2+i,r?'#d4b8ff':'#ffd75a',fr?1:.55);}}if(ph)for(let i=0;i<10;i++)flare(cx+(R(i,1)-.5)*s*1.2,cy+(R(i,2)-.6)*s*1.0,s*.015,Math.max(0,Math.sin(T*3.5+i*1.7)),'rgba(255,230,150,1)');});}],
-['毒',(cx,cy,s,T,ph,gy)=>{if(!ph){for(let i=0;i<10;i++){const a=i*.63+Math.sin(T*.8+i)*.3;glow(cx+Math.cos(a)*s*.42,gy-s*.05+Math.sin(a)*s*.13,s*(.2+.04*Math.sin(T*2+i)),'rgba(140,40,200,.45)');}L(()=>{glow(cx,gy,s*.6,'rgba(200,70,255,.4)');ellS(cx,gy,s*.45,s*.09,'rgba(220,100,255,.7)',2.5,.6+.3*Math.sin(T*3));});return;}
- L(()=>{for(let i=0;i<16;i++){const y=(R(i,1)+T*.28*(.6+R(i,4)))%1,x=cx+(R(i,2)-.5)*s*.95+Math.sin(T*2+i)*s*.03,r=s*(.018+.025*R(i,3));g.save();g.globalAlpha=Math.sin(y*3.14);glow(x,gy-y*s*.95,r*3,'rgba(220,90,255,.9)',.6);g.strokeStyle='rgba(255,190,255,.95)';g.lineWidth=2;g.beginPath();g.arc(x,gy-y*s*.95,r,0,7);g.stroke();g.fillStyle='rgba(255,255,255,.8)';g.beginPath();g.arc(x-r*.35,gy-y*s*.95-r*.35,r*.22,0,7);g.fill();g.restore();}});
- for(let i=0;i<3;i++){const y=(R(i,5)+T*.13)%1,x=cx+(i-1)*s*.5+Math.sin(T+i)*s*.03;skull(x,cy-y*s*.5,s*.065,Math.sin(y*3.14));}}],
-['氷',(cx,cy,s,T,ph,gy)=>{L(()=>{if(!ph){glow(cx,cy,s*.75,'rgba(120,200,255,.35)');glow(cx,gy,s*.6,'rgba(170,230,255,.45)');ellS(cx,gy,s*.5,s*.1,'rgba(200,240,255,.9)',2.5,.8);g.save();g.translate(cx,gy);g.scale(1,.2);g.rotate(T*.3);g.strokeStyle='rgba(220,245,255,.7)';g.lineWidth=2;g.shadowColor='#9fdcff';g.shadowBlur=SBK*10;for(let i=0;i<12;i++){g.rotate(Math.PI/6);g.beginPath();g.moveTo(s*.2,0);g.lineTo(s*.42,0);g.moveTo(s*.33,0);g.lineTo(s*.38,-s*.04);g.moveTo(s*.33,0);g.lineTo(s*.38,s*.04);g.stroke();}g.restore();}
- else{for(let i=0;i<9;i++){const y=(R(i,1)+T*.12*(.7+R(i,4)))%1;flake(cx+(R(i,2)-.5)*s*1.15+Math.sin(T+i)*s*.04,cy-s*.65+y*s*1.15,s*(.035+.025*R(i,3)),T*.8+i,Math.sin(y*3.14));}for(let i=0;i<12;i++)flare(cx+(R(i,5)-.5)*s*1.1,cy+(R(i,6)-.5)*s*1.0,s*.012,Math.max(0,Math.sin(T*3+i*2.3)),'rgba(190,235,255,1)');}});}]
-,['ダブルリング',((cx,cy,s,T,ph)=>ring2(cx,cy,s,T,ph,[['rgba(80,220,255,1)','#d0f8ff','rgba(120,200,255,.3)'],['rgba(180,110,255,1)','#e8d0ff']],2))]];
+['毒',(cx,cy,s,T,ph,gy)=>{if(!ph){L(()=>{glow(cx,gy,s*.55,'rgba(200,70,255,.3)');ellS(cx,gy,s*.45,s*.09,'rgba(220,100,255,.7)',2.5,.6+.3*Math.sin(T*3));});return;}
+ for(let i=0;i<5;i++){const y=(R(i,5)+T*.13*(.8+R(i,7)*.4))%1,x=cx+(i%2?1:-1)*s*(.38+.22*R(i,2))+Math.sin(T*1.3+i)*s*.04;skull(x,cy+s*.35-y*s*.95,s*(.06+.02*R(i,3)),Math.sin(y*3.14));}}],
+['氷',(cx,cy,s,T,ph,gy)=>{L(()=>{if(!ph){glow(cx,cy,s*.7,'rgba(120,200,255,.2)');glow(cx,gy,s*.5,'rgba(170,230,255,.3)');ellS(cx,gy,s*.5,s*.1,'rgba(200,240,255,.75)',2,.6);g.save();g.translate(cx,gy);g.scale(1,.2);g.rotate(T*.3);g.strokeStyle='rgba(220,245,255,.7)';g.lineWidth=2;g.shadowColor='#9fdcff';g.shadowBlur=SBK*10;for(let i=0;i<12;i++){g.rotate(Math.PI/6);g.beginPath();g.moveTo(s*.2,0);g.lineTo(s*.42,0);g.moveTo(s*.33,0);g.lineTo(s*.38,-s*.04);g.moveTo(s*.33,0);g.lineTo(s*.38,s*.04);g.stroke();}g.restore();}
+ else{for(let i=0;i<6;i++){const y=(R(i,1)+T*.12*(.7+R(i,4)))%1;flake(cx+(i%2?1:-1)*s*(.3+.28*R(i,2))+Math.sin(T+i)*s*.04,cy-s*.65+y*s*1.15,s*(.032+.012*R(i,3)),T*.8+i,Math.sin(y*3.14),.55);}for(let i=0;i<7;i++)flare(cx+(R(i,5)-.5)*s*1.1,cy+(R(i,6)-.5)*s*1.0,s*.011,.85*Math.max(0,Math.sin(T*3+i*2.3)),'rgba(190,235,255,1)');}});}]
+,['リング',((cx,cy,s,T,ph)=>ring2(cx,cy,s,T,ph,[['rgba(80,220,255,1)','#d0f8ff','rgba(120,200,255,.3)'],['rgba(180,110,255,1)','#e8d0ff']],2))]];
 const IDS=['kira','leaf','mahou','kessho','star','doku','kori','ring'];
 const META={kira:{r:1},leaf:{r:1},doku:{r:1},kori:{r:1},kessho:{r:2},star:{r:2},mahou:{r:2},ring:{r:3}};
 const FN={};IDS.forEach((id,i)=>{FN[id]=D[i][1];META[id].n=D[i][0];});
@@ -3482,8 +3527,13 @@ function attach(obj,id,lh,foot){detach(obj);if(!obj||!id||!FN[id]||!window.THREE
   obj.traverse(c=>{if(c.isMesh||(c.isSprite&&c.name!=='pfx'))c.renderOrder=Math.max(c.renderOrder,2);});obj.add(G);if(!o.last)render(id,performance.now()/1000);return G;}
 return{IDS,META,draw,attach,detach};})();
 const FX_STAR=r=>'★'.repeat(r);
-const FX_COL={kira:'#fff1a8',leaf:'#7dff9a',mahou:'#ff7ae8',kessho:'#8fe3ff',star:'#ffd75a',doku:'#c07bff',kori:'#b8f0ff',ring:'#a8a0ff'};let gSel='ring';const GACHA_P=100,GACHA_DUP=50;
-function fxOwn(){return save.fxOwn||(save.fxOwn=[]);}
+const FX_COL={kira:'#fff1a8',leaf:'#7dff9a',mahou:'#ff7ae8',kessho:'#8fe3ff',star:'#ffd75a',doku:'#c07bff',kori:'#b8f0ff',ring:'#a8a0ff'};let gSel='ring';const GACHA_D=10,GACHA_P=100,GACHA_DUP=50;
+function fxN(){if(!save.fxN){save.fxN={};(save.fxOwn||[]).forEach(id=>{save.fxN[id]=Math.max(1,fxUsed(id));});delete save.fxOwn;}return save.fxN;}
+function fxCnt(id){return fxN()[id]||0;}
+function fxAdd(id,n){const N=fxN();N[id]=(N[id]||0)+(n||1);}
+function fxOwn(){const N=fxN();return PFX.IDS.filter(id=>N[id]>0);}
+function fxUsed(id,ex){let c=0;(save.box||[]).forEach(b=>{if(b&&b!==ex&&save.mon[b]&&save.mon[b].fx===id)c++;});return c;}
+function fxFree(id,ex){return fxCnt(id)-fxUsed(id,ex);}
 function fxOf(src){const d=save.mon&&save.mon[src];if(d&&d.fx)return d.fx;const b=(save.box||[]).find(x=>x!==src&&urBase(x)===src);return b&&save.mon[b]&&save.mon[b].fx||null;}
 function fxH(obj){try{const p=obj.position.clone(),q=obj.quaternion.clone(),s=obj.scale.clone(),pa=obj.parent;if(pa)pa.remove(obj);obj.position.set(0,0,0);obj.quaternion.identity();obj.scale.set(1,1,1);obj.updateMatrixWorld(true);PFX.detach(obj);const bb=new THREE.Box3().setFromObject(obj);obj.position.copy(p);obj.quaternion.copy(q);obj.scale.copy(s);if(pa)pa.add(obj);const h=bb.max.y-bb.min.y;return isFinite(h)&&h>.1?{h,f:bb.min.y}:{h:1.45,f:0};}catch(_){return{h:1.45,f:0};}}
 function fxApply(obj,id){if(!obj||!window.THREE)return;obj.traverse(c=>{if(c.isMesh&&c.renderOrder<2)c.renderOrder=2;});if(!id){PFX.detach(obj);return;}const b=fxH(obj);PFX.attach(obj,id,b.h,b.f);}
@@ -3494,30 +3544,30 @@ let fxvLast=0;function fxvTick(){if(!FXV.size){fxvOn=false;return;}requestAnimat
 function fxvMount(root){(root||document).querySelectorAll('canvas.fxv').forEach((c,i)=>{if(c._fxv)return;const r=c.getBoundingClientRect();const k=2;c.width=Math.max(60,Math.round((c.offsetWidth||r.width||120)*k));c.height=Math.max(60,Math.round((c.offsetHeight||r.height||120)*k));const im=new Image();im.src=c.dataset.img||KIT_M.img;const v={c,x:c.getContext('2d'),id:c.dataset.fx||null,img:im,o:i*.37};c._fxv=v;FXV.add(v);});if(!fxvOn&&FXV.size){fxvOn=true;requestAnimationFrame(fxvTick);}}
 /* 装備 */
 function openFxPick(){const s=save.box[BX.sel];if(!s)return;sfx('tap');const d=mst(s),own=fxOwn(),img=monStat(s).img;
-  const cell=(id)=>`<div class="fxc${(d.fx||null)===id?' on':''}" data-fx="${id||''}"><canvas class="fxv" data-fx="${id||''}" data-img="${img}"></canvas><b>${id?PFX.META[id].n:'なし'}</b>${(d.fx||null)===id?'<em>装備中</em>':''}</div>`;
+  const cell=(id)=>{const me=(d.fx||null)===id,fr=id?fxFree(id,s):1,lk=id&&!me&&fr<=0;return `<div class="fxc${me?' on':''}${lk?' lk':''}" data-fx="${id||''}"><canvas class="fxv" data-fx="${id||''}" data-img="${img}"></canvas><b>${id?PFX.META[id].n:'なし'}</b>${id?`<i class="fxq">あと ${Math.max(0,fr)} / ${fxCnt(id)}</i>`:''}${me?'<em>装備中</em>':''}</div>`;};
   const ids=PFX.IDS.filter(id=>own.includes(id));
-  modal(pnl('エフェクトを装備','タップで装備・見た目だけが変わります',ids.length?`<div class="fxg">${cell(null)}${ids.map(cell).join('')}</div>`:'<div class="pempty">エフェクトをまだ持っていません<br>ショップの「ガチャ」で手に入れよう</div>',`<button class="obtn" onclick="closeModal()">もどる</button>`));
+  modal(pnl('エフェクトを装備','1個につき1体だけ装備できます・見た目だけが変わります',ids.length?`<div class="fxg">${cell(null)}${ids.map(cell).join('')}</div>`:'<div class="pempty">エフェクトをまだ持っていません<br>ショップの「ガチャ」で手に入れよう</div>',`<button class="obtn" onclick="closeModal()">もどる</button>`));
   {const P=document.querySelector('#modal .pnl');if(P)P.classList.add('fxP');}
-  document.querySelectorAll('#modal .fxc').forEach(e=>e.onclick=()=>{const id=e.dataset.fx||null;d.fx=id;persist();sfx(id?'buff':'tap');fxRoomRefresh(s);toast(id?`${PFX.META[id].n}エフェクトを装備した`:'エフェクトをはずした');closeModal();renderDetail();});
+  document.querySelectorAll('#modal .fxc').forEach(e=>e.onclick=()=>{const id=e.dataset.fx||null;if(id&&d.fx!==id&&fxFree(id,s)<=0){sfx('miss');toast(`${PFX.META[id].n}は全部ほかのモンスターが装備中です`);return;}d.fx=id;persist();sfx(id?'buff':'tap');fxRoomRefresh(s);toast(id?`${PFX.META[id].n}エフェクトを装備した`:'エフェクトをはずした');closeModal();renderDetail();});
   fxvMount(document.getElementById('modal'));}
 /* ガチャ */
 function gachaRoll(){return PFX.IDS[Math.floor(Math.random()*PFX.IDS.length)];}
 function gachaRate(){return Math.round(1000/PFX.IDS.length)/10;}
 function gachaHTML(){const own=fxOwn(),sel=gSel;
-  const chips=PFX.IDS.map(id=>`<button class="gCh${id===sel?' on':''}${own.includes(id)?' own':''}" style="--c:${FX_COL[id]}" onclick="gachaSel('${id}')"><i></i>${PFX.META[id].n}${own.includes(id)?'<em>所持</em>':''}</button>`).join('');
+  const chips=PFX.IDS.map(id=>`<button class="gCh${id===sel?' on':''}${own.includes(id)?' own':''}" style="--c:${FX_COL[id]}" onclick="gachaSel('${id}')"><i></i>${PFX.META[id].n}${fxCnt(id)?`<em>×${fxCnt(id)}</em>`:''}</button>`).join('');
   return `<div class="gWrap"><div class="gMac" style="--c:${FX_COL[sel]}"><div class="gRay"></div><div class="gRg"></div><canvas class="fxv" id="gPrev" data-fx="${sel}" data-img="${KIT_M.img}"></canvas><div class="gPn">${PFX.META[sel].n}</div><i class="gK k1"></i><i class="gK k2"></i><i class="gK k3"></i><i class="gK k4"></i></div>
   <div class="gSide"><div class="gTi"><b>エフェクトガチャ</b><span>タップで見た目をチェック・全${PFX.IDS.length}種 各${gachaRate()}%</span></div><div class="gChs">${chips}</div>
-  <div class="gNote">所持 ${own.length}/${PFX.IDS.length}　・　持っているエフェクトが出たら ${GACHA_DUP}コイン返却</div>
-  <button class="gGo${coins()<GACHA_P?' dis':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small><span class="cico">${COIN_SVG}</span>${GACHA_P}</small></button></div></div>`;}
+  <div class="gNote">1個につき1体に装備できます　・　持っているエフェクトが出たら所持数＋1</div></div></div>`;}
+function gachaBtn(){return `<button class="gGo${dias()<GACHA_D?' dis':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small><span class="cico">${DIA_SVG}</span>${GACHA_D}</small></button>`;}
 function gachaSel(id){gSel=id;sfx('tap');const m=document.querySelector('#modal .gMac');if(!m)return;m.style.setProperty('--c',FX_COL[id]);const c=document.getElementById('gPrev');if(c&&c._fxv)c._fxv.id=id;m.querySelector('.gPn').textContent=PFX.META[id].n;m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');document.querySelectorAll('#modal .gCh').forEach(b=>b.classList.toggle('on',b.getAttribute('onclick').includes("'"+id+"'")));}
 let G_BUSY=0;
-async function gachaPull(){if(!GACHA_OPEN)return;if(document.querySelector('.gOv')||G_BUSY)return;if(coins()<GACHA_P){toast('コインが足りません');return;}const snap=JSON.stringify(save);addCoin(-GACHA_P);const id=gachaRoll(),dup=fxOwn().includes(id),col=FX_COL[id];if(!dup)fxOwn().push(id);else addCoin(GACHA_DUP);persist();
+async function gachaPull(){if(!GACHA_OPEN)return;if(document.querySelector('.gOv')||G_BUSY)return;if(dias()<GACHA_D){sfx('miss');toast('ダイヤが足りません');setTimeout(openDiaShop,400);return;}const snap=JSON.stringify(save);save.dia=dias()-GACHA_D;hudAvatar();const id=gachaRoll(),dup=fxCnt(id)>0,col=FX_COL[id];fxAdd(id,1);persist();
   if(xfOn()){G_BUSY=1;const gb=document.querySelector('#modal .gGo b');if(gb)gb.textContent='通信中…';const ok=await xfSafe();G_BUSY=0;if(!ok&&xfOn()){save=JSON.parse(snap);persist();hudAvatar();sfx('miss');renderShop('gacha');toast('通信できないためガチャを引けませんでした。電波のよい所でもう一度試してね');return;}}
   sfx('charge');
   const sp=Array.from({length:28},(_,i)=>{const a=Math.random()*360,d=30+Math.random()*28,z=.5+Math.random();return `<i style="--a:${a}deg;--d:calc(${d}*var(--vh));--z:${z};--w:${(Math.random()*.5).toFixed(2)}s"></i>`;}).join('');
   const ov=document.createElement('div');ov.className='gOv';ov.style.setProperty('--c',col);
   ov.innerHTML=`<div class="gMc"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div><div class="gBeam"></div><div class="gOrb"><i></i></div><div class="gFlash"></div>
-  <div class="gRay2"></div><div class="gRes"><div class="gSp">${sp}</div><canvas class="fxv" data-fx="${id}" data-img="${KIT_M.img}"></canvas><div class="gBdg">${dup?'GET':'NEW!'}</div><div class="gNm">${PFX.META[id].n}<small>エフェクト</small></div><div class="gSb">${dup?`もう持っていた！ ${GACHA_DUP}コイン返ってきた`:'手に入れた！ BOXで装備できます'}</div><div class="gTp">タップでとじる</div></div>`;
+  <div class="gRay2"></div><div class="gRes"><div class="gSp">${sp}</div><canvas class="fxv" data-fx="${id}" data-img="${KIT_M.img}"></canvas><div class="gBdg">${dup?'GET':'NEW!'}</div><div class="gNm">${PFX.META[id].n}<small>エフェクト</small></div><div class="gSb">${dup?`所持数が ${fxCnt(id)} 個になった！`:'手に入れた！ BOXで装備できます'}</div><div class="gTp">タップでとじる</div></div>`;
   document.body.appendChild(ov);requestAnimationFrame(()=>ov.classList.add('s1'));
   setTimeout(()=>{ov.classList.add('s2');sfx('whoosh');},900);
   setTimeout(()=>{ov.classList.add('s3');sfx('summon');},1900);
@@ -3536,11 +3586,11 @@ const POT_SVG={lvpot:`<svg viewBox="0 0 64 64"><defs><radialGradient id="plv" cx
 function invN(k){return (save.inv||{})[k]||0;}
 function invAdd(k,n){save.inv=save.inv||{};save.inv[k]=invN(k)+n;persist();}
 function openShop(){closeMenu();sfx('open');renderShop();}
-const GACHA_OPEN=false;
+const GACHA_OPEN=true;
 function gachaTab(){if(!GACHA_OPEN){sfx('miss');toast('エフェクトガチャは準備中です');return;}sfx('tap');renderShop('gacha');}
 function renderShop(tab){stNow();tab=tab==='gacha'&&GACHA_OPEN?'gacha':'item';const rows=SHOP.map(it=>`<div class="shr"><div class="shi">${POT_SVG[it.k]}</div><div class="shn"><b>${it.n}</b><small>${it.d}</small><em>所持 ${invN(it.k)}個</em></div>
     <div class="shb"><button class="gbtn${coins()<it.p?' dis':''}" onclick="buyItem('${it.k}')"><span class="cico">${COIN_SVG}</span>${it.p}</button></div></div>`).join('');
-  modal(pnl('ショップ',`<span class="shc"><span class="cico">${COIN_SVG}</span>${coins()}</span>　<span class="shc"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${ST_MAX}${stLeft()?`（あと${stLeft()}で+1）`:''}</span>`,`<div class="shTab"><button class="${tab==='item'?'on':''}" onclick="sfx('tap');renderShop('item')">アイテム</button><button class="${tab==='gacha'?'on':''}${GACHA_OPEN?'':' lk'}" onclick="gachaTab()">${GACHA_OPEN?'':'🔒 '}ガチャ</button></div>${tab==='gacha'?gachaHTML():`<div class="shl">${rows}</div>`}`,`<button class="obtn" onclick="closeModal()">とじる</button>`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP');}if(tab==='gacha')fxvMount(document.getElementById('modal'));}
+  modal(pnl('ショップ',`<span class="shc"><span class="cico">${COIN_SVG}</span>${coins()}</span>　<span class="shc"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${ST_MAX}${stLeft()?`（あと${stLeft()}で+1）`:''}</span>`,`<div class="shTab"><button class="${tab==='item'?'on':''}" onclick="sfx('tap');renderShop('item')">アイテム</button><button class="${tab==='gacha'?'on':''}${GACHA_OPEN?'':' lk'}" onclick="gachaTab()">${GACHA_OPEN?'':'🔒 '}ガチャ</button></div>${tab==='gacha'?gachaHTML():`<div class="shl">${rows}</div>`}`,`<button class="obtn${tab==='gacha'?' gCl':''}" onclick="closeModal()">とじる</button>${tab==='gacha'?gachaBtn():''}`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP');}if(tab==='gacha')fxvMount(document.getElementById('modal'));}
 function buyItem(k){const it=SHOP.find(x=>x.k===k);if(coins()<it.p){toast('コインが足りません');return;}addCoin(-it.p);invAdd(k,1);sfx('buff');toast(`${it.n} を買いました`);renderShop();}
 function useItem(k,bk){const back=bk==='bag'?()=>openBag('item'):renderShop;if(!invN(k))return;sfx('tap');
   if(k==='stpot'){invAdd(k,-1);stNow();save.st.v++;persist();hudAvatar();sfx('buff');toast(`スタミナが回復した！（${save.st.v}）`);back();return;}
@@ -3620,7 +3670,7 @@ function addItem(force){const r=Math.random(),rr=force!==undefined?force:r<.02?2
   if(IRANGE[rr]){if(t==='crit')it.pcv=wPick(...IRANGE[rr].cv);else it.pv=wPick(...IRANGE[rr].v);}save.items.push(it);persist();return it;}
 /* --- サブメニュー --- */
 function toggleSub(id){const m=$('#'+id),on=!m.classList.contains('on');closeMenu();if(on){m.classList.add('on');const b=$(id==='monMenu'?'#monBtn':'#advBtn');if(b)b.classList.add('on');}sfx('tap');}
-function openVersus(){closeMenu();sfx('open');modal(pnl('対戦','',`<div class="vsel"><button class="mi" onclick="closeModal();startSolo()"><b>ひとりで対戦</b><small>野生のモンスターと連勝チャレンジ</small></button>${pvpOpen()?`<button class="mi lockd" onclick="sfx('miss');toast('ランクバトルは準備中です')"><b>🔒 ランクバトル</b><small>準備中</small></button><button class="mi" onclick="closeModal();startOnline()"><b>フレンド対戦</b><small>部屋番号で友だちと対戦（ランクは変わりません）</small></button>`:`<button class="mi lockd" onclick="sfx('miss');toast('ランクバトルは準備中です')"><b>🔒 ランクバトル</b><small>準備中</small></button><button class="mi lockd" onclick="sfx('miss');toast('ひとりで対戦で1回勝つと解放されます')"><b>🔒 フレンド対戦</b><small>ひとりで対戦で1回勝つと解放</small></button>`}</div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
+function openVersus(){closeMenu();sfx('open');modal(pnl('対戦','',`<div class="vsel"><button class="mi" onclick="closeModal();startSolo()"><b>ひとりで対戦</b><small>野生のモンスターと連勝チャレンジ</small></button>${pvpOpen()?`<button class="mi" onclick="closeModal();startRank()"><b>ランクバトル</b><small>ランクが上がるほど強い相手と対戦・ポイントでランクアップ</small></button><button class="mi" onclick="closeModal();startOnline()"><b>フレンド対戦</b><small>部屋番号で友だちと対戦（ランクは変わりません）</small></button>`:`<button class="mi lockd" onclick="sfx('miss');toast('ひとりで対戦で1回勝つと解放されます')"><b>🔒 ランクバトル</b><small>ひとりで対戦で1回勝つと解放</small></button><button class="mi lockd" onclick="sfx('miss');toast('ひとりで対戦で1回勝つと解放されます')"><b>🔒 フレンド対戦</b><small>ひとりで対戦で1回勝つと解放</small></button>`}</div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));}
 function startAdv(){if(!owned()){closeMenu();toast('まずはQRスキャンでモンスターを召喚しよう');return;}if(stNow()<=0){closeMenu();toast(`スタミナがありません（あと${stLeft()}で回復・ショップでポーションも買えます）`);return;}BX.picks=[];openBox('adv');}
 
 /* ================= バトル ================= */
@@ -4199,7 +4249,7 @@ function fireUlt(i){const f=B.f[i],o=target(i),el=f.m.ult.el,col=ELC[el]||'#fff'
 /* ===== ランクバトル（ランクに応じて強くなるCPU） ===== */
 let rankTeam=[];
 const RK_NM=['リク','ソラ','ハル','ミオ','ユイ','レン','カイ','アオイ','ヒナ','ツバサ','ルナ','ナギ','コハク','シオン','イブキ','トワ','セナ','リン','ユウマ','アカリ'];
-const RANK_OPEN=false;
+const RANK_OPEN=true;
 function startRank(){if(!RANK_OPEN){toast('ランクバトルは準備中です');return;}if(!pvpOpen()){toast('ひとりで対戦で1回勝つと解放されます');return;}if(!owned()){closeMenu();toast('まずはQRスキャンでモンスターを召喚しよう');return;}BX.picks=[];openBox('rank');}
 function rkDiff(){const r=rkGet(),R=RANKS[r.i];return Math.min(1.15,(r.i+(R.need?r.p/R.need:0))/5);}
 function rankBattle(){if(!rankTeam.length||rankTeam.some(s=>!save.box.includes(s))){startRank();return;}
@@ -4373,7 +4423,7 @@ function end(w,fromNet){{const o=document.getElementById('npOv');if(o)o.remove()
     modal(`<div class="res glass"${w===0?' style="--c:#ffd76a"':''}><div class="big${w===0?' gt':''}"${w===1?' style="color:#ff9fb0"':''}>${w<0?'DRAW':w===0?'VICTORY':'DEFEAT'}</div>${sc}<img src="${f.m.img}" alt="">${rkResHTML(rkx)}</div>`);return;}
   const sc=`<div class="sub" style="font-size:calc(3.4*var(--vh))"><span style="color:${TEAMC[0]}">${Math.floor(B.score[0])}%</span>　vs　<span style="color:${TEAMC[1]}">${Math.floor(B.score[1])}%</span></div>`;
   if(B.mode==='cpu'){
-    if(w===0){if(!pvpOpen())setTimeout(()=>{toast('🔓 フレンド対戦が解放された！');sfx('buff');},1400);save.soloWin=1;streak++;if(streak>save.best){save.best=streak;persist();}sfx('win');
+    if(w===0){if(!pvpOpen())setTimeout(()=>{toast('🔓 ランクバトルとフレンド対戦が解放された！');sfx('buff');},1400);save.soloWin=1;streak++;if(streak>save.best){save.best=streak;persist();}sfx('win');
       h=`<div class="res glass" style="--c:#ffd76a"><div class="big gt">VICTORY</div>${sc}<img src="${B.f[B.act[0]].m.img}" alt=""><div class="sub">${streak} 連勝！</div><div class="src" style="opacity:.6">最高記録 ${save.best} 連勝 ─ 次の相手はさらに強い</div><div class="btns"><button class="gbtn" onclick="closeModal();soloBattle()">次の相手へ</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`;}
     else{sfx('lose');h=`<div class="res glass"><div class="big" style="color:#ff9fb0">${w<0?'DRAW':'DEFEAT'}</div>${sc}<img src="${B.f[B.act[1]].m.img}" alt=""><div class="sub">${streak} 連勝で ストップ</div><div class="src" style="opacity:.6">最高記録 ${save.best} 連勝</div><div class="btns"><button class="gbtn" onclick="closeModal();streak=0;soloBattle()">もう一度挑戦</button><button class="obtn" onclick="closeModal();quitBattle(true);startSolo()">チームを変える</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`;}
   }else{sfx('win');const f=B.f[B.act[w<0?0:w]];h=`<div class="res glass"><div class="big gt">${w<0?'DRAW':w?'P2 WINS':'P1 WINS'}</div>${sc}<img src="${f.m.img}" alt=""><div class="btns"><button class="gbtn" onclick="closeModal();pvpBattle()">同じチームで再戦</button><button class="obtn" onclick="closeModal();quitBattle(true);startPvp()">選びなおす</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`;}
@@ -4485,7 +4535,7 @@ setTimeout(()=>{try{giftFetch(true);}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-2015</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.24-2130</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
