@@ -1501,6 +1501,21 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 
 .ics .av.fr{transform:scale(.74)}
 .hring .crest .av.fr{transform:scale(.74)}
+
+.pnl.qtP{width:auto;max-width:calc(92*var(--vw))}
+.qtTb{display:flex;gap:calc(1*var(--vh));justify-content:center;margin-bottom:calc(1.2*var(--vh))}
+.qtTb button{position:relative;min-width:calc(22*var(--vh));padding:calc(1*var(--vh)) calc(2.4*var(--vh));border-radius:30px;border:1.5px solid rgba(217,180,106,.5);background:rgba(255,255,255,.04);color:#cfc3a8;font:800 calc(2.5*var(--vh)) 'Zen Kaku Gothic New',sans-serif}
+.qtTb button.on{background:linear-gradient(180deg,#f6d48a,#b8862e);color:#2a1a08;border-color:#fff1c0}
+.qtTb em{position:absolute;top:-8px;right:-6px;min-width:20px;height:20px;border-radius:10px;background:#ff3b5c;color:#fff;font:800 12px sans-serif;font-style:normal;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.qtL{display:flex;flex-direction:column;gap:calc(1*var(--vh));width:calc(92*var(--vh));max-width:100%;margin:0 auto;max-height:calc(50*var(--vh));overflow-y:auto;padding:2px}
+.qtR{display:flex;align-items:center;gap:calc(2*var(--vh));min-height:calc(11*var(--vh));padding:calc(1*var(--vh)) calc(2*var(--vh));border-radius:14px;background:linear-gradient(180deg,#1d1724,#0d0a12);box-shadow:inset 0 0 0 1px rgba(217,180,106,.3);flex:none;box-sizing:border-box}
+.qtR.rdy{box-shadow:inset 0 0 0 2px #ffd76a,0 0 14px rgba(255,215,106,.35)}.qtR.got{opacity:.55}
+.qtN{flex:1;min-width:0;text-align:left}.qtN b{display:block;font:800 calc(2.7*var(--vh)) 'Zen Kaku Gothic New',sans-serif;color:#fff}.qtN small{color:#a8987a;font:700 calc(1.9*var(--vh)) sans-serif}
+.qtBar{height:calc(1*var(--vh));border-radius:8px;background:rgba(255,255,255,.08);overflow:hidden;margin:calc(.6*var(--vh)) 0 calc(.3*var(--vh))}.qtBar i{display:block;height:100%;background:linear-gradient(90deg,#7ae0ff,#ffd76a)}
+.qtW{flex:none}
+.qtB button{min-width:calc(17*var(--vh));padding:calc(1.1*var(--vh)) calc(2*var(--vh))!important;font-size:calc(2.5*var(--vh))!important}
+.egG{display:flex;flex-direction:column;align-items:center;gap:calc(1*var(--vh))}.egI{width:calc(20*var(--vh));height:calc(20*var(--vh));filter:drop-shadow(0 0 2vh rgba(255,122,232,.55));animation:egW 1.6s ease-in-out infinite}.egI svg{width:100%;height:100%}.egG p{margin:0;color:#e6ddca;font:700 calc(2.5*var(--vh)) sans-serif;text-align:center}.egG b{color:#ff9aec}
+@keyframes egW{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 </style>
 </head>
 <body>
@@ -1546,7 +1561,7 @@ document.addEventListener('DOMContentLoaded',applyOrient);if(document.body)apply
       <div class="hst"><span class="pbar"><i id="hStB"></i></span><em class="stt" id="hStT"></em><small id="hStN"></small></div></div></div>
   <div class="curs"><div class="cur dia" onclick="openDiaShop()"><i class="ci" id="hDiaI"></i><b id="hDia">0</b><button class="cplus" aria-label="ダイヤ購入" onclick="event.stopPropagation();openDiaShop()"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div><div class="cur" onclick="openShop()"><i class="ci" id="hCoinI"></i><b id="hCoin">0</b><button class="cplus" aria-label="コイン交換" onclick="event.stopPropagation();openCoinEx()"><svg viewBox="0 0 24 24"><path d="M12 6v12M6 12h12" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg></button></div></div>
   <button class="phBtn" id="phoneBtn" aria-label="スマホ" onclick="togglePhone()"><svg viewBox="0 0 24 24"><rect x="6.5" y="2" width="11" height="20" rx="2.4" fill="#2a1a3a" stroke="#f6d48a" stroke-width="1.6"/><rect x="8.3" y="4.6" width="7.4" height="13.2" rx=".8" fill="#6a4ab0"/><rect x="9.3" y="6" width="2.2" height="2.2" rx=".5" fill="#ffd76a"/><rect x="12.5" y="6" width="2.2" height="2.2" rx=".5" fill="#7ad3ff"/><rect x="9.3" y="9.3" width="2.2" height="2.2" rx=".5" fill="#ff7ae8"/><rect x="12.5" y="9.3" width="2.2" height="2.2" rx=".5" fill="#7dff9a"/><circle cx="12" cy="19.8" r=".9" fill="#f6d48a"/></svg><i class="phDot"></i></button>
-  <div class="phone" id="phone"><div class="phS"><div class="phT" id="phClock">00:00</div><div class="phN"></div><div class="phSt"><svg viewBox="0 0 26 14"><g fill="#fff"><rect x="0" y="9" width="3" height="5" rx=".6"/><rect x="4.5" y="6" width="3" height="8" rx=".6"/><rect x="9" y="3" width="3" height="11" rx=".6"/></g><rect x="15.5" y="2.5" width="9" height="9" rx="2" fill="none" stroke="#fff" stroke-width="1.4"/><rect x="17" y="4" width="6" height="6" rx="1" fill="#fff"/></svg></div><div class="phH">メニュー</div><div class="phG"><button class="phA" id="phA_qr" onclick="phApp('qr')"><span class="phI" style="background:linear-gradient(160deg,#4ad0ff,#1a5aa8)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4"/><g fill="#fff" stroke="none"><rect x="6.5" y="6.5" width="4" height="4" rx=".6"/><rect x="13.5" y="6.5" width="4" height="4" rx=".6"/><rect x="6.5" y="13.5" width="4" height="4" rx=".6"/><rect x="13.5" y="13.5" width="1.8" height="1.8"/><rect x="15.7" y="15.7" width="1.8" height="1.8"/></g><path d="M4 12h16" stroke="#ffe36a" stroke-width="1.4"/></svg><i class="phB"></i></span>QRスキャン</button><button class="phA" id="phA_mon" onclick="phApp('mon')"><span class="phI" style="background:linear-gradient(160deg,#c57bff,#5a2a9a)"><svg viewBox="0 0 24 24"><path d="M4 4l4 4.5h8L20 4l-.5 8a7.5 7.5 0 0 1-15 0z" fill="#fff"/><circle cx="9" cy="12.5" r="1.4" fill="#3a1a5a"/><circle cx="15" cy="12.5" r="1.4" fill="#3a1a5a"/><path d="M10.5 16q1.5 1.3 3 0" stroke="#3a1a5a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg><i class="phB"></i></span>モンスター</button><button class="phA" id="phA_bag" onclick="phApp('bag')"><span class="phI" style="background:linear-gradient(160deg,#ffb35a,#a8541e)"><svg viewBox="0 0 24 24"><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7" fill="none" stroke="#fff" stroke-width="1.8"/><rect x="3.5" y="7" width="17" height="13" rx="2.5" fill="#fff"/><path d="M3.5 12h17" stroke="#a8541e" stroke-width="1.4"/><rect x="10.5" y="10.5" width="3" height="3" rx=".6" fill="#ffb35a" stroke="#a8541e" stroke-width=".8"/></svg><i class="phB"></i></span>かばん</button><button class="phA" id="phA_gift" onclick="phApp('gift')"><span class="phI" style="background:linear-gradient(160deg,#ff7a9a,#a8203e)"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1.5" fill="#fff"/><rect x="3" y="7" width="18" height="4" rx="1.2" fill="#fff"/><rect x="11" y="7" width="2" height="13" fill="#ffd76a"/><path d="M12 7c-1-3-5-4-5-1.5S10.5 7 12 7zm0 0c1-3 5-4 5-1.5S13.5 7 12 7z" fill="#ffd76a"/></svg><i class="phB"></i></span>プレゼント</button><button class="phA" id="phA_shop" onclick="phApp('shop')"><span class="phI" style="background:linear-gradient(160deg,#ffe07a,#b8801e)"><svg viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5z" fill="#fff"/><path d="M3 9q1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0" fill="#fff" stroke="#b8801e" stroke-width=".8"/><rect x="4.5" y="11" width="15" height="9" rx="1" fill="#fff"/><rect x="10" y="14" width="4" height="6" fill="#b8801e"/></svg><i class="phB"></i></span>ショップ</button><button class="phA" id="phA_news" onclick="phApp('news')"><span class="phI" style="background:linear-gradient(160deg,#6ae0b0,#1a7a5a)"><svg viewBox="0 0 24 24"><path d="M4 9.5h3l8-4.5v14l-8-4.5H4z" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="1"/><path d="M7 14.5l1.5 4.5h2.5L10 15" fill="#fff"/><path d="M18 9q2 3 0 6" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg><i class="phB"></i></span>お知らせ</button><button class="phA" id="phA_rank" style="display:none" onclick="phApp('rank')"><span class="phI" style="background:linear-gradient(160deg,#ff9a5a,#b0283e)"><svg viewBox="0 0 24 24"><path d="M7 3h10v5a5 5 0 0 1-10 0z" fill="#ffe07a"/><path d="M7 5H4v1.5A3.5 3.5 0 0 0 7.5 10M17 5h3v1.5A3.5 3.5 0 0 1 16.5 10" fill="none" stroke="#ffe07a" stroke-width="1.6"/><path d="M10.5 13h3v3h-3z" fill="#ffe07a"/><rect x="7.5" y="16" width="9" height="4" rx="1" fill="#fff"/><path d="M12 4.6l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="#b0283e"/></svg><i class="phB"></i></span>ランキング</button></div><div class="phHome"></div></div></div>
+  <div class="phone" id="phone"><div class="phS"><div class="phT" id="phClock">00:00</div><div class="phN"></div><div class="phSt"><svg viewBox="0 0 26 14"><g fill="#fff"><rect x="0" y="9" width="3" height="5" rx=".6"/><rect x="4.5" y="6" width="3" height="8" rx=".6"/><rect x="9" y="3" width="3" height="11" rx=".6"/></g><rect x="15.5" y="2.5" width="9" height="9" rx="2" fill="none" stroke="#fff" stroke-width="1.4"/><rect x="17" y="4" width="6" height="6" rx="1" fill="#fff"/></svg></div><div class="phH">メニュー</div><div class="phG"><button class="phA" id="phA_qr" onclick="phApp('qr')"><span class="phI" style="background:linear-gradient(160deg,#4ad0ff,#1a5aa8)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4"/><g fill="#fff" stroke="none"><rect x="6.5" y="6.5" width="4" height="4" rx=".6"/><rect x="13.5" y="6.5" width="4" height="4" rx=".6"/><rect x="6.5" y="13.5" width="4" height="4" rx=".6"/><rect x="13.5" y="13.5" width="1.8" height="1.8"/><rect x="15.7" y="15.7" width="1.8" height="1.8"/></g><path d="M4 12h16" stroke="#ffe36a" stroke-width="1.4"/></svg><i class="phB"></i></span>QRスキャン</button><button class="phA" id="phA_mon" onclick="phApp('mon')"><span class="phI" style="background:linear-gradient(160deg,#c57bff,#5a2a9a)"><svg viewBox="0 0 24 24"><path d="M4 4l4 4.5h8L20 4l-.5 8a7.5 7.5 0 0 1-15 0z" fill="#fff"/><circle cx="9" cy="12.5" r="1.4" fill="#3a1a5a"/><circle cx="15" cy="12.5" r="1.4" fill="#3a1a5a"/><path d="M10.5 16q1.5 1.3 3 0" stroke="#3a1a5a" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg><i class="phB"></i></span>モンスター</button><button class="phA" id="phA_bag" onclick="phApp('bag')"><span class="phI" style="background:linear-gradient(160deg,#ffb35a,#a8541e)"><svg viewBox="0 0 24 24"><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7" fill="none" stroke="#fff" stroke-width="1.8"/><rect x="3.5" y="7" width="17" height="13" rx="2.5" fill="#fff"/><path d="M3.5 12h17" stroke="#a8541e" stroke-width="1.4"/><rect x="10.5" y="10.5" width="3" height="3" rx=".6" fill="#ffb35a" stroke="#a8541e" stroke-width=".8"/></svg><i class="phB"></i></span>かばん</button><button class="phA" id="phA_gift" onclick="phApp('gift')"><span class="phI" style="background:linear-gradient(160deg,#ff7a9a,#a8203e)"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="1.5" fill="#fff"/><rect x="3" y="7" width="18" height="4" rx="1.2" fill="#fff"/><rect x="11" y="7" width="2" height="13" fill="#ffd76a"/><path d="M12 7c-1-3-5-4-5-1.5S10.5 7 12 7zm0 0c1-3 5-4 5-1.5S13.5 7 12 7z" fill="#ffd76a"/></svg><i class="phB"></i></span>プレゼント</button><button class="phA" id="phA_shop" onclick="phApp('shop')"><span class="phI" style="background:linear-gradient(160deg,#ffe07a,#b8801e)"><svg viewBox="0 0 24 24"><path d="M3 9l2-5h14l2 5z" fill="#fff"/><path d="M3 9q1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0 1.5 2.5 3 0" fill="#fff" stroke="#b8801e" stroke-width=".8"/><rect x="4.5" y="11" width="15" height="9" rx="1" fill="#fff"/><rect x="10" y="14" width="4" height="6" fill="#b8801e"/></svg><i class="phB"></i></span>ショップ</button><button class="phA" id="phA_news" onclick="phApp('news')"><span class="phI" style="background:linear-gradient(160deg,#6ae0b0,#1a7a5a)"><svg viewBox="0 0 24 24"><path d="M4 9.5h3l8-4.5v14l-8-4.5H4z" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="1"/><path d="M7 14.5l1.5 4.5h2.5L10 15" fill="#fff"/><path d="M18 9q2 3 0 6" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg><i class="phB"></i></span>お知らせ</button><button class="phA" id="phA_quest" onclick="phApp('quest')"><span class="phI" style="background:linear-gradient(160deg,#7ae0ff,#2a4ab0)"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2" fill="#fff"/><rect x="9" y="1.8" width="6" height="3" rx="1" fill="#ffd76a"/><path d="M8 9l1.5 1.5L12 8M8 14l1.5 1.5L12 13" fill="none" stroke="#2a4ab0" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.5 9.5h3M13.5 14.5h3" stroke="#2a4ab0" stroke-width="1.6" stroke-linecap="round"/></svg><i class="phB"></i></span>クエスト</button><button class="phA" id="phA_rank" style="display:none" onclick="phApp('rank')"><span class="phI" style="background:linear-gradient(160deg,#ff9a5a,#b0283e)"><svg viewBox="0 0 24 24"><path d="M7 3h10v5a5 5 0 0 1-10 0z" fill="#ffe07a"/><path d="M7 5H4v1.5A3.5 3.5 0 0 0 7.5 10M17 5h3v1.5A3.5 3.5 0 0 1 16.5 10" fill="none" stroke="#ffe07a" stroke-width="1.6"/><path d="M10.5 13h3v3h-3z" fill="#ffe07a"/><rect x="7.5" y="16" width="9" height="4" rx="1" fill="#fff"/><path d="M12 4.6l.8 1.6 1.8.3-1.3 1.2.3 1.8-1.6-.9-1.6.9.3-1.8-1.3-1.2 1.8-.3z" fill="#b0283e"/></svg><i class="phB"></i></span>ランキング</button></div><div class="phHome"></div></div></div>
   <button class="picBtn" id="picBtn" onclick="openPortrait()"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="15" rx="1.5" fill="#3a2a48" stroke="#f6d48a" stroke-width="1.8"/><path d="M5 17l4.5-5 3 3 2.5-2.5L19 17z" fill="#c57bff"/><circle cx="15.5" cy="8.5" r="1.6" fill="#ffd76a"/></svg><b>絵をかざる</b></button>
   <div class="menu glass sub" id="monMenu">
     <button class="mi" onclick="openBox('view')"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16M15 4v16M3 14.5h18"/></svg><span><b>BOX</b><small>捕まえたモンスター</small></span></button>
@@ -2076,11 +2091,12 @@ function xfPinOnly(e){e.value=e.value.replace(/[^0-9]/g,'').slice(0,4);}
 
 /* ===== プレゼント（Supabase の qr_gifts 表から配布） ===== */
 let GIFTS=[],GF_T=0;
+setTimeout(()=>{if(!GIFTS.some(g=>g.id==='welcome'))GIFTS.unshift(WELCOME);try{gfBadge();}catch(_){}},0);
 function gfGot(){return save.giftGot||(save.giftGot=[]);}
 function gfNew(){return GIFTS.filter(g=>!gfGot().includes(g.id));}
-async function giftFetch(force){if(!force&&Date.now()-GF_T<5*60000)return GIFTS;GF_T=Date.now();try{const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),8000);const r=await fetch(SB_URL+'/rest/v1/qr_gifts?select=id,title,body,items,starts_at,ends_at&order=starts_at.desc&limit=50',{headers:{apikey:SB_KEY},signal:ac.signal}).finally(()=>clearTimeout(tm));if(r.ok){const L=await r.json();if(Array.isArray(L))GIFTS=L.filter(g=>g&&g.id!=null&&Array.isArray(g.items)).map(g=>Object.assign(g,{id:String(g.id)}));}}catch(e){}gfBadge();return GIFTS;}
+async function giftFetch(force){if(!force&&Date.now()-GF_T<5*60000)return GIFTS;GF_T=Date.now();try{const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),8000);const r=await fetch(SB_URL+'/rest/v1/qr_gifts?select=id,title,body,items,starts_at,ends_at&order=starts_at.desc&limit=50',{headers:{apikey:SB_KEY},signal:ac.signal}).finally(()=>clearTimeout(tm));if(r.ok){const L=await r.json();if(Array.isArray(L))GIFTS=[WELCOME].concat(L.filter(g=>g&&g.id!=null&&Array.isArray(g.items)).map(g=>Object.assign(g,{id:String(g.id)})));}}catch(e){}gfBadge();return GIFTS;}
 function gfBadge(){const n=gfNew().length;document.querySelectorAll('#menuBtn,#giftBtn').forEach(e=>e.classList.toggle('gfOn',n>0));try{phBadge();}catch(_){}}
-function gfItem(it){const n=it.n||1;if(it.t==='dia')return `<span class="gfI"><i class="cico">${DIA_SVG}</i>ダイヤ ×${n}</span>`;if(it.t==='coin')return `<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${n}</span>`;if(it.t==='st')return `<span class="gfI"><i class="cico">${ST_SVG}</i>スタミナ ×${n}</span>`;if(it.t==='item'){const S=SHOP.find(x=>x.k===it.k);return S?`<span class="gfI"><i class="cico">${POT_SVG[it.k]||''}</i>${S.n} ×${n}</span>`:'';}if(it.t==='fx'&&PFX.META[it.id])return `<span class="gfI"><i class="gfFx">✦</i>${PFX.META[it.id].n}エフェクト</span>`;return '';}
+function gfItem(it){const n=it.n||1;if(it.t==='egg')return `<span class="gfI"><i class="cico">${EGG_SVG}</i>URタマゴ ×${n}</span>`;if(it.t==='dia')return `<span class="gfI"><i class="cico">${DIA_SVG}</i>ダイヤ ×${n}</span>`;if(it.t==='coin')return `<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${n}</span>`;if(it.t==='st')return `<span class="gfI"><i class="cico">${ST_SVG}</i>スタミナ ×${n}</span>`;if(it.t==='item'){const S=SHOP.find(x=>x.k===it.k);return S?`<span class="gfI"><i class="cico">${POT_SVG[it.k]||''}</i>${S.n} ×${n}</span>`:'';}if(it.t==='fx'&&PFX.META[it.id])return `<span class="gfI"><i class="gfFx">✦</i>${PFX.META[it.id].n}エフェクト</span>`;return '';}
 function gfDate(t){if(!t)return'';const d=new Date(t);return `${d.getMonth()+1}/${d.getDate()}まで`;}
 async function openGifts(){try{closeMenu();}catch(_){}sfx('open');modal(pnl('プレゼント','',`<div class="gfL"><div class="onw"><i class="spn"></i><p>読み込み中…</p></div></div>`,`<button class="obtn" onclick="closeModal()">とじる</button>`));await giftFetch(true);renderGifts();}
 function renderGifts(){const L=GIFTS,got=gfGot(),nw=gfNew();
@@ -2088,10 +2104,10 @@ function renderGifts(){const L=GIFTS,got=gfGot(),nw=gfNew();
   modal(pnl('プレゼント',nw.length?`未受け取り ${nw.length} 件`:'',`<div class="gfL">${rows}</div>`,`${nw.length>1?`<button class="gbtn" onclick="gfClaim('*')">まとめて受け取る</button>`:''}<button class="obtn" onclick="closeModal()">とじる</button>`));
   const P=document.querySelector('#modal .pnl');if(P)P.classList.add('gfP');gfBadge();}
 function gfApply(g){let back=0;for(const it of g.items){const n=Math.max(1,Math.min(99999,it.n||1));
-    if(it.t==='coin')save.coin=coins()+n;else if(it.t==='dia')save.dia=dias()+n;else if(it.t==='st'){stNow();save.st.v+=n;}else if(it.t==='item'&&SHOP.find(x=>x.k===it.k))invAdd(it.k,n);else if(it.t==='fx'&&PFX.META[it.id]){fxAdd(it.id,Math.min(99,n));}}
+    if(it.t==='coin')save.coin=coins()+n;else if(it.t==='dia')save.dia=dias()+n;else if(it.t==='st'){stNow();save.st.v+=n;}else if(it.t==='item'&&SHOP.find(x=>x.k===it.k))invAdd(it.k,n);else if(it.t==='fx'&&PFX.META[it.id]){fxAdd(it.id,Math.min(99,n));}else if(it.t==='egg'){save.urEgg=eggCnt()+Math.min(9,n);}}
   gfGot().push(g.id);return back;}
 function gfClaim(id){const L=id==='*'?gfNew():gfNew().filter(g=>g.id===id);if(!L.length)return;let back=0;L.forEach(g=>back+=gfApply(g));persist();try{xfNow();}catch(_){}hudAvatar();sfx('buff');
-  toast(L.length>1?`${L.length}件のプレゼントを受け取りました`:'プレゼントを受け取りました'+(back?`（持っているエフェクトは${back}コインに）`:''));renderGifts();}
+  toast(L.length>1?`${L.length}件のプレゼントを受け取りました`:'プレゼントを受け取りました'+(back?`（持っているエフェクトは${back}コインに）`:''));if(eggCnt()&&L.some(g=>g.items.some(it=>it.t==='egg'))){setTimeout(eggAsk,400);return;}renderGifts();}
 setInterval(()=>{if(save&&save.name)giftFetch();},10*60000);
 
 /* ===== ダイヤ（有料通貨）・コイン交換 ===== */
@@ -2353,6 +2369,41 @@ function openRkProf(ix){if(!RKB)return;const x=ix==='me'?RKB.me:(RKB.top||[])[ix
     return `<div class="rpM" style="--c:${g.rar.c}"><canvas class="fxv" data-fx="${fx}" data-img="${g.img}"></canvas><b>${esc(g.name)}</b><small><i>${esc(g.rar.k)}</i>Lv.${Math.max(1,Math.min(999,m.lv|0))}${fx?`・${esc(PFX.META[fx].n)}`:''}</small></div>`;}).join('');
   modal(pnl('プロフィール',`${rkSeasonName(RKB.season)}・${x.place||'-'}位`,`<div class="rpB"><div class="rpH"><div class="rpA">${rkAvatar(pf,'100%')}</div><div class="rpI"><b>${esc(x.name||'サモナー')}</b><span>ランク <em>${Math.max(1,pf.lv|0)}</em></span></div><div class="rpR"><img src="${RK_IMG[T.k]}" alt=""><div><b>${T.n}級</b><small>${x.score} pt</small></div></div><div class="rpS"><small>最高連勝</small><b>${Math.max(0,pf.best|0)}</b></div></div><div class="rpT"><small>ランクバトルで使っているモンスター</small><div class="rpG">${cards||'<p class="stN">まだ記録がありません</p>'}</div></div></div>`,`<button class="obtn" onclick="openRanking('${RKB.season}')">もどる</button><button class="gbtn" onclick="closeModal()">とじる</button>`));
   const P=document.querySelector('#modal .pnl');if(P)P.classList.add('rpP');try{fxvMount($('#modal'));}catch(e){}}
+
+/* ===== 携帯品BOX（広告・ログインボーナス共通） ===== */
+function boxRoll(){const n=2+(Math.random()<.5?1:0),its=[],cs=[];
+  for(let i=0;i<n;i++){const r=Math.random(),rr=r<.005?3:r<.025?2:r<.325?1:0;its.push(addItem(rr));}
+  for(let i=0;i<2;i++){const c=10+Math.floor(Math.random()*91);cs.push(c);addCoin(c);}persist();return{its,cs};}
+function boxShow(sub,after){const R0=boxRoll();sfx('buff');
+  modal(pnl('携帯品BOX',sub,`<div style="display:flex;flex-wrap:wrap;gap:1vh;justify-content:center;align-items:center">${R0.its.map(it=>itemCard(it)).join('')}${R0.cs.map(c=>`<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${c}</span>`).join('')}</div>`,`<button class="gbtn" onclick="closeModal();${after||''}">もらう</button>`));}
+
+/* ===== URタマゴ（ランダムでURが生まれる） ===== */
+function eggCnt(){return save.urEgg||0;}
+function eggAsk(){if(!eggCnt())return;sfx('open');
+  modal(pnl('URタマゴ',`所持 ${eggCnt()}個`,`<div class="egG"><div class="egI">${EGG_SVG}</div><p>タマゴをかえすと、<b>URモンスター</b>がランダムで1体生まれます！</p></div>`,`<button class="obtn" onclick="closeModal()">あとで</button><button class="gbtn" onclick="eggHatch()">かえす</button>`));}
+function eggHatch(){if(!eggCnt())return;if(save.box.indexOf(null)<0){toast('BOXがいっぱいです');return;}save.urEgg=eggCnt()-1;persist();closeModal();summon('ur-egg:'+Date.now(),true);}
+const EGG_SVG='<svg viewBox="0 0 100 100"><defs><radialGradient id="egg0" cx="40%" cy="32%" r="70%"><stop offset="0" stop-color="#fff8ff"/><stop offset=".45" stop-color="#e6b8ff"/><stop offset="1" stop-color="#7a3ac8"/></radialGradient><linearGradient id="egg1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe07a"/><stop offset=".5" stop-color="#fff6c8"/><stop offset="1" stop-color="#d49a2a"/></linearGradient></defs><ellipse cx="50" cy="56" rx="30" ry="38" fill="url(#egg0)" stroke="#fff3c4" stroke-width="2"/><path d="M21 58l8-6 7 6 7-6 7 6 7-6 7 6 7-6 8 6" fill="none" stroke="url(#egg1)" stroke-width="4" stroke-linejoin="round"/><text x="50" y="44" text-anchor="middle" font-family="Georgia,serif" font-weight="900" font-size="17" fill="#ff7ae8" stroke="#fff" stroke-width=".8">UR</text><g fill="#fff8d0"><path d="M80 18l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z"/><circle cx="18" cy="30" r="1.8"/></g></svg>';
+
+/* ===== はじめてのプレゼント（端末の中にあるプレゼント） ===== */
+const WELCOME={id:'welcome',title:'インストールありがとう！',body:'QR召喚バトルを遊んでくれてありがとう！\nはじめてのプレゼントを受け取ってね。',items:[{t:'egg',n:1},{t:'dia',n:10},{t:'coin',n:1000}]};
+
+/* ===== クエスト（デイリー・イベント） ===== */
+const QST_D=[{k:'qr',n:'QRスキャンを1回する',need:1,rw:{t:'coin',n:50}},{k:'boss',n:'冒険でボスを討伐する',need:1,rw:{t:'coin',n:50}},{k:'rank',n:'ランクバトルに1回参加する',need:1,rw:{t:'qrt',n:1}}];
+const QST_E=[]; /* イベントのクエスト（開催するときにここへ追加） */
+let QTAB='d';
+function qDay(){const k=adDayKey();if(!save.qst||save.qst.d!==k)save.qst={d:k,c:{},got:[]};return save.qst;}
+function qAdd(k){const q=qDay();q.c[k]=(q.c[k]||0)+1;persist();try{phBadge();}catch(_){}}
+function qReady(){const q=qDay();return QST_D.filter(m=>(q.c[m.k]||0)>=m.need&&!q.got.includes(m.k)).length;}
+function qRwHTML(r){return r.t==='qrt'?`<span class="gfI"><i class="cico">${QRT_SVG}</i>QR券 ×${r.n}</span>`:`<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${r.n}</span>`;}
+function openQuest(t){closeMenu();if(t)QTAB=t;else sfx('open');const q=qDay();
+  const rows=QTAB==='d'?QST_D.map(m=>{const c=Math.min(m.need,q.c[m.k]||0),ok=c>=m.need,got=q.got.includes(m.k);
+      return `<div class="qtR${ok&&!got?' rdy':''}${got?' got':''}"><div class="qtN"><b>${m.n}</b><div class="qtBar"><i style="width:${c/m.need*100}%"></i></div><small>${c} / ${m.need}</small></div><div class="qtW">${qRwHTML(m.rw)}</div><div class="qtB">${got?'<button class="obtn" disabled>受取済み</button>':ok?`<button class="gbtn" onclick="qClaim('${m.k}')">受け取る</button>`:'<button class="obtn" disabled>未達成</button>'}</div></div>`;}).join('')
+    :(QST_E.length?'':'<div class="pempty">現在開催中のイベントはありません<br><small>お知らせでイベントの情報をチェックしてね</small></div>');
+  modal(pnl('クエスト',QTAB==='d'?'毎日0時に更新されます':'期間限定のクエスト',`<div class="qtTb"><button class="${QTAB==='d'?'on':''}" onclick="openQuest('d')">デイリー${qReady()?`<em>${qReady()}</em>`:''}</button><button class="${QTAB==='e'?'on':''}" onclick="openQuest('e')">イベント</button></div><div class="qtL">${rows}</div>`,`<button class="gbtn" onclick="closeModal()">とじる</button>`));
+  const P=document.querySelector('#modal .pnl');if(P)P.classList.add('qtP');}
+function qClaim(k){const q=qDay(),m=QST_D.find(x=>x.k===k);if(!m||q.got.includes(k)||(q.c[k]||0)<m.need)return;
+  if(m.rw.t==='qrt')save.qrt=(save.qrt||0)+m.rw.n;else addCoin(m.rw.n);q.got.push(k);persist();hudAvatar();sfx('buff');
+  toast(m.rw.t==='qrt'?`QR券を${m.rw.n}枚もらいました`:`${m.rw.n}コインもらいました`);try{phBadge();}catch(_){}openQuest(QTAB);}
 /* ===== スマホメニュー ===== */
 let PH=false,PH_TM=0;
 function phClock(){const d=new Date(),e=$('#phClock');if(e)e.textContent=d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');}
@@ -2361,11 +2412,11 @@ function togglePhone(f,quiet){{const t=document.getElementById('phA_rank');if(t)
   if(PH){phClock();PH_TM=setInterval(phClock,10000);phBadge();try{giftFetch();}catch(_){}try{newsFetch();}catch(_){}}
   if(!quiet)sfx(PH?'open':'tap');}
 function phApp(k){togglePhone(false,1);sfx('tap');
-  ({qr:()=>openQR(),mon:()=>toggleSub('monMenu'),bag:()=>{closeMenu();openBag();},gift:()=>openGifts(),shop:()=>openShop(),news:()=>openNews(),rank:()=>openRanking()})[k]();}
+  ({qr:()=>openQR(),mon:()=>toggleSub('monMenu'),bag:()=>{closeMenu();openBag();},gift:()=>openGifts(),shop:()=>openShop(),news:()=>openNews(),rank:()=>openRanking(),quest:()=>openQuest('d')})[k]();}
 function phBadge(){let g=0;try{g=gfNew().length;}catch(_){}const nn=newsNew();
   const bg=document.querySelector('#phA_gift .phB'),bn=document.querySelector('#phA_news .phB');
-  if(bg){bg.textContent=g>9?'9+':g;bg.classList.toggle('on',g>0);}if(bn){bn.textContent='NEW';bn.classList.toggle('on',nn);}
-  const b=$('#phoneBtn');if(b)b.classList.toggle('dot',g>0||nn);}
+  if(bg){bg.textContent=g>9?'9+':g;bg.classList.toggle('on',g>0);}if(bn){bn.textContent='NEW';bn.classList.toggle('on',nn);}const bq=document.querySelector('#phA_quest .phB'),qn=qReady();if(bq){bq.textContent=qn;bq.classList.toggle('on',qn>0);}
+  const b=$('#phoneBtn');if(b)b.classList.toggle('dot',g>0||nn||qn>0);}
 document.addEventListener('pointerdown',e=>{if(!PH)return;const t=e.target;if(t.closest&&(t.closest('#phone')||t.closest('#phoneBtn')))return;togglePhone(false,1);},true);
 
 /* ===== お知らせ（Supabase の qr_news 表） ===== */
@@ -2396,18 +2447,18 @@ function setPortrait(enc){const s=decodeURIComponent(enc);save.portrait=s;persis
 setInterval(()=>{const b=$('#picBtn');if(!b)return;let on=false;try{on=$('#game').classList.contains('on')&&!!R.portrait&&!!AV.obj&&Math.hypot(AV.x-PIC_POS.x,AV.z-PIC_POS.z)<2.3&&!$('#modal').classList.contains('on')&&!PH;}catch(_){}b.classList.toggle('on',on);},250);
 /* ===== ログインボーナス（7日周期）・QR券 ===== */
 const QRT_SVG='<svg class="qrtI" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z" fill="#7ad3ff" stroke="#e8f8ff" stroke-width="1.2"/><g fill="#0c2a3c"><rect x="7" y="8.5" width="3" height="3"/><rect x="11.5" y="8.5" width="1.5" height="1.5"/><rect x="7" y="13" width="1.5" height="1.5"/><rect x="11.5" y="12" width="3" height="3"/><rect x="15.5" y="8.5" width="1.5" height="3"/></g></svg>';
-const LB=[{t:'coin',n:200},{t:'coin',n:200},{t:'coin',n:200},{t:'qrt',n:5},{t:'coin',n:200},{t:'coin',n:200},{t:'qrt',n:5}];
-function lbIcon(r){return r.t==='qrt'?QRT_SVG:`<i class="cico">${COIN_SVG}</i>`;}
-function lbName(r){return r.t==='qrt'?`QR券 ×${r.n}`:`コイン ×${r.n}`;}
+const LB=[{t:'coin',n:200},{t:'coin',n:200},{t:'coin',n:200},{t:'box',n:1},{t:'coin',n:200},{t:'coin',n:200},{t:'qrt',n:5}];
+function lbIcon(r){return r.t==='box'?ICI('box'):r.t==='qrt'?QRT_SVG:`<i class="cico">${COIN_SVG}</i>`;}
+function lbName(r){return r.t==='box'?'携帯品BOX':r.t==='qrt'?`QR券 ×${r.n}`:`コイン ×${r.n}`;}
 function lbChk(){try{
   if(!save||!save.name||save.tut!=='done'||!$('#game').classList.contains('on'))return;
   const k=adDayKey();if(save.lb&&save.lb.d===k)return;
   if($('#modal').classList.contains('on')||document.querySelector('.tutOv,#tutOv')||summoning){setTimeout(lbChk,1500);return;}
   const L=save.lb||{i:0,tot:0},day=(L.i||0)%7,r=LB[day];
-  if(r.t==='coin')addCoin(r.n);else save.qrt=(save.qrt||0)+r.n;
+  if(r.t==='coin')addCoin(r.n);else if(r.t==='box'){}else save.qrt=(save.qrt||0)+r.n;
   save.lb={d:k,i:(day+1)%7,tot:(L.tot||0)+1};persist();try{xfNow();}catch(_){}hudAvatar();sfx('buff');
   const cells=LB.map((x,j)=>`<div class="lbC${j<day?' got':''}${j===day?' now':''}${j===3||j===6?' big':''}"><small>${j+1}日目</small><div class="lbIc">${lbIcon(x)}</div><b>${lbName(x)}</b>${j<=day?'<em>✓</em>':''}</div>`).join('');
-  modal(pnl('ログインボーナス',`合計ログイン <b class="lbTot">${save.lb.tot}</b> 日`,`<div class="lbG">${cells}</div><div class="lbGet">${day+1}日目：<b>${lbName(r)}</b> を受け取りました！</div>`,`<button class="gbtn" onclick="closeModal()">OK</button>`));
+  modal(pnl('ログインボーナス',`合計ログイン <b class="lbTot">${save.lb.tot}</b> 日`,`<div class="lbG">${cells}</div><div class="lbGet">${day+1}日目：<b>${lbName(r)}</b> を受け取りました！</div>`,`<button class="gbtn" onclick="closeModal();${r.t==='box'?"boxShow('ログインボーナス')":''}">${r.t==='box'?'BOXを開ける':'OK'}</button>`));
 }catch(e){console.warn(e);}}
 /* ===== 利用規約・プライバシーポリシー ===== */
 const LEGAL_VER=5;
@@ -3534,12 +3585,12 @@ function rfxPlay(kind,onFlash){return new Promise(res=>{let c=$('#rfxc');if(!c){
     if(t<D)requestAnimationFrame(step);else fin();};requestAnimationFrame(step);});}
 
 let SUMT=0;setInterval(()=>{if(!summoning&&R.mons&&!$('#modal').classList.contains('on')){let ch=0;for(const o of R.mons){if(o.temp&&!o.leave){o.leave=true;R.focus=0;R.boost=0;}if(o.tempUR){o.tempUR=0;ch=1;}}if(ch){R.focus=0;R.boost=0;applyUR();}}if(summoning&&!$('#modal').classList.contains('on')&&Date.now()-SUMT>20000){summoning=false;try{R.boost=0;R.focus=0;}catch(e){}}},2000);
-async function summon(src){
-  if(summoning)return;if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${scanMax()}回まで。QR券もありません。明日また来てね`);return;}summoning=true;SUMT=Date.now();closeModal();closeMenu();
-  let isUR=false,isSR=false;{const r=Math.random(),c=r<UR_RATE?URLIST():r<UR_RATE+SR_RATE?SRLIST():null;if(c){src=c[Math.floor(Math.random()*c.length)].src+'#'+Date.now().toString(36);isUR=r<UR_RATE;isSR=!isUR;}}
+async function summon(src,egg){
+  if(summoning)return;if(!egg&&scLeft()<=0){sfx('miss');toast(`今日の召喚は${scanMax()}回まで。QR券もありません。明日また来てね`);return;}summoning=true;SUMT=Date.now();closeModal();closeMenu();
+  let isUR=false,isSR=false;{const r=egg?0:Math.random(),c=r<UR_RATE?URLIST():r<UR_RATE+SR_RATE?SRLIST():null;if(c){src=c[Math.floor(Math.random()*c.length)].src+'#'+Date.now().toString(36);isUR=r<UR_RATE;isSR=!isUR;}}
   if(!isUR&&!isSR&&save.box.indexOf(src)>=0)src=src+'#~'+Date.now().toString(36);
   const m=gen(src),had=-1;let idx=had;
-  if(had<0){idx=save.box.indexOf(null);if(idx<0){summoning=false;toast('BOXがいっぱいです');return;}save.box[idx]=src;const scW=scTake();persist();if(xfOn()){toast('通信中…');const okP=await xfSafe();if(!okP&&xfOn()){save.box[idx]=null;scBack(scW);persist();summoning=false;sfx('miss');toast('通信できないため召喚できませんでした。電波のよい所でもう一度試してね');return;}}updHud();applyUR();}
+  if(had<0){idx=save.box.indexOf(null);if(idx<0){summoning=false;toast('BOXがいっぱいです');return;}save.box[idx]=src;const scW=egg?null:scTake();if(!egg)qAdd('qr');persist();if(xfOn()){toast('通信中…');const okP=await xfSafe();if(!okP&&xfOn()){save.box[idx]=null;scBack(scW);persist();summoning=false;sfx('miss');toast('通信できないため召喚できませんでした。電波のよい所でもう一度試してね');return;}}updHud();applyUR();}
   if(!R.sc){sfx('summon');showCard(m,{mode:'new',ur:isUR,sr:isSR,had:had>=0,box:Math.floor(idx/PER)+1,onClose:()=>{summoning=false;setTimeout(openQR,250);}});return;}
   let o=null;try{
   if(isUR||isSR){const K=isUR?'UR':'SR';rfxLoad(K);R.boost=1;R.focus=1;await wait(60);if(!RFX_BUF[K])await wait(250);let rel;const appear=new Promise(r=>rel=r);rfxPlay(K,()=>rel()).then(()=>{});await appear;}
@@ -3552,7 +3603,7 @@ async function summon(src){
   }catch(err){console.error(err);R.boost=0;R.focus=0;try{$('#rfxc')&&$('#rfxc').classList.remove('on');$('#game').style.transform='';}catch(e){}}
   if(!o)o={};
   R.boost=Math.min(R.boost||0,.35);
-  showCard(m,{mode:'new',ur:isUR,sr:isSR,had:had>=0,box:Math.floor(idx/PER)+1,onClose:()=>{R.focus=0;if(o.tempUR){o.tempUR=0;applyUR();toast('BOXに送りました（部屋は3体まで）');}if(o.temp){o.leave=true;R.boost=.8;sfx('open');setTimeout(()=>R.boost=0,700);toast('BOXに送りました');}else{R.boost=0;o.timer=.3;}summoning=false;setTimeout(openQR,500);}});
+  showCard(m,{mode:'new',ur:isUR,sr:isSR,had:had>=0,box:Math.floor(idx/PER)+1,onClose:()=>{R.focus=0;if(o.tempUR){o.tempUR=0;applyUR();toast('BOXに送りました（部屋は3体まで）');}if(o.temp){o.leave=true;R.boost=.8;sfx('open');setTimeout(()=>R.boost=0,700);toast('BOXに送りました');}else{R.boost=0;o.timer=.3;}summoning=false;if(egg){if(eggCnt())setTimeout(eggAsk,600);}else setTimeout(openQR,500);}});
 }
 
 /* ================= カード ================= */
@@ -3980,11 +4031,7 @@ async function adStamina(){if(adBusy)return;if(adToday('st')){toast('今日の�
   finally{adBusy=false;renderShop();}}
 async function adBox(){if(adBusy)return;if(adToday('box')){toast('携帯品BOXは今日は開けました');renderShop();return;}adBusy=true;
   try{const ok=await showAd();if(!ok||adToday('box'))return;adUse('box');sfx('buff');
-    /* 携帯品2〜3個（虹0.5%・金2%・銀30%・銅67.5%）＋コイン10〜100を2枠 */
-    const n=2+(Math.random()<.5?1:0),its=[],cs=[];
-    for(let i=0;i<n;i++){const r=Math.random(),rr=r<.005?3:r<.025?2:r<.325?1:0;its.push(addItem(rr));}
-    for(let i=0;i<2;i++){const c=10+Math.floor(Math.random()*91);cs.push(c);addCoin(c);}
-    modal(pnl('携帯品BOX',premOn()?'プレミアムパスで開けました！':'広告を見て開けました！',`<div style="display:flex;flex-wrap:wrap;gap:1vh;justify-content:center;align-items:center">${its.map(it=>itemCard(it)).join('')}${cs.map(c=>`<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${c}</span>`).join('')}</div>`,`<button class="gbtn" onclick="closeModal();renderShop()">もらう</button>`));return;}
+    boxShow(premOn()?'プレミアムパスで開けました！':'広告を見て開けました！','renderShop()');return;}
   finally{adBusy=false;}}
 function buyItem(k){const it=SHOP.find(x=>x.k===k);if(coins()<it.p){toast('コインが足りません');return;}addCoin(-it.p);invAdd(k,1);sfx('buff');toast(`${it.n} を買いました`);renderShop();}
 function useItem(k,bk){const back=bk==='bag'?()=>openBag('item'):renderShop;if(!invN(k))return;sfx('tap');
@@ -4387,7 +4434,7 @@ function legendDrop(x,z){const C=legendChest(),g=C.g,lid=C.lid,gl=C.gl;
       ['#ff7ab8','#ffcf6a','#9af0a0','#7ad8ff','#b48cff'].forEach((c,i)=>setTimeout(()=>{if(B)pillar(x,z,c,9,.7+i*.08,1.3);},i*90));hitLight(x,2,z,'#c08cff',10);shake(.35);}}});
   setTimeout(()=>{if(B)advEnd(true);},3700);}
 function advEnd(win){B.busy=true;let h;
-  if(win){const L=B.legend,n=2+(Math.random()<.5?1:0),its=Array.from({length:n},(_,i)=>addItem(L&&i===0?3:undefined));h=`<div class="res adv glass" style="--c:#ffd76a"><div class="big gt">CLEAR!</div><div class="sub">${L?'<span style="color:#d0a8ff">伝説の宝箱</span>から':'宝箱から'}携帯品を ${n}個 手に入れた！</div><div class="itcw">${its.map(itemCard).join('')}</div><div class="src" style="opacity:.6">BOXのモンスター詳細から装備できます</div><div class="btns"><button class="gbtn" onclick="closeModal();advBattle()">もう一度冒険</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`;}
+  if(win){qAdd('boss');const L=B.legend,n=2+(Math.random()<.5?1:0),its=Array.from({length:n},(_,i)=>addItem(L&&i===0?3:undefined));h=`<div class="res adv glass" style="--c:#ffd76a"><div class="big gt">CLEAR!</div><div class="sub">${L?'<span style="color:#d0a8ff">伝説の宝箱</span>から':'宝箱から'}携帯品を ${n}個 手に入れた！</div><div class="itcw">${its.map(itemCard).join('')}</div><div class="src" style="opacity:.6">BOXのモンスター詳細から装備できます</div><div class="btns"><button class="gbtn" onclick="closeModal();advBattle()">もう一度冒険</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`;}
   else h=`<div class="res adv glass"><div class="big" style="color:#ff9fb0">失敗…</div><div class="sub">モンスターを育てて再挑戦しよう</div><div class="btns"><button class="gbtn" onclick="closeModal();advBattle()">もう一度挑戦</button><button class="obtn" onclick="closeModal();quitBattle(true)">部屋にもどる</button></div></div>`;
   modal(h);}
 
@@ -4645,9 +4692,9 @@ function fireUlt(i){const f=B.f[i],o=target(i),el=f.m.ult.el,col=ELC[el]||'#fff'
 let rankTeam=[];
 const RK_NM=['リク','ソラ','ハル','ミオ','ユイ','レン','カイ','アオイ','ヒナ','ツバサ','ルナ','ナギ','コハク','シオン','イブキ','トワ','セナ','リン','ユウマ','アカリ'];
 const RANK_OPEN=true;
-function startRank(){if(!RANK_OPEN){toast('ランクバトルは準備中です');return;}if(rkSeasonChk(true))return;if(!pvpOpen()){toast('ひとりで対戦で1回勝つと解放されます');return;}if(!owned()){closeMenu();toast('まずはQRスキャンでモンスターを召喚しよう');return;}BX.picks=[];openBox('rank');}
+function startRank(){if(!RANK_OPEN){toast('ランクバトルは準備中です');return;}if(!save.rkNote&&pvpOpen()){sfx('open');modal(pnl('ランクバトル','はじめての参加',`<div class="xfB"><p>ランクバトルでは、勝つとポイントが上がり、ランクが上がっていきます。</p><p class="xfW">シーズンが始まるとランクがリセットされます。</p></div>`,`<button class="gbtn" onclick="save.rkNote=1;persist();closeModal();startRank()">OK</button>`));return;}if(rkSeasonChk(true))return;if(!pvpOpen()){toast('ひとりで対戦で1回勝つと解放されます');return;}if(!owned()){closeMenu();toast('まずはQRスキャンでモンスターを召喚しよう');return;}BX.picks=[];openBox('rank');}
 function rkDiff(){const r=rkGet(),R=RANKS[r.i];return Math.min(1.15,(r.i+(R.need?r.p/R.need:0))/5);}
-function rankBattle(){if(!rankTeam.length||rankTeam.some(s=>!save.box.includes(s))){startRank();return;}save.rkTeam=rankTeam.slice(0,3);
+function rankBattle(){if(!rankTeam.length||rankTeam.some(s=>!save.box.includes(s))){startRank();return;}qAdd('rank');save.rkTeam=rankTeam.slice(0,3);
   const d=rkDiff(),r=rkGet(),R=RANKS[r.i];const mine=rankTeam.map(s=>monStat(s));const av=k=>mine.reduce((a,m)=>a+(m[k]||0),0)/mine.length;
   const lv=Math.round(rankTeam.reduce((a,s)=>a+((save.mon[s]||{}).lv||1),0)/rankTeam.length);const RKS={pawn:{f:.90},knight:{f:.92},bishop:{f:.95},rook:{lv:45},queen:{lv:50},king:{lv:50}}[R.k]||{f:1};
   const eLv=RKS.lv||lv,fk=RKS.lv?eLv/Math.max(1,lv):RKS.f;
@@ -4933,7 +4980,7 @@ setTimeout(()=>{try{giftFetch(true);}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.33-fx</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.34-qst</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
