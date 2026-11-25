@@ -1273,7 +1273,7 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 .gGo{position:relative;overflow:hidden;align-self:stretch;margin-top:auto;display:flex;align-items:center;justify-content:center;gap:calc(1.6*var(--vh));padding:calc(1.3*var(--vh));border-radius:40px;border:2px solid #fff0c0;background:linear-gradient(180deg,#ffe9a8,#e0a948 45%,#a8701e);color:#2a1604;box-shadow:0 0 calc(2.4*var(--vh)) rgba(255,200,100,.55),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -3px 0 rgba(0,0,0,.25);animation:gGlow 2s ease-in-out infinite}
 .gGo b{font:900 calc(3.6*var(--vh)) 'Shippori Mincho B1';letter-spacing:.08em}.gGo small{display:flex;align-items:center;gap:4px;font:800 calc(2.8*var(--vh)) sans-serif;background:rgba(0,0,0,.18);border-radius:20px;padding:0 calc(1.2*var(--vh))}
 .gGs{position:absolute;top:0;bottom:0;width:30%;left:-40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.8),transparent);animation:gSw 2.6s ease-in-out infinite}
-.gGo.dis{filter:grayscale(.8) brightness(.6);animation:none}
+.gGo.gNo{animation:none}.gGo small.ng{color:#e00000;background:rgba(255,255,255,.85)}
 .gOv{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(circle at 50% 55%,#1a1030,#030207 70%);transition:opacity .3s}.gOv.out{opacity:0}
 .gMc{position:absolute;left:50%;top:72%;width:calc(80*var(--vh));aspect-ratio:1;transform:translate(-50%,-50%) scaleY(.3) scale(.2);opacity:0;transition:transform .8s cubic-bezier(.2,1.2,.4,1),opacity .5s}
 .gOv.s1 .gMc{transform:translate(-50%,-50%) scaleY(.3) scale(1);opacity:1}.gOv.open .gMc{opacity:0;transition:opacity .6s}
@@ -1392,6 +1392,12 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 .lbGet{text-align:center;font-size:calc(2.9*var(--vh))}.lbGet b{color:#ffd76a}
 .lbTot{color:#ffd76a;font-size:1.25em}
 .qrtN{display:inline-flex;align-items:center;gap:.6vh;color:#7ad3ff;font-size:.9em}.qrtN .qrtI{width:1.3em;height:1.3em}
+
+.pmR{cursor:pointer;border-color:rgba(255,215,106,.6)!important;background:linear-gradient(90deg,rgba(255,215,106,.16),rgba(180,69,122,.12))!important}
+.pmI{width:calc(5*var(--vh));height:calc(5*var(--vh))}
+.pmB{display:flex;align-items:center;gap:2.4vh;padding:1vh 2vh}.pmB .pmI{width:calc(11*var(--vh));height:calc(11*var(--vh));flex:none;filter:drop-shadow(0 0 1.4vh rgba(255,215,106,.6))}
+.pmB ul{text-align:left;margin:0;padding-left:2.4vh;font-size:calc(3*var(--vh));line-height:1.7}.pmB b,.pmD{color:#ffd76a}
+.pmN{font-size:calc(2.3*var(--vh));opacity:.7;text-align:center;margin:.6vh 0 0}
 </style>
 </head>
 <body>
@@ -2309,7 +2315,7 @@ function profInit(){save.prof=save.prof||{};save.prof.rank=save.prof.rank||1;sav
 function avatarHTML(sz){const p=save.prof||{},I=ICONS[p.icon]||ICONS.egg,F=p.frame&&FRAMES[p.frame];return `<span class="av${F?' fr':''}" style="--s:${sz}">${I.svg}${F?F.svg:''}</span>`;}
 function hudAvatar(){profInit();const f=n=>Math.floor(n||0).toLocaleString('en-US'),P=save.prof,T=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;},Wd=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+'%';};
   const c=$('#hCrest');if(c)c.innerHTML=avatarHTML('100%');T('hLv',P.rank);Wd('hLvB',rankBar());T('hLvN',`${f(P.exp)} / ${f(rankNeed(P.rank))}`);
-  stNow();Wd('hStB',save.st.v/ST_MAX*100);T('hStN',`${save.st.v} / ${ST_MAX}`);T('hStT',stLeft());T('hCoin',f(coins()));T('hDia',f(dias()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;const di=$('#hDiaI');if(di&&!di.firstChild)di.innerHTML=DIA_SVG;}
+  stNow();Wd('hStB',save.st.v/stMax()*100);T('hStN',`${save.st.v} / ${stMax()}`);T('hStT',stLeft());T('hCoin',f(coins()));T('hDia',f(dias()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;const di=$('#hDiaI');if(di&&!di.firstChild)di.innerHTML=DIA_SVG;}
 let AVSNAP=null;function avSnap(){try{if(!AV.obj||!window.THREE)return null;if(!AVSNAP){const rd=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});rd.setSize(360,480,false);rd.setPixelRatio(1);rd.outputEncoding=THREE.sRGBEncoding;rd.setClearColor(0,0);
     const sc=new THREE.Scene();sc.add(new THREE.HemisphereLight(0xffffff,0x40304a,.95));const k=new THREE.DirectionalLight(0xffffff,1.0);k.position.set(-2,3,4);sc.add(k);const f=new THREE.DirectionalLight(0xffd8c0,.45);f.position.set(3,1,2);sc.add(f);AVSNAP={rd,sc,cam:new THREE.PerspectiveCamera(26,360/480,.1,60)};}
   const o=AV.obj,par=o.parent,p=o.position.clone(),ry=o.rotation.y;AVSNAP.sc.add(o);o.position.set(0,0,0);o.rotation.y=.3;o.updateMatrixWorld(true);const H=AV_H;AVSNAP.cam.position.set(0,H*.55,H*2.9);AVSNAP.cam.lookAt(0,H*.5,0);
@@ -2455,9 +2461,9 @@ function SRLIST(){return[PRISM_M,CCRY_M,KIT_M,EWD_M,JEL_M,CRB_M,EMF_M,WSP_M,MNK_
 const SR_NERF=.92;function srNerf(L){for(const o of L)if(o&&!o._nf){o._nf=1;o.hp=Math.round(o.hp*SR_NERF);o.atk=Math.round(o.atk*SR_NERF);o.def=Math.round(o.def*SR_NERF);}return L;}
 const ALLSP=()=>[...URLIST(),...srNerf(SRLIST())];
 /* URは最初は持っていない（QR読み取りで0.5%の確率で出現） */
-const UR_RATE=.02,SR_RATE=.05,SCAN_DAY=10;
+const UR_RATE=.02,SR_RATE=.05,SCAN_BASE=10;function scanMax(){return premOn()?20:SCAN_BASE;}
 function scDay(){const d=new Date(),k=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();if(!save.scan||save.scan.d!==k)save.scan={d:k,n:0};return save.scan;}
-function scDLeft(){return Math.max(0,SCAN_DAY-scDay().n);}
+function scDLeft(){return Math.max(0,scanMax()-scDay().n);}
 function scLeft(){return scDLeft()+(save.qrt||0);}
 function scTake(){if(scDLeft()>0){scDay().n++;return 'd';}save.qrt=Math.max(0,(save.qrt||0)-1);return 't';}
 function scBack(w){if(w==='d')scDay().n--;else save.qrt=(save.qrt||0)+1;}
@@ -2863,7 +2869,7 @@ function avRestPose(o){o.updateMatrixWorld(true);const B={};o.traverse(n=>{if(n.
 function avErr(m){console.warn('avatar',m);toast('アバターエラー：'+m);}
 function avLoad(){if(!R.sc||AV.loading)return;const g=avGender();if(AV.g===g&&AV.obj)return;AV.loading=true;
   avLoadLib(()=>avData(g,buf=>{if(!buf){AV.loading=false;avErr(`avatar_${g}.js が見つかりません`);return;}try{new THREE.GLTFLoader().parse(buf,'',gl=>{try{AV.loading=false;if(AV.obj)R.sc.remove(AV.obj);
-    const o=gl.scene;o.traverse(m=>{if(m.isMesh){m.castShadow=true;m.frustumCulled=false;if(m.material&&m.material.map)m.material.map.encoding=THREE.sRGBEncoding;}});
+    const o=gl.scene;o.traverse(m=>{if(m.isMesh){m.castShadow=true;m.frustumCulled=false;m.renderOrder=1000;(Array.isArray(m.material)?m.material:[m.material]).forEach(mt=>{if(mt){mt.transparent=true;mt.depthWrite=true;}});if(m.material&&m.material.map)m.material.map.encoding=THREE.sRGBEncoding;}});
     const bb=new THREE.Box3().setFromObject(o),h=(bb.max.y-bb.min.y)||1;o.scale.multiplyScalar(AV_H/h);o.position.y=-bb.min.y*AV_H/h;
     AV.g2=g;avRestPose(o);const w=new THREE.Group();w.add(o);R.sc.add(w);AV.obj=w;AV.g=g;
     const clip=gl.animations[0];AV.sw=null;AV.dur=clip.duration||1;for(const t of clip.tracks){const mm=t.name.match(/^(.*Hand(Thumb|Index|Middle|Ring|Pinky)\d)\.quaternion$/);if(!mm)continue;const fb=o.getObjectByName(mm[1]);if(fb)fb.quaternion.fromArray(t.values,0);}if(g==='f'){clip.tracks=clip.tracks.filter(t=>!/(Left|Right)(Shoulder|Arm|ForeArm|Hand)\.quaternion$/.test(t.name));const B={};o.traverse(n=>{if(n.isBone)B[n.name.replace(/^mixamorig[:_]?/,'')]=n;});o.updateMatrixWorld(true);AV.sw=[];for(const [S,sg] of [['Left',1],['Right',-1]]){const b=B[S+'Arm'];if(!b||!b.parent)continue;const pq=b.parent.getWorldQuaternion(new THREE.Quaternion()).invert();AV.sw.push({b,sg,q0:b.quaternion.clone(),ax:new THREE.Vector3(1,0,0).applyQuaternion(pq).normalize()});}}AV.mix=new THREE.AnimationMixer(o);AV.walkA=AV.mix.clipAction(clip);
@@ -3171,11 +3177,11 @@ function zxDecodeCanvas(cv){const Z=window.ZXing,r=zxReader();if(!Z||!r)return n
 function bdGet(){if(SCN.bd!==null)return SCN.bd;SCN.bd=false;if('BarcodeDetector' in window){try{SCN.bd=new BarcodeDetector({formats:['qr_code','ean_13','ean_8','upc_a','upc_e','code_128','code_39','code_93','itf','codabar']});}catch(e){try{SCN.bd=new BarcodeDetector();}catch(e2){}}}return SCN.bd;}
 function stopScan(){SCN.on=false;clearTimeout(SCN.tm);if(SCN.st){try{SCN.st.getTracks().forEach(t=>t.stop());}catch(e){}SCN.st=null;}}
 function openQR(){
-  closeMenu();if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${SCAN_DAY}回まで。QR券もありません。明日また来てね`);return;}sfx('open');
+  closeMenu();if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${scanMax()}回まで。QR券もありません。明日また来てね`);return;}sfx('open');
   modal(`<div class="qsc"><button class="x" onclick="closeModal()">×</button>
     <div class="qsL"><div class="qsRing r1"></div><div class="qsRing r2"></div><div class="qsV" id="qsV"><video id="qsVid" playsinline muted autoplay></video><div class="qsMsg" id="qsMsg">カメラを起動中…</div>
       <div class="qsF"><i></i><i></i><i></i><i></i><b></b></div></div></div>
-    <div class="qsR"><div class="mt gt">QR SCAN</div><div class="ms">QRコード・バーコードを<br>カメラにかざすだけで召喚！</div><div class="qsCnt${scLeft()?'':' z'}">今日の召喚 あと <b>${scDLeft()}</b> / ${SCAN_DAY} 回${save.qrt?`<br><span class="qrtN">${QRT_SVG}QR券 ${save.qrt}枚</span>`:''}</div>
+    <div class="qsR"><div class="mt gt">QR SCAN</div><div class="ms">QRコード・バーコードを<br>カメラにかざすだけで召喚！</div><div class="qsCnt${scLeft()?'':' z'}">今日の召喚 あと <b>${scDLeft()}</b> / ${scanMax()} 回${save.qrt?`<br><span class="qrtN">${QRT_SVG}QR券 ${save.qrt}枚</span>`:''}</div>
       <div class="qsRt"><span class="ur">UR <b>${Math.round(UR_RATE*1000)/10}%</b></span><span class="sr">SR <b>${Math.round(SR_RATE*1000)/10}%</b></span></div>
       <div class="qsB"><button class="obtn" onclick="$('#picIn').click()">画像から選ぶ</button></div></div>
   </div>`);
@@ -3309,7 +3315,7 @@ function rfxPlay(kind,onFlash){return new Promise(res=>{let c=$('#rfxc');if(!c){
 
 let SUMT=0;setInterval(()=>{if(!summoning&&R.mons&&!$('#modal').classList.contains('on')){let ch=0;for(const o of R.mons){if(o.temp&&!o.leave){o.leave=true;R.focus=0;R.boost=0;}if(o.tempUR){o.tempUR=0;ch=1;}}if(ch){R.focus=0;R.boost=0;applyUR();}}if(summoning&&!$('#modal').classList.contains('on')&&Date.now()-SUMT>20000){summoning=false;try{R.boost=0;R.focus=0;}catch(e){}}},2000);
 async function summon(src){
-  if(summoning)return;if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${SCAN_DAY}回まで。QR券もありません。明日また来てね`);return;}summoning=true;SUMT=Date.now();closeModal();closeMenu();
+  if(summoning)return;if(scLeft()<=0){sfx('miss');toast(`今日の召喚は${scanMax()}回まで。QR券もありません。明日また来てね`);return;}summoning=true;SUMT=Date.now();closeModal();closeMenu();
   let isUR=false,isSR=false;{const r=Math.random(),c=r<UR_RATE?URLIST():r<UR_RATE+SR_RATE?SRLIST():null;if(c){src=c[Math.floor(Math.random()*c.length)].src+'#'+Date.now().toString(36);isUR=r<UR_RATE;isSR=!isUR;}}
   if(!isUR&&!isSR&&save.box.indexOf(src)>=0)src=src+'#~'+Date.now().toString(36);
   const m=gen(src),had=-1;let idx=had;
@@ -3522,7 +3528,7 @@ const MON_CUM=(()=>{const w=[];for(let l=1;l<50;l++)w.push(Math.pow(1.06,l-1));c
 const monNeed=lv=>lv>=50?1:MON_CUM[lv+1]-MON_CUM[lv];
 function monExp(s,n){const d=mst(s);d.ex=(d.ex||0)+n;while(d.lv<MON_MAX&&d.ex>=monNeed(d.lv)){d.ex-=monNeed(d.lv);d.lv++;}if(d.lv>=MON_MAX)d.ex=0;return d;}
 const COIN_REL={N:20,R:20,SR:100,UR:300};
-const ST_MAX=5,ST_MS=60*60000;
+const ST_BASE=5,ST_MS=60*60000;function stMax(){return premOn()?10:ST_BASE;}
 function coins(){return save.coin||0;}
 function addCoin(n){save.coin=coins()+n;persist();hudAvatar();}
 /* ================= エフェクトパーツ・ガチャ ================= */
@@ -3610,7 +3616,7 @@ function gachaHTML(){const own=fxOwn(),sel=gSel;
   return `<div class="gWrap"><div class="gMac" style="--c:${FX_COL[sel]}"><div class="gRay"></div><div class="gRg"></div><canvas class="fxv" id="gPrev" data-fx="${sel}" data-img="${KIT_M.img}"></canvas><div class="gPn">${PFX.META[sel].n}</div><i class="gK k1"></i><i class="gK k2"></i><i class="gK k3"></i><i class="gK k4"></i></div>
   <div class="gSide"><div class="gTi"><b>エフェクトガチャ</b><span>タップで見た目をチェック・全${PFX.IDS.length}種 各${gachaRate()}%</span></div><div class="gChs">${chips}</div>
   <div class="gNote">1個につき1体に装備できます　・　持っているエフェクトが出たら所持数＋1</div></div></div>`;}
-function gachaBtn(){return `<button class="gGo${dias()<GACHA_D?' dis':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small><span class="cico">${DIA_SVG}</span>${GACHA_D}</small></button>`;}
+function gachaBtn(){return `<button class="gGo${dias()<GACHA_D?' gNo':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small class="${dias()<GACHA_D?'ng':''}"><span class="cico">${DIA_SVG}</span>${GACHA_D}</small></button>`;}
 function gachaSel(id){gSel=id;sfx('tap');const m=document.querySelector('#modal .gMac');if(!m)return;m.style.setProperty('--c',FX_COL[id]);const c=document.getElementById('gPrev');if(c&&c._fxv)c._fxv.id=id;m.querySelector('.gPn').textContent=PFX.META[id].n;m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');document.querySelectorAll('#modal .gCh').forEach(b=>b.classList.toggle('on',b.getAttribute('onclick').includes("'"+id+"'")));}
 let G_BUSY=0;
 async function gachaPull(){if(!GACHA_OPEN)return;if(document.querySelector('.gOv')||G_BUSY)return;if(dias()<GACHA_D){sfx('miss');toast('ダイヤが足りません');setTimeout(openDiaShop,400);return;}const snap=JSON.stringify(save);save.dia=dias()-GACHA_D;hudAvatar();const id=gachaRoll(),dup=fxCnt(id)>0,col=FX_COL[id];fxAdd(id,1);persist();
@@ -3626,10 +3632,10 @@ async function gachaPull(){if(!GACHA_OPEN)return;if(document.querySelector('.gOv
   setTimeout(()=>{ov.classList.add('open');sfx('light');fxvMount(ov);},2500);
   setTimeout(()=>{ov.classList.add('done');ov.onclick=()=>{ov.classList.add('out');setTimeout(()=>ov.remove(),300);gSel=id;renderShop('gacha');};},3300);}
 
-function stNow(){const S=save.st||(save.st={v:ST_MAX,t:Date.now()});const now=Date.now();if(S.v>=ST_MAX){S.t=now;return S.v;}const k=Math.floor((now-S.t)/ST_MS);if(k>0){S.v=Math.min(ST_MAX,S.v+k);S.t=S.v>=ST_MAX?now:S.t+k*ST_MS;persist();}return S.v;}
-function stUse(){stNow();if(save.st.v<=0)return false;if(save.st.v>=ST_MAX)save.st.t=Date.now();save.st.v--;persist();hudAvatar();return true;}
+function stNow(){const S=save.st||(save.st={v:stMax(),t:Date.now()});const now=Date.now();if(S.v>=stMax()){S.t=now;return S.v;}const k=Math.floor((now-S.t)/ST_MS);if(k>0){S.v=Math.min(stMax(),S.v+k);S.t=S.v>=stMax()?now:S.t+k*ST_MS;persist();}return S.v;}
+function stUse(){stNow();if(save.st.v<=0)return false;if(save.st.v>=stMax())save.st.t=Date.now();save.st.v--;persist();hudAvatar();return true;}
 setInterval(()=>{const e=document.getElementById('hStT');if(!e||!save||!save.st)return;const v0=save.st.v,v=stNow();if(v!==v0){try{hudAvatar();}catch(_){}}e.textContent=stLeft();},1000);
-function stLeft(){const v=stNow();if(v>=ST_MAX)return '';const r=ST_MS-(Date.now()-save.st.t);return `${Math.floor(r/60000)}:${String(Math.floor(r/1000)%60).padStart(2,'0')}`;}
+function stLeft(){const v=stNow();if(v>=stMax())return '';const r=ST_MS-(Date.now()-save.st.t);return `${Math.floor(r/60000)}:${String(Math.floor(r/1000)%60).padStart(2,'0')}`;}
 const SHOP=[{k:'lvpot',n:'経験値のポーション',d:'経験値+100',p:200},{k:'stpot',n:'スタミナポーション',d:'スタミナ+1',p:500}];
 const COIN_SVG='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#f0c040" stroke="#8a5a10" stroke-width="1.5"/><circle cx="12" cy="12" r="6.5" fill="none" stroke="#fff4b8" stroke-width="1.2"/><path d="M12 8.5l1 2.2 2.4.3-1.8 1.6.5 2.4-2.1-1.2-2.1 1.2.5-2.4-1.8-1.6 2.4-.3z" fill="#fff4b8"/></svg>';
 const ST_SVG='<svg viewBox="0 0 24 24"><path d="M13.5 2L5 13.5h6L9.5 22 19 9.5h-6z" fill="#7fd8ff" stroke="#1a4a7a" stroke-width="1.2" stroke-linejoin="round"/></svg>';
@@ -3642,7 +3648,21 @@ const GACHA_OPEN=true;
 function gachaTab(){if(!GACHA_OPEN){sfx('miss');toast('エフェクトガチャは準備中です');return;}sfx('tap');renderShop('gacha');}
 function renderShop(tab){stNow();tab=tab==='gacha'&&GACHA_OPEN?'gacha':'item';const rows=SHOP.map(it=>`<div class="shr"><div class="shi">${POT_SVG[it.k]}</div><div class="shn"><b>${it.n}</b><small>${it.d}</small><em>所持 ${invN(it.k)}個</em></div>
     <div class="shb"><button class="gbtn${coins()<it.p?' dis':''}" onclick="buyItem('${it.k}')"><span class="cico">${COIN_SVG}</span>${it.p}</button></div></div>`).join('');
-  modal(pnl('ショップ',`<span class="shc"><span class="cico">${COIN_SVG}</span>${coins()}</span>　<span class="shc"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${ST_MAX}${stLeft()?`（あと${stLeft()}で+1）`:''}</span>`,`<div class="shTab"><button class="${tab==='item'?'on':''}" onclick="sfx('tap');renderShop('item')">アイテム</button><button class="${tab==='gacha'?'on':''}${GACHA_OPEN?'':' lk'}" onclick="gachaTab()">${GACHA_OPEN?'':'🔒 '}ガチャ</button></div>${tab==='gacha'?gachaHTML():`<div class="shl">${adRows()}${rows}</div>`}`,`<button class="obtn${tab==='gacha'?' gCl':''}" onclick="closeModal()">とじる</button>${tab==='gacha'?gachaBtn():''}`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP');}if(tab==='gacha')fxvMount(document.getElementById('modal'));}
+  modal(pnl('ショップ',`<span class="shc"><span class="cico">${COIN_SVG}</span>${coins()}</span>　<span class="shc"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${stMax()}${stLeft()?`（あと${stLeft()}で+1）`:''}</span>`,`<div class="shTab"><button class="${tab==='item'?'on':''}" onclick="sfx('tap');renderShop('item')">アイテム</button><button class="${tab==='gacha'?'on':''}${GACHA_OPEN?'':' lk'}" onclick="gachaTab()">${GACHA_OPEN?'':'🔒 '}ガチャ</button></div>${tab==='gacha'?gachaHTML():`<div class="shl">${premRow()}${adRows()}${rows}</div>`}`,`<button class="obtn${tab==='gacha'?' gCl':''}" onclick="closeModal()">とじる</button>${tab==='gacha'?gachaBtn():''}`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP');}if(tab==='gacha')fxvMount(document.getElementById('modal'));}
+
+/* ===== プレミアムパス（30日） ===== */
+const PREM={id:'premium30',yen:600,days:30};
+function premOn(){return !!(save&&save.prem&&save.prem>Date.now());}
+function premDays(){return premOn()?Math.ceil((save.prem-Date.now())/86400000):0;}
+const PREM_SVG='<svg viewBox="0 0 24 24" class="pmI"><path d="M3 8l4.5 3.5L12 4l4.5 7.5L21 8l-2 11H5z" fill="#ffd76a" stroke="#fff3c4" stroke-width="1.2" stroke-linejoin="round"/><circle cx="12" cy="14.5" r="1.8" fill="#b4457a"/></svg>';
+function premRow(){return `<div class="shr pmR" onclick="openPrem()"><div class="shi">${PREM_SVG}</div><div class="shn"><b>プレミアムパス</b><small>${premOn()?`有効中・あと${premDays()}日`:'30日間 QR召喚20回・スタミナ上限10・広告なし'}</small></div><div class="shb"><button class="gbtn">${premOn()?'延長':'¥'+PREM.yen}</button></div></div>`;}
+function openPrem(){sfx('open');
+  const L=['1日のQR召喚が <b>10回 → 20回</b>','スタミナの上限が <b>5 → 10</b>','広告を見ずに、1日1回の<b>スタミナ+5</b>と<b>携帯品BOX</b>を受け取れる'];
+  modal(pnl('プレミアムパス',premOn()?`有効中・あと <b class="pmD">${premDays()}</b> 日`:'30日間の特典',`<div class="pmB">${PREM_SVG}<ul>${L.map(x=>`<li>${x}</li>`).join('')}</ul></div><p class="pmN">自動では更新されません。有効中に購入すると、残りの日数に30日が追加されます。</p>`,`<button class="obtn" onclick="closeModal();renderShop()">とじる</button><button class="gbtn" onclick="buyPrem()">¥${PREM.yen} で購入</button>`));}
+function premGive(){save.prem=Math.max(Date.now(),save.prem||0)+PREM.days*86400000;persist();try{xfNow();}catch(_){}hudAvatar();sfx('buff');toast(`プレミアムパスが有効になりました（あと${premDays()}日）`);}
+function buyPrem(){sfx('tap');
+  if(window.QRIAP&&typeof QRIAP.buy==='function'){QRIAP.buy(PREM.id).then(ok=>{if(ok){premGive();openPrem();}}).catch(()=>toast('購入できませんでした'));return;}
+  modal(pnl('プレミアムパスの購入','',`<div class="xfB"><p>プレミアムパスの購入は、App Store のアプリ版で使えるようになります。</p><p class="xfW">（Web版では購入できません）</p></div>`,`<button class="gbtn" onclick="openPrem()">もどる</button>`));}
 /* ---- 広告（1日1回ずつ）：スタミナ回復・携帯品BOX ---- */
 const AD_TEST=true; /* 公開版はfalse。アプリ版では QRAd.show() の実際の広告が使われる */
 let adBusy=false;
@@ -3650,13 +3670,14 @@ function adDayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+
 function adToday(k){if(!save.adDay||save.adDay.d!==adDayKey())save.adDay={d:adDayKey()};return !!save.adDay[k];}
 function adUse(k){adToday(k);save.adDay[k]=true;persist();}
 function showAd(){return new Promise(res=>{
+  if(premOn()){res(true);return;}
   if(window.QRAd&&typeof QRAd.show==='function'){QRAd.show().then(ok=>res(!!ok)).catch(()=>res(false));return;}
   if(AD_TEST){toast('広告を再生中…（テスト）');setTimeout(()=>res(true),1500);return;}
   toast('広告はアプリ版で見られます');res(false);});}
 function adRows(){
-  const btn=(done,fn)=>done?`<button class="gbtn dis" disabled>明日また</button>`:`<button class="gbtn" onclick="${fn}">広告を見る</button>`;
+  const btn=(done,fn)=>done?`<button class="gbtn dis" disabled>明日また</button>`:`<button class="gbtn" onclick="${fn}">${premOn()?'受け取る':'広告を見る'}</button>`;
   return `<div class="shr"><div class="shi">${ST_SVG}</div><div class="shn"><b>スタミナ +5</b><small>広告を見ると1日1回、スタミナが5回復</small></div><div class="shb">${btn(adToday('st'),'adStamina()')}</div></div>`
-   + `<div class="shr"><div class="shi"><span style="font-size:calc(4.4*var(--vh))">🎁</span></div><div class="shn"><b>携帯品BOX</b><small>広告を見ると1日1回、携帯品が1個手に入る</small></div><div class="shb">${btn(adToday('box'),'adBox()')}</div></div>`;}
+   + `<div class="shr"><div class="shi"><span style="font-size:calc(4.4*var(--vh))">🎁</span></div><div class="shn"><b>携帯品BOX</b><small>広告を見ると1日1回、携帯品2〜3個とコインが手に入る</small></div><div class="shb">${btn(adToday('box'),'adBox()')}</div></div>`;}
 async function adStamina(){if(adBusy)return;if(adToday('st')){toast('今日の広告回復は使いました');renderShop();return;}adBusy=true;
   try{const ok=await showAd();if(!ok||adToday('st'))return;adUse('st');stNow();save.st.v+=5;persist();hudAvatar();sfx('buff');toast(`スタミナが5回復した！（${save.st.v}）`);}
   finally{adBusy=false;renderShop();}}
@@ -3666,7 +3687,7 @@ async function adBox(){if(adBusy)return;if(adToday('box')){toast('携帯品BOX�
     const n=2+(Math.random()<.5?1:0),its=[],cs=[];
     for(let i=0;i<n;i++){const r=Math.random(),rr=r<.005?3:r<.025?2:r<.325?1:0;its.push(addItem(rr));}
     for(let i=0;i<2;i++){const c=10+Math.floor(Math.random()*91);cs.push(c);addCoin(c);}
-    modal(pnl('携帯品BOX','広告を見て開けました！',`<div style="display:flex;flex-wrap:wrap;gap:1vh;justify-content:center;align-items:center">${its.map(it=>itemCard(it)).join('')}${cs.map(c=>`<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${c}</span>`).join('')}</div>`,`<button class="gbtn" onclick="closeModal();renderShop()">もらう</button>`));return;}
+    modal(pnl('携帯品BOX',premOn()?'プレミアムパスで開けました！':'広告を見て開けました！',`<div style="display:flex;flex-wrap:wrap;gap:1vh;justify-content:center;align-items:center">${its.map(it=>itemCard(it)).join('')}${cs.map(c=>`<span class="gfI"><i class="cico">${COIN_SVG}</i>コイン ×${c}</span>`).join('')}</div>`,`<button class="gbtn" onclick="closeModal();renderShop()">もらう</button>`));return;}
   finally{adBusy=false;}}
 function buyItem(k){const it=SHOP.find(x=>x.k===k);if(coins()<it.p){toast('コインが足りません');return;}addCoin(-it.p);invAdd(k,1);sfx('buff');toast(`${it.n} を買いました`);renderShop();}
 function useItem(k,bk){const back=bk==='bag'?()=>openBag('item'):renderShop;if(!invN(k))return;sfx('tap');
@@ -3692,7 +3713,7 @@ function openBag(tab){tab=tab||BAGT||'eq';BAGT=tab;sfx('tap');closeMenu();const 
   const g=L.map(it=>`<div class="bgi" onclick="openItem(${it.id})">${itemCard(it)}${who[it.id]?`<span class="bgw">${who[it.id]} が装備中</span>`:''}</div>`).join('')||'<div class="pempty">まだ携帯品を持っていません<br>冒険でボスを倒して宝箱から手に入れよう</div>';
   const tabs=`<div class="bgt"><button class="${tab==='eq'?'on':''}" onclick="openBag('eq')">携帯品 <small>${L.length}</small></button><button class="${tab==='item'?'on':''}" onclick="openBag('item')">アイテム <small>${SHOP.reduce((a,x)=>a+invN(x.k),0)}</small></button></div>`;
   let body;if(tab==='item'){stNow();const rows=SHOP.filter(x=>invN(x.k)).map(it=>`<div class="shr"><div class="shi">${POT_SVG[it.k]}</div><div class="shn"><b>${it.n}</b><small>${it.d}</small><em>所持 ${invN(it.k)}個</em></div><div class="shb"><button class="gbtn" onclick="useItem('${it.k}','bag')">使う</button></div></div>`).join('')||'<div class="pempty">アイテムを持っていません<br>ショップでポーションを買えます</div>';
-    body=tabs+`<div class="shc" style="justify-content:center;width:100%;margin-bottom:calc(1*var(--vh))"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${ST_MAX}</div><div class="shl" style="margin:0 auto;width:calc(62*var(--vh));max-width:100%">${rows}</div>`;}
+    body=tabs+`<div class="shc" style="justify-content:center;width:100%;margin-bottom:calc(1*var(--vh))"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${stMax()}</div><div class="shl" style="margin:0 auto;width:calc(62*var(--vh));max-width:100%">${rows}</div>`;}
   else body=tabs+`<div class="bgg">${g}</div>`;
   modal(pnl('かばん','',body,`<button class="obtn" onclick="closeModal()">とじる</button>${tab==='eq'?'<button class="gbtn" onclick="openSyn()">合成</button>':''}`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP','bagP');}}
 let BAGT='eq';
@@ -4615,7 +4636,7 @@ setTimeout(()=>{try{giftFetch(true);}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.25-off</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.25-pm</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
