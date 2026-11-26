@@ -1514,6 +1514,8 @@ html,body{touch-action:none;-webkit-text-size-adjust:100%;overscroll-behavior:no
 
 .ics .av.fr{transform:scale(.74)}
 .hring .crest .av.fr{transform:scale(.74)}
+/* フレームを設定しているときは、金の輪を消して、設定したフレームを外側の大きい枠として出す */
+.hring.hasFr{background:none!important;box-shadow:none!important}.hring.hasFr .crest{overflow:visible;background:none;box-shadow:none}.hring.hasFr .crest .av.fr{transform:scale(var(--frS,.86))}
 
 .pnl.qtP{width:auto;max-width:calc(92*var(--vw))}
 .qtTb{display:flex;gap:calc(1*var(--vh));justify-content:center;margin-bottom:calc(1.2*var(--vh))}
@@ -2603,7 +2605,7 @@ function rankBar(){profInit();const P=save.prof;return Math.min(100,P.exp/rankNe
 function profInit(){save.prof=save.prof||{};save.prof.rank=save.prof.rank||1;save.prof.exp=save.prof.exp||0;if(!ICONS[save.prof.icon])save.prof.icon='egg';save.prof.icons=(save.prof.icons||Object.keys(ICONS).filter(k=>!ICONS[k].lock)).filter(k=>ICONS[k]);save.prof.frames=save.prof.frames||[];}
 function avatarHTML(sz){const p=save.prof||{},I=ICONS[p.icon]||ICONS.egg,F=p.frame&&FRAMES[p.frame];return `<span class="av${F?' fr':''}" style="--s:${sz}">${I.svg}${F?F.svg:''}</span>`;}
 function hudAvatar(){profInit();const f=n=>Math.floor(n||0).toLocaleString('en-US'),P=save.prof,T=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;},Wd=(id,v)=>{const e=document.getElementById(id);if(e)e.style.width=Math.max(0,Math.min(100,v))+'%';};
-  const c=$('#hCrest');if(c)c.innerHTML=avatarHTML('100%');T('hLv',P.rank);Wd('hLvB',rankBar());T('hLvN',`${f(P.exp)} / ${f(rankNeed(P.rank))}`);
+  const c=$('#hCrest');if(c){c.innerHTML=avatarHTML('100%');const hr=c.closest('.hring');if(hr)hr.classList.toggle('hasFr',!!(P.frame&&FRAMES[P.frame]));}T('hLv',P.rank);Wd('hLvB',rankBar());T('hLvN',`${f(P.exp)} / ${f(rankNeed(P.rank))}`);
   stNow();Wd('hStB',save.st.v/stMax()*100);T('hStN',`${save.st.v} / ${stMax()}`);T('hStT',stLeft());T('hCoin',f(coins()));T('hDia',f(dias()));const ci=$('#hCoinI');if(ci&&!ci.firstChild)ci.innerHTML=COIN_SVG;const di=$('#hDiaI');if(di&&!di.firstChild)di.innerHTML=DIA_SVG;}
 let AVSNAP=null;function avSnap(){try{if(!AV.obj||!window.THREE)return null;if(!AVSNAP){const rd=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});rd.setSize(360,480,false);rd.setPixelRatio(1);rd.outputEncoding=THREE.sRGBEncoding;rd.setClearColor(0,0);
     const sc=new THREE.Scene();sc.add(new THREE.HemisphereLight(0xffffff,0x40304a,.95));const k=new THREE.DirectionalLight(0xffffff,1.0);k.position.set(-2,3,4);sc.add(k);const f=new THREE.DirectionalLight(0xffd8c0,.45);f.position.set(3,1,2);sc.add(f);AVSNAP={rd,sc,cam:new THREE.PerspectiveCamera(26,360/480,.1,60)};}
@@ -5044,7 +5046,7 @@ setTimeout(()=>{try{giftFetch();}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.46</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.47</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
