@@ -3996,18 +3996,123 @@ function gachaHTML(){const own=fxOwn(),sel=gSel;
 function gachaBtn(){return `<button class="gGo${dias()<GACHA_D?' gNo':''}" onclick="gachaPull()"><span class="gGs"></span><b>1回ひく</b><small class="${dias()<GACHA_D?'ng':''}"><span class="cico">${DIA_SVG}</span>${GACHA_D}</small></button>`;}
 function gachaSel(id){gSel=id;sfx('tap');const m=document.querySelector('#modal .gMac');if(!m)return;m.style.setProperty('--c',FX_COL[id]);const c=document.getElementById('gPrev');if(c&&c._fxv)c._fxv.id=id;m.querySelector('.gPn').textContent=PFX.META[id].n;m.classList.remove('pop');void m.offsetWidth;m.classList.add('pop');document.querySelectorAll('#modal .gCh').forEach(b=>b.classList.toggle('on',b.getAttribute('onclick').includes("'"+id+"'")));}
 let G_BUSY=0;
-async function gachaPull(){if(!GACHA_OPEN)return;if(document.querySelector('.gOv')||G_BUSY)return;if(dias()<GACHA_D){sfx('miss');toast('ダイヤが足りません');setTimeout(openDiaShop,400);return;}const snap=JSON.stringify(save);save.dia=dias()-GACHA_D;hudAvatar();const id=gachaRoll(),dup=fxCnt(id)>0,col=FX_COL[id];fxAdd(id,1);persist();
+/* ===== ガチャ演出 v2（キャンバス描画・効果音・BGM） =====
+   GX.play('magic',id,P,onDone)：魔法陣の召喚演出を再生（どのエフェクトも虹の最高演出）
+   GX.frame(ctx,W,H,t,variant,id)：時刻 t（秒）の1コマを描く（動画作成用にも使う）
+   GX.sound(ac,out,t0,variant,tier)：効果音を t0 から予約
+   */
+const GX=(()=>{
+const TAU=Math.PI*2;
+const rnd=(i,k)=>{const v=Math.sin(i*127.1+k*311.7)*43758.5453;return v-Math.floor(v);};
+const ease=x=>1-Math.pow(1-Math.max(0,Math.min(1,x)),3);
+const easeIn=x=>Math.pow(Math.max(0,Math.min(1,x)),2);
+const back=x=>{x=Math.max(0,Math.min(1,x));const c=1.70158;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2);};
+const cl=(x,a,b)=>Math.max(a,Math.min(b,x));
+const seg=(t,a,b)=>cl((t-a)/(b-a),0,1);
+const tierOf=id=>3; /* どのエフェクトも最高の演出（虹）にする */
+const TCOL={1:['#8fd8ff','#e8f8ff'],2:['#ffc84a','#fff3c0'],3:['#ff6ad5','#fff']};
+const hue=(h,l,a)=>`hsla(${((h%360)+360)%360},100%,${l}%,${a})`;
+function tc(tier,t,k){if(tier===3)return hue(t*240+k*60,62,1);return TCOL[tier][k?1:0];}
+function glow(g,x,y,r,c,a){if(a<=0||r<=0)return;g.save();g.globalAlpha=Math.min(1,a);const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,c);gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.beginPath();g.arc(x,y,r,0,TAU);g.fill();g.restore();}
+function star4(g,x,y,r,a,c){if(a<=0)return;g.save();g.globalAlpha=Math.min(1,a);g.translate(x,y);glow(g,0,0,r*2.4,c,.8);g.fillStyle='#fff';g.beginPath();for(let i=0;i<4;i++){const q=i*Math.PI/2;g.lineTo(Math.cos(q)*r*2,Math.sin(q)*r*2);g.lineTo(Math.cos(q+.785)*r*.22,Math.sin(q+.785)*r*.22);}g.fill();g.restore();}
+function star5(g,x,y,r,rot,fill,a){g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(rot);g.beginPath();for(let i=0;i<10;i++){const q=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;g.lineTo(Math.cos(q)*rr,Math.sin(q)*rr);}g.closePath();g.fillStyle=fill;g.shadowColor='rgba(255,210,90,.9)';g.shadowBlur=r*.8;g.fill();g.shadowBlur=0;g.lineWidth=Math.max(1,r*.12);g.strokeStyle='#7a4a08';g.stroke();g.restore();}
+function rays(g,x,y,R,n,rot,c,a,w){if(a<=0)return;g.save();g.globalAlpha=a;g.translate(x,y);g.rotate(rot);for(let i=0;i<n;i++){g.rotate(TAU/n);const gr=g.createLinearGradient(0,0,R,0);gr.addColorStop(0,c);gr.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=gr;g.beginPath();g.moveTo(0,0);g.lineTo(R,-R*w);g.lineTo(R,R*w);g.closePath();g.fill();}g.restore();}
+function bg(g,W,H,t,tier,dark){const gr=g.createRadialGradient(W/2,H*.55,0,W/2,H*.55,Math.max(W,H)*.75);gr.addColorStop(0,tier===3?'#2a1040':tier===2?'#2a1a10':'#101a30');gr.addColorStop(1,'#040208');g.fillStyle=gr;g.globalAlpha=1;g.fillRect(0,0,W,H);
+  for(let i=0;i<70;i++){const x=rnd(i,1)*W,y=rnd(i,2)*H,tw=.4+.6*Math.sin(t*3+i);glow(g,x,y,H*.006,'rgba(255,255,255,.9)',tw*.7*(dark||1));}}
+/* ---- 共通：当たり発表 ---- */
+let IMG=null;function monImg(){if(IMG)return IMG;IMG=new Image();try{IMG.src=KIT_M.img;}catch(_){}return IMG;}
+function reveal(g,W,H,u,t,id,tier,P){const cx=W/2,cy=H*.5,S=H;
+  const k=ease(u/0.5);
+  /* 後光 */
+  rays(g,cx,cy,S*1.2,tier===3?24:16,t*.35,tier===3?hue(t*120,70,.55):tc(tier,t,0),.5*k,.09);
+  rays(g,cx,cy,S*1.0,12,-t*.22,'rgba(255,255,255,.35)',.6*k,.05);
+  glow(g,cx,cy,S*.55*k,tc(tier,t,0),.55);
+  /* 紙吹雪 */
+  for(let i=0;i<70;i++){const st=rnd(i,3)*.6,p=u-st;if(p<0)continue;const sp=.35+rnd(i,4)*.6,a0=rnd(i,5)*TAU,x=cx+Math.cos(a0)*S*sp*ease(p/1.2)*1.2,y=cy+Math.sin(a0)*S*sp*ease(p/1.2)*.7+p*p*S*.25;
+    if(y>H+20)continue;g.save();g.translate(x,y);g.rotate(p*6+i);g.globalAlpha=Math.max(0,1-p/4);g.fillStyle=tier===3?hue(i*40,60,1):['#ffd76a','#ff7ae8','#7dd8ff','#9dff9a','#fff'][i%5];g.fillRect(-S*.008,-S*.004,S*.016,S*.008);g.restore();}
+  /* モンスターとエフェクト */
+  const sc=back(u/0.45),s=S*.62*sc,gy=cy+S*.27;
+  if(sc>0){try{PFX.draw(g,id,cx,gy,s,t,0,.7);}catch(_){}
+    const im=monImg();if(im.complete&&im.naturalWidth){const M=s*.62,bb=Math.sin(t*2)*s*.012;g.drawImage(im,cx-M/2,gy-M*.95+bb,M,M);}
+    try{PFX.draw(g,id,cx,gy,s,t,1,.7);}catch(_){}}
+  /* 名前 */
+  const nu=ease((u-.9)/.4);if(nu>0){g.save();g.globalAlpha=nu;g.textAlign='center';const fy=H*.86+(1-nu)*H*.05;
+    g.font=`800 ${S*.075}px "Shippori Mincho B1",serif`;const gr=g.createLinearGradient(0,fy-S*.07,0,fy);gr.addColorStop(0,'#fff8d8');gr.addColorStop(.5,'#ffd76a');gr.addColorStop(1,'#c08a2a');g.lineWidth=S*.012;g.strokeStyle='rgba(40,20,0,.85)';g.strokeText(P.name,cx,fy);g.fillStyle=gr;g.fillText(P.name,cx,fy);
+    g.font=`700 ${S*.032}px "Zen Kaku Gothic New",sans-serif`;g.fillStyle='#e8dcff';g.fillText(P.sub,cx,fy+S*.06);g.restore();}
+  /* NEW! スタンプ */
+  const bu=u-1.15;if(bu>0){const z=bu<.18?2.4-1.4*ease(bu/.18):1;g.save();g.translate(cx+S*.33,H*.3);g.rotate(-.22);g.scale(z,z);g.globalAlpha=Math.min(1,bu/.1);
+    g.fillStyle=P.dup?'#4a8aff':'#ff3b5c';g.shadowColor=g.fillStyle;g.shadowBlur=S*.03;g.beginPath();g.roundRect(-S*.09,-S*.04,S*.18,S*.08,S*.02);g.fill();g.shadowBlur=0;g.fillStyle='#fff';g.font=`900 ${S*.05}px "Cinzel",serif`;g.textAlign='center';g.textBaseline='middle';g.fillText(P.dup?'GET':'NEW!',0,S*.003);g.restore();}
+  /* キラキラ */
+  for(let i=0;i<14;i++){const a=Math.max(0,Math.sin(t*2.4+i*1.7));star4(g,cx+(rnd(i,7)-.5)*W*.8,cy+(rnd(i,8)-.5)*H*.8,S*.008+S*.01*rnd(i,9),a*ease(u/.6),tc(tier,t,1));}
+  if(u>1.8){g.save();g.globalAlpha=.45+.35*Math.sin(t*4);g.fillStyle='#fff';g.font=`600 ${S*.028}px "Zen Kaku Gothic New",sans-serif`;g.textAlign='right';g.fillText('タップでとじる',W-S*.04,H-S*.035);g.restore();}
+}
+function flash(g,W,H,a,c){if(a<=0)return;g.save();g.globalAlpha=Math.min(1,a);g.fillStyle=c||'#fff';g.fillRect(0,0,W,H);g.restore();}
+function shake(g,t,amt,S){if(amt<=0)return;g.translate(Math.sin(t*93)*amt*S*.012,Math.cos(t*71)*amt*S*.012);}
+
+/* ===== 候補A：魔法陣の召喚 ===== */
+const A={T:3.5,draw(g,W,H,t,id,tier,P){const cx=W/2,S=H,fy=H*.72;
+  if(t>=A.T){bg(g,W,H,t,tier,.6);reveal(g,W,H,t-A.T,t,id,tier,P);flash(g,W,H,1-(t-A.T)/.35,'#fff');return;}
+  g.save();const sk=tier>=2?seg(t,2.6,3.5)*(tier===3?1.4:.8):seg(t,2.9,3.5)*.4;shake(g,t,sk,S);bg(g,W,H,t,tier);
+  /* 魔法陣（描かれていく） */
+  const dp=ease(seg(t,.2,1.5)),col=t>1.6?tc(tier,t,0):'#ffd76a';
+  g.save();g.translate(cx,fy);g.scale(1,.32);g.lineCap='round';g.strokeStyle=col;g.shadowColor=col;g.shadowBlur=S*.03;
+  const ring=(r,w,rot,frac)=>{g.lineWidth=w;g.beginPath();g.arc(0,0,r,rot,rot+TAU*frac);g.stroke();};
+  ring(S*.42,S*.008,-Math.PI/2+t*.3,dp);ring(S*.36,S*.004,Math.PI/2-t*.5,dp);ring(S*.22,S*.005,t*.8,dp);
+  const tri=(r,rot)=>{g.beginPath();for(let i=0;i<=3;i++){const a=rot+i*TAU/3;g.lineTo(Math.cos(a)*r,Math.sin(a)*r);}g.lineWidth=S*.004;g.globalAlpha=seg(t,.9,1.5);g.stroke();g.globalAlpha=1;};
+  tri(S*.36,t*.4);tri(S*.36,t*.4+Math.PI);
+  for(let i=0;i<16;i++){const a=i*TAU/16+t*.3;if(i/16>dp)continue;g.save();g.rotate(a);g.fillStyle=col;g.fillRect(S*.375,-S*.006,S*.03,S*.012);g.restore();}
+  g.restore();glow(g,cx,fy,S*.5*dp,col,.35);
+  /* 立ちのぼる光 */
+  for(let i=0;i<40;i++){const p=(t*.5+rnd(i,1))%1,a=rnd(i,2)*TAU,r=S*.4*rnd(i,3);star4(g,cx+Math.cos(a)*r,fy+Math.sin(a)*r*.32-p*S*.55,S*.004,Math.sin(p*Math.PI)*dp,col);}
+  /* 光の玉が降りてくる */
+  const od=ease(seg(t,1.4,2.3)),oy=-S*.2+(H*.42+S*.2)*od,pulse=1+.08*Math.sin(t*14),gr=seg(t,2.6,3.4),orR=S*(.05+.07*gr)*pulse;
+  if(t>1.4){const oc=tc(tier,t,0);
+    /* 集まる光 */
+    if(t>2.4)for(let i=0;i<50;i++){const p=((t-2.4)*1.4+rnd(i,4))%1,a=rnd(i,5)*TAU,d=S*.7*(1-ease(p));star4(g,cx+Math.cos(a)*d,oy+Math.sin(a)*d*.8,S*.004,p,oc);}
+    glow(g,cx,oy,orR*5,oc,.6);glow(g,cx,oy,orR*2.2,tc(tier,t,1),.9);g.save();g.fillStyle='#fff';g.globalAlpha=.95;g.beginPath();g.arc(cx,oy,orR,0,TAU);g.fill();g.restore();
+    if(t>2.5)rays(g,cx,oy,S*.6*gr,10,t*2,oc,.5*gr,.05);
+    /* 虹確定：画面のふちが虹色に */
+    if(tier===3&&t>2.2){const k=seg(t,2.2,2.6);g.save();g.lineWidth=S*.012;g.shadowBlur=S*.05;for(let i=0;i<2;i++){g.globalAlpha=(.55-.25*i)*k*(.7+.3*Math.sin(t*10));g.strokeStyle=g.shadowColor=hue(t*300+i*120,65,1);g.strokeRect(S*.01+i*S*.02,S*.01+i*S*.02,W-S*.02-i*S*.04,H-S*.02-i*S*.04);}g.restore();}}
+  g.restore();
+  flash(g,W,H,seg(t,3.2,3.5),'#fff');}};
+
+const V={magic:A};
+
+/* ===== 音 ===== */
+function tone(ac,out,t,f,d,o={}){const O=ac.createOscillator(),G=ac.createGain();O.type=o.w||'sine';O.frequency.setValueAtTime(f,t);if(o.f2)O.frequency.exponentialRampToValueAtTime(o.f2,t+d);
+  let n=O;if(o.cut){const F=ac.createBiquadFilter();F.type='lowpass';F.frequency.setValueAtTime(o.cut,t);if(o.cut2)F.frequency.exponentialRampToValueAtTime(o.cut2,t+d);O.connect(F);n=F;}else O.connect(G);if(n!==O)n.connect(G);
+  const v=o.v||.2,a=o.a||.005;G.gain.setValueAtTime(.0001,t);G.gain.linearRampToValueAtTime(v,t+a);G.gain.exponentialRampToValueAtTime(.0001,t+a+d);G.connect(out);O.start(t);O.stop(t+a+d+.05);if(o.det){O.detune.value=o.det;}}
+let NB=null;function noiseBuf(ac){if(NB&&NB.sampleRate===ac.sampleRate)return NB;NB=ac.createBuffer(1,ac.sampleRate*2,ac.sampleRate);const d=NB.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return NB;}
+function noise(ac,out,t,d,o={}){const S=ac.createBufferSource();S.buffer=noiseBuf(ac);S.loop=true;const F=ac.createBiquadFilter();F.type=o.ft||'bandpass';F.frequency.setValueAtTime(o.f||1000,t);if(o.f2)F.frequency.exponentialRampToValueAtTime(o.f2,t+d);F.Q.value=o.q||1;const G=ac.createGain();const v=o.v||.2,a=o.a||.005;G.gain.setValueAtTime(.0001,t);G.gain.linearRampToValueAtTime(v,t+a);G.gain.exponentialRampToValueAtTime(.0001,t+a+d);S.connect(F);F.connect(G);G.connect(out);S.start(t);S.stop(t+a+d+.05);}
+const mf=m=>440*Math.pow(2,(m-69)/12);
+function bell(ac,out,t,m,v){tone(ac,out,t,mf(m),1.2,{v:v||.12});tone(ac,out,t,mf(m)*2.01,.6,{v:(v||.12)*.4});tone(ac,out,t,mf(m)*3.98,.25,{v:(v||.12)*.2});}
+function sparkle(ac,out,t,n,base){for(let i=0;i<n;i++)bell(ac,out,t+i*.06,base+[0,4,7,12,16,19,24][i%7]+12*Math.floor(i/7),.05);}
+function riser(ac,out,t,d,v){tone(ac,out,t,180,d,{w:'sawtooth',f2:1400,v:v||.05,cut:600,cut2:6000,a:d*.8});noise(ac,out,t,d,{f:400,f2:8000,q:3,v:(v||.05)*2,a:d*.85});}
+function boom(ac,out,t,v){tone(ac,out,t,120,1.2,{f2:30,v:v||.5});noise(ac,out,t,.8,{ft:'lowpass',f:1800,f2:120,v:(v||.5)*.6});noise(ac,out,t,.25,{ft:'highpass',f:3000,v:.12});}
+function fanfare(ac,out,t,tier){const ch=tier===3?[60,64,67,72,76,79]:tier===2?[60,64,67,72]:[62,66,69];const br=(m,tt,d,v)=>{tone(ac,out,tt,mf(m),d,{w:'sawtooth',v:v,cut:2400,a:.03});tone(ac,out,tt,mf(m),d,{w:'square',v:v*.4,cut:1800,a:.03,det:8});};
+  [0,4,7,12].forEach((k,i)=>br(60+k+(tier===1?2:0),t+i*.09,.16,.05));ch.forEach(m=>br(m,t+.4,1.4,.045));tone(ac,out,t+.4,mf(36+(tier===1?2:0)),1.4,{w:'triangle',v:.25});
+  sparkle(ac,out,t+.45,tier===3?14:8,72);}
+function ding(ac,out,t,i){bell(ac,out,t,84+[0,4,7][i],.14);tone(ac,out,t,mf(96+[0,4,7][i]),.15,{v:.05});}
+function sound(ac,out,t0,variant,tier){const T=V[variant].T;
+  if(variant==='magic'){sparkle(ac,out,t0+.2,6,64);tone(ac,out,t0+.2,mf(48),1.6,{w:'triangle',v:.12,a:.4});riser(ac,out,t0+1.4,2.0,.05);
+    for(let i=0;i<6;i++)tone(ac,out,t0+1.4+i*.12,mf(72+i*2),.1,{v:.04});if(tier===3){for(let i=0;i<10;i++)bell(ac,out,t0+2.2+i*.08,72+i*2,.07);}boom(ac,out,t0+T,.45);}
+  fanfare(ac,out,t0+T+.05,tier);}
+/* ===== 再生 ===== */
+function play(variant,id,P,onDone){const tier=tierOf(id);const cv=document.createElement('canvas');cv.className='gxCv';const dpr=Math.min(2,window.devicePixelRatio||1);
+  const GWd=typeof GW==='function'?GW():innerWidth,GHd=typeof GH==='function'?GH():innerHeight;cv.style.cssText=`position:fixed;left:0;top:0;width:${GWd}px;height:${GHd}px;z-index:9000`;cv.width=GWd*dpr;cv.height=GHd*dpr;document.body.appendChild(cv);const g=cv.getContext('2d');let t0=performance.now(),done=false,raf=0;
+  try{if(typeof audio==='function'&&audio())sound(AC,SFXG,AC.currentTime+.02,variant,tier);}catch(_){}
+  const T=V[variant].T;const step=()=>{const t=(performance.now()-t0)/1000;g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,cv.width,cv.height);g.scale(dpr,dpr);V[variant].draw(g,cv.width/dpr,cv.height/dpr,t,id,tier,P);raf=requestAnimationFrame(step);};raf=requestAnimationFrame(step);
+  const close=()=>{if(done)return;done=true;cancelAnimationFrame(raf);cv.style.transition='opacity .3s';cv.style.opacity='0';setTimeout(()=>cv.remove(),320);onDone&&onDone();};
+  cv.onclick=()=>{const t=(performance.now()-t0)/1000;if(t>T+1.6)close();else if(t<T-.3)t0=performance.now()-(T-.3)*1000;};
+  return{close};}
+function frame(g,W,H,t,variant,id,P){V[variant].draw(g,W,H,t,id,tierOf(id),P);}
+return{play,frame,sound,V,tierOf};})();
+
+async function gachaPull(){if(!GACHA_OPEN)return;if(document.querySelector('.gOv,.gxCv')||G_BUSY)return;if(dias()<GACHA_D){sfx('miss');toast('ダイヤが足りません');setTimeout(openDiaShop,400);return;}const snap=JSON.stringify(save);save.dia=dias()-GACHA_D;hudAvatar();const id=gachaRoll(),dup=fxCnt(id)>0,col=FX_COL[id];fxAdd(id,1);persist();
   if(xfOn()){G_BUSY=1;const gb=document.querySelector('#modal .gGo b');if(gb)gb.textContent='通信中…';const ok=await xfSafe();G_BUSY=0;if(!ok&&xfOn()){save=JSON.parse(snap);persist();hudAvatar();sfx('miss');renderShop('gacha');toast('通信できないためガチャを引けませんでした。電波のよい所でもう一度試してね');return;}}
-  sfx('charge');
-  const sp=Array.from({length:28},(_,i)=>{const a=Math.random()*360,d=30+Math.random()*28,z=.5+Math.random();return `<i style="--a:${a}deg;--d:calc(${d}*var(--vh));--z:${z};--w:${(Math.random()*.5).toFixed(2)}s"></i>`;}).join('');
-  const ov=document.createElement('div');ov.className='gOv';ov.style.setProperty('--c',col);
-  ov.innerHTML=`<div class="gMc"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div><div class="gBeam"></div><div class="gOrb"><i></i></div><div class="gFlash"></div>
-  <div class="gRay2"></div><div class="gRes"><div class="gSp">${sp}</div><canvas class="fxv" data-fx="${id}" data-img="${KIT_M.img}"></canvas><div class="gBdg">${dup?'GET':'NEW!'}</div><div class="gNm">${PFX.META[id].n}<small>エフェクト</small></div><div class="gSb">${dup?`所持数が ${fxCnt(id)} 個になった！`:'手に入れた！ BOXで装備できます'}</div><div class="gTp">タップでとじる</div></div>`;
-  document.body.appendChild(ov);requestAnimationFrame(()=>ov.classList.add('s1'));
-  setTimeout(()=>{ov.classList.add('s2');sfx('whoosh');},900);
-  setTimeout(()=>{ov.classList.add('s3');sfx('summon');},1900);
-  setTimeout(()=>{ov.classList.add('open');sfx('light');fxvMount(ov);},2500);
-  setTimeout(()=>{ov.classList.add('done');ov.onclick=()=>{ov.classList.add('out');setTimeout(()=>ov.remove(),300);gSel=id;renderShop('gacha');};},3300);}
+  /* 演出：魔法陣の召喚（GX） */
+  const P={name:PFX.META[id].n,sub:dup?`所持数が ${fxCnt(id)} 個になった！`:'手に入れた！ BOXで装備できます',dup};
+  try{GX.play('magic',id,P,()=>{gSel=id;renderShop('gacha');});}catch(e){console.warn(e);gSel=id;renderShop('gacha');}}
 
 function stNow(){const S=save.st||(save.st={v:stMax(),t:gNow()});const now=gNow();if(S.t>now+ST_MS)S.t=now;if(S.v>=stMax()){S.t=now;return S.v;}const k=Math.floor((now-S.t)/ST_MS);if(k>0){S.v=Math.min(stMax(),S.v+k);S.t=S.v>=stMax()?now:S.t+k*ST_MS;persist();}return S.v;}
 function stUse(){stNow();if(save.st.v<=0)return false;if(save.st.v>=stMax())save.st.t=gNow();save.st.v--;persist();hudAvatar();return true;}
@@ -5084,7 +5189,7 @@ setTimeout(()=>{try{giftFetch();}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.51</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.52</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
