@@ -154,7 +154,7 @@ https://codemagic.io →「Sign up」→ **GitHub でログイン**
 
 1. **アプリを追加**：「Add application」→ GitHub → `qr-summon-battle` → 種類は「Other」
 2. **API キー**：「Team settings」→「Team integrations」→「Developer Portal」→「Manage keys」→「Add key」
-   - 名前：`QR Summon ASC Key`（`codemagic.yaml` と同じ名前）
+   - 名前：`QR`（`codemagic.yaml` と同じ名前）
    - Issuer ID ★・Key ID ★・`.p8` ファイル ★
 3. **証明書**：「Team settings」→「codemagic.yaml settings」→「Code signing identities」→「iOS certificates」
    →「Generate certificate」→ 名前 `dist`・種類 **Apple Distribution**

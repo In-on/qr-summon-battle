@@ -7,7 +7,7 @@ workflows:
     instance_type: mac_mini_m2
     max_build_duration: 60
     integrations:
-      app_store_connect: QR Summon ASC Key        # Codemagic に登録する App Store Connect API キーの名前（この名前で登録してください）
+      app_store_connect: QR        # Codemagic の Developer Portal 連携（App Store Connect API キー）の名前
     environment:
       ios_signing:
         distribution_type: app_store
