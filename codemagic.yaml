@@ -21,14 +21,27 @@ workflows:
         #    AdMob でアプリと広告ユニットを作ったら、ここを本番のIDに書き換えてください。
         ADMOB_APP_ID: ca-app-pub-3940256099942544~1458002511
         ADMOB_REWARDED_ID: ca-app-pub-3940256099942544/1712485313
-      xcode: latest
+      # Xcode 27（iOS 27 SDK）でビルドする（ITMS-90725 対策）。
+      # 「latest」だと Codemagic の既定（26.6）になることがあるため、正式版の 27.0 を指定。
+      # 27.3 は「edge」（ベータ版）なので、App Store には出せない。新しい正式版が出たら数字を上げる。
+      xcode: "27.0"
     # 自動では動かさない（Web版の更新のたびにビルドされないように）。
     # Codemagic の画面で「Start new build」を押したときだけビルドします。
     scripts:
+      - name: Xcode のバージョン確認（27 未満なら止める）
+        script: |
+          xcodebuild -version
+          MAJOR=$(xcodebuild -version | head -1 | awk '{print $2}' | cut -d. -f1)
+          if [ "$MAJOR" -lt 27 ]; then echo "Xcode $MAJOR ではアップロードできません（27 以上が必要）"; exit 1; fi
       - name: XcodeGen を入れる
         script: brew install xcodegen
       - name: ゲームファイルのコピーと Xcode プロジェクト生成
         script: bash ios/scripts/prepare.sh
+      - name: 暗号化の質問を出さない設定（ITSAppUsesNonExemptEncryption = NO）
+        script: |
+          PLIST=ios/QRSummon/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :ITSAppUsesNonExemptEncryption false" "$PLIST" || /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" "$PLIST"
+          /usr/libexec/PlistBuddy -c "Print :ITSAppUsesNonExemptEncryption" "$PLIST"
       - name: 署名の設定
         script: xcode-project use-profiles
       - name: ビルド番号を上げる
