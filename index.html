@@ -4134,14 +4134,19 @@ function renderShop(tab){stNow();tab=tab==='gacha'&&GACHA_OPEN?'gacha':'item';co
   modal(pnl('ショップ',`<span class="shc"><span class="cico">${COIN_SVG}</span>${coins()}</span>　<span class="shc"><span class="cico">${ST_SVG}</span>スタミナ ${save.st.v}/${stMax()}${stLeft()?`（あと${stLeft()}で+1）`:''}</span>`,`<div class="shTab"><button class="${tab==='item'?'on':''}" onclick="sfx('tap');renderShop('item')">アイテム</button><button class="${tab==='gacha'?'on':''}${GACHA_OPEN?'':' lk'}" onclick="gachaTab()">${GACHA_OPEN?'':'🔒 '}ガチャ</button></div>${tab==='gacha'?gachaHTML():`<div class="shl">${premRow()}${adRows()}${rows}</div>`}`,`<button class="obtn${tab==='gacha'?' gCl':''}" onclick="closeModal()">とじる</button>${tab==='gacha'?gachaBtn():''}`));{const P=document.querySelector('#modal .pnl');if(P)P.classList.add('shopP');}if(tab==='gacha')fxvMount(document.getElementById('modal'));}
 
 /* ===== プレミアムパス（30日） ===== */
-const PREM={id:'premium30',yen:480,days:30};
+const PREM={id:'premium30d',yen:480,days:30};
+/* 非更新サブスクリプションの復元：購入日時(ms)の一覧から有効期限を計算して反映 */
+function premFromDates(L){let u=0;(L||[]).map(Number).filter(x=>x>0).sort((a,b)=>a-b).forEach(p=>{u=Math.max(u,p)+PREM.days*86400000;});return u;}
+window.QRPremRestore=function(L){const u=premFromDates(L);if(!u)return false;if(!save.prem||u>save.prem)save.prem=u;save.premEver=1;persist();return premOn();};
+async function premRestore(){if(!(window.QRIAP&&QRIAP.restore)){toast('アプリ版でのみ使えます');return;}
+  try{const L=await QRIAP.restore();const ok=window.QRPremRestore(L);toast(ok?`プレミアムパスを復元しました（あと${premDays()}日）`:'復元できる有効なパスはありません');closeModal();renderShop();}catch(e){toast('復元に失敗しました');}}
 function premOn(){return !!(save&&save.prem&&save.prem>gNow());}
 function premDays(){return premOn()?Math.ceil((save.prem-gNow())/86400000):0;}
 const PREM_SVG=ICI('pass','pmI');
 function premRow(){return `<div class="shr pmR" onclick="openPrem()"><div class="shi">${PREM_SVG}</div><div class="shn"><b>プレミアムパス</b><small>${premOn()?`有効中・あと${premDays()}日`:'1日のQR召喚回数＋10・スタミナの上限＋5<br>広告なし　30日間有効'}</small></div><div class="shb"><button class="gbtn">${premOn()?'延長':'¥'+PREM.yen}</button></div></div>`;}
 function openPrem(){sfx('open');
   const L=['1日のQR召喚が <b>10回 → 20回</b>','スタミナの上限が <b>5 → 10</b>','広告を見ずに、1日1回の<b>スタミナ+5</b>と<b>携帯品BOX</b>を受け取れる','はじめて購入すると、チャージ特典で限定アイコン<b>「プレミアム」</b>がもらえる'];
-  modal(pnl('プレミアムパス',premOn()?`有効中・あと <b class="pmD">${premDays()}</b> 日`:'30日間の特典',`<div class="pmB">${PREM_SVG}<ul>${L.map(x=>`<li>${x}</li>`).join('')}</ul></div><p class="pmN">自動では更新されません。有効中に購入すると、残りの日数に30日が追加されます。</p>`,`<button class="obtn" onclick="closeModal();renderShop()">とじる</button><button class="gbtn" onclick="buyPrem()">¥${PREM.yen} で購入</button>`));}
+  modal(pnl('プレミアムパス',premOn()?`有効中・あと <b class="pmD">${premDays()}</b> 日`:'30日間の特典',`<div class="pmB">${PREM_SVG}<ul>${L.map(x=>`<li>${x}</li>`).join('')}</ul></div><p class="pmN">自動では更新されません。有効中に購入すると、残りの日数に30日が追加されます。</p>${window.QRIAP&&QRIAP.restore?'<p class="pmN" style="text-decoration:underline;cursor:pointer" onclick="premRestore()">購入を復元する</p>':''}`,`<button class="obtn" onclick="closeModal();renderShop()">とじる</button><button class="gbtn" onclick="buyPrem()">¥${PREM.yen} で購入</button>`));}
 
 
 /* ===== チャージ特典（累計の購入金額でもらえる） ===== */
@@ -5189,7 +5194,7 @@ setTimeout(()=>{try{giftFetch();}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.52</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.55</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
