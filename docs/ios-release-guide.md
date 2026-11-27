@@ -17,7 +17,7 @@
 | 4 | App Store Connect | アプリの作成（有料App契約は**済み**） | 10分 |
 | 5 | App Store Connect | 課金商品4つを作成 | 30分 |
 | 6 | App Store Connect | API キーを作成 | 5分 |
-| 7 | GitHub | `codemagic.yaml` の ★ を書き換え・アイコンを置く | 10分 |
+| 7 | GitHub | アイコンを置く | 5分 |
 | 8 | Codemagic | API キー・証明書・プロファイル | 20分 |
 | 9 | Codemagic | ビルド → 自動で TestFlight へ | 20〜40分 |
 | 10 | iPhone | TestFlight で動作確認（課金はテスト用でお金はかからない） | 30分 |
@@ -140,9 +140,7 @@ https://appstoreconnect.apple.com
 
 https://github.com/in-on/qr-summon-battle
 
-1. `codemagic.yaml` を開いて ✏️ で編集し、★ の行を書き換える
-   - `APP_STORE_APPLE_ID:` → 手順4-1の Apple ID（数字）
-   - （Bundle ID `com.qrsummon.battle` は入れてあるので、変更不要です）
+1. `codemagic.yaml` は**書き換え不要**です（Bundle ID は入れてあり、ビルド番号は自動で付きます）
    - 「Commit changes」
 2. **アプリアイコン**：1024×1024 の PNG を `ios/icon-1024.png` という名前でアップロード
    - 角丸・透明は不要（iOS が自動で丸めます）
