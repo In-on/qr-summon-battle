@@ -1,0 +1,5 @@
+ios/www/
+ios/QRSummon.xcodeproj/
+ios/QRSummon/Assets.xcassets/AppIcon.appiconset/icon-1024.png
+build/
+.DS_Store

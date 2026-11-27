@@ -1,0 +1,52 @@
+# Codemagic のビルド設定（iOS → TestFlight）
+# 使い方は docs/ios-release-guide.md を見てください。
+# ★ の付いた行は、必要になったら書き換えます（最初のビルドはこのままでOK）。
+workflows:
+  ios-testflight:
+    name: iOS → TestFlight
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: QR Summon ASC Key        # Codemagic に登録する App Store Connect API キーの名前（この名前で登録してください）
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.qrsummon.battle   # Bundle ID（下の BUNDLE_ID と同じ値）
+      vars:
+        BUNDLE_ID: com.qrsummon.battle
+        APP_VERSION: 1.0.0                               # 審査に出すバージョン
+        XCODE_PROJECT: ios/QRSummon.xcodeproj
+        XCODE_SCHEME: QRSummon
+        # ★ AdMob のID。今は Google のテスト用ID（テスト広告が出ます）。
+        #    AdMob でアプリと広告ユニットを作ったら、ここを本番のIDに書き換えてください。
+        ADMOB_APP_ID: ca-app-pub-3940256099942544~1458002511
+        ADMOB_REWARDED_ID: ca-app-pub-3940256099942544/1712485313
+      xcode: latest
+    # 自動では動かさない（Web版の更新のたびにビルドされないように）。
+    # Codemagic の画面で「Start new build」を押したときだけビルドします。
+    scripts:
+      - name: XcodeGen を入れる
+        script: brew install xcodegen
+      - name: ゲームファイルのコピーと Xcode プロジェクト生成
+        script: bash ios/scripts/prepare.sh
+      - name: 署名の設定
+        script: xcode-project use-profiles
+      - name: ビルド番号を上げる
+        script: |
+          cd ios
+          # Codemagic のビルド回数（1, 2, 3…）をそのままビルド番号にする。毎回必ず大きくなる
+          echo "build number: $BUILD_NUMBER"
+          agvtool new-version -all "$BUILD_NUMBER"
+      - name: ipa をビルド
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
