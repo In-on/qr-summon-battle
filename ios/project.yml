@@ -39,7 +39,7 @@ targets:
     info:
       path: QRSummon/Info.plist
       properties:
-        CFBundleDisplayName: モンQ   # ホーム画面のアイコンの下に出る名前
+        CFBundleDisplayName: QR召喚バトル   # ホーム画面のアイコンの下に出る名前
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleDevelopmentRegion: ja

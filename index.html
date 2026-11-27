@@ -3504,7 +3504,7 @@ function openQR(){
       <div class="qsF"><i></i><i></i><i></i><i></i><b></b></div></div></div>
     <div class="qsR"><div class="mt gt">QR SCAN</div><div class="ms">QRコード・バーコードを<br>カメラにかざすだけで召喚！</div><div class="qsCnt${scLeft()?'':' z'}">今日の召喚 あと <b>${scDLeft()}</b> / ${scanMax()} 回${save.qrt?`<br><span class="qrtN">${QRT_SVG}QR券 ${save.qrt}枚</span>`:''}</div>
       <div class="qsRt"><span class="ur">UR <b>${Math.round(UR_RATE*1000)/10}%</b></span><span class="sr">SR <b>${Math.round(SR_RATE*1000)/10}%</b></span></div>
-      <div class="qsB"><button class="obtn" onclick="$('#picIn').click()">画像から選ぶ</button></div></div>
+      <div class="qsB"><button class="obtn" onclick="$('#picIn').click()">画像から選ぶ</button><button class="obtn" onclick="openTextSummon()">文字で召喚</button></div></div>
   </div>`);
   setTimeout(()=>{if($('#qsVid'))startScan();},180);
 }
@@ -3548,6 +3548,14 @@ async function onFile(e){
   summon(d);
 }
 $('#camIn').onchange=onFile;$('#picIn').onchange=onFile;
+/* 文字で召喚：入力した文字を、QRコードの中身と同じように使って召喚する（回数・確率はQR召喚と同じ） */
+const TXS_MAX=60;
+function openTextSummon(){try{stopScan();}catch(e){}sfx('tap');
+  modal(`<div class="qrm glass"><div class="mt gt" style="font-size:calc(3.42*var(--vh));letter-spacing:.2em">文字で召喚</div><div class="ms">好きな言葉を入力すると、その言葉からモンスターが生まれます<br><small>同じ言葉からは、同じモンスターが生まれます</small></div><input class="inp" id="txsIn" maxlength="${TXS_MAX}" placeholder="例：ドラゴン、好きな食べもの、名前…" autocomplete="off" enterkeyhint="done" style="width:80%;margin:calc(1.2*var(--vh)) auto;display:block"><div class="row"><button class="obtn" onclick="closeModal();openQR()">もどる</button><button class="gbtn" onclick="textSummonGo()">召喚する</button></div></div>`);
+  const i=$('#txsIn');if(i){i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();textSummonGo();}};setTimeout(()=>{try{i.focus();}catch(e){}},200);}}
+function textSummonGo(){const i=$('#txsIn');const t=(i&&i.value||'').trim().slice(0,TXS_MAX);
+  if(!t){toast('文字を入力してください');sfx('miss');return;}
+  try{i.blur();}catch(e){}sfx('buff');summon(t);}
 function summonText(){const v=($('#txtIn')||{}).value;if(v&&v.trim())summon(v.trim());}
 
 /* ================= 召喚 ================= */

@@ -20,7 +20,7 @@
 
 ## 決まっていること
 - **バンドルID**：`com.qrsummon.battle`（Apple Developerで登録済み、または登録予定）
-- **ホーム画面に出す名前**：`モンQ`（Info.plist の `CFBundleDisplayName`。App Store上の名前は「QR召喚バトル」のまま）
+- **ホーム画面に出す名前**：`QR召喚バトル`（Info.plist の `CFBundleDisplayName`。App Store上の名前と同じ）
 - アプリ名：QR召喚バトル
 - Apple Developer Program（個人）登録済み。有料アプリの契約・口座・税務情報も有効。
 

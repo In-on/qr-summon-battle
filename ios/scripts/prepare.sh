@@ -32,6 +32,8 @@ ICON_DIR="$IOS/QRSummon/Assets.xcassets/AppIcon.appiconset"
 ICON_OUT="$ICON_DIR/icon-1024.png"
 if [ -f "$IOS/icon-1024.png" ]; then
   SRC="$IOS/icon-1024.png"
+elif [ -f "$ROOT/icon-1024.png" ]; then
+  SRC="$ROOT/icon-1024.png"
 else
   echo "⚠️  ios/icon-1024.png が無いので apple-touch-icon.png を拡大して仮アイコンにします（画質が粗くなります）"
   SRC="$ROOT/apple-touch-icon.png"
