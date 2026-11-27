@@ -2239,8 +2239,8 @@ function sfx(type){if(!audio())return;const t=AC.currentTime,D=SFXG;if(SFXT[type
   case'slam':osc(D,t,110,1.3,{f2:24,v:.75});osc(D,t,55,1.6,{f2:20,v:.7});nz(D,t,.7,{f:600,f2:60,q:.5,v:.6});nz(D,t,.12,{f:2200,f2:300,q:.6,v:.35});osc(D,t+.04,38,1.4,{f2:18,v:.55});nz(D,t+.15,1.1,{f:220,f2:50,q:.4,v:.35});nz(D,t+.25,.6,{ft:'highpass',f:1800,v:.05});break;
   case'tap':osc(D,t,1400,.07,{v:.05});osc(D,t+.02,2100,.06,{v:.025});break;
   case'open':osc(D,t,660,.25,{w:'triangle',v:.05,rev:1});osc(D,t+.06,990,.3,{v:.04,rev:1});break;
-  case'hit':osc(D,t,180,.12,{f2:80,v:.28});osc(D,t+.01,1320,.12,{v:.06,rev:1});osc(D,t+.01,1980,.08,{v:.035,rev:1});break;
-  case'crit':osc(D,t,200,.18,{f2:70,v:.32});[1320,1760,2640].forEach((f,i)=>osc(D,t+i*.04,f,.18,{v:.06,rev:1}));break;
+  case'hit':if(B&&B.mode==='adv'){if(t-(SFXT._advHit||0)<.32||Math.random()<.45)break;SFXT._advHit=t;}if(Math.random()<.2){osc(D,t,180,.12,{f2:80,v:.28});osc(D,t+.01,1320,.12,{v:.06,rev:1});osc(D,t+.01,1980,.08,{v:.035,rev:1});}else{osc(D,t,140,.16,{f2:45,v:.35});nz(D,t,.09,{f:1400,q:.8,v:.25});nz(D,t,.05,{ft:'highpass',f:3000,v:.08});}break;
+  case'crit':if(Math.random()<.3){osc(D,t,200,.18,{f2:70,v:.32});[1320,1760,2640].forEach((f,i)=>osc(D,t+i*.04,f,.18,{v:.06,rev:1}));}else{osc(D,t,160,.25,{f2:38,v:.42});nz(D,t,.16,{f:2200,f2:600,q:.6,v:.32});nz(D,t,.1,{ft:'highpass',f:4500,v:.18});osc(D,t,980,.12,{w:'square',f2:240,v:.06,cut:3000});}break;
   case'miss':case'whoosh':nz(D,t,.24,{f:500,f2:2800,q:2.2,v:.22});break;
   case'slash':nz(D,t,.14,{ft:'highpass',f:2200,f2:6500,v:.2});nz(D,t,.18,{f:900,f2:2400,q:3,v:.12});break;
   case'boom':osc(D,t,90,.75,{f2:28,v:.5});nz(D,t,.9,{ft:'lowpass',f:1600,f2:90,v:.45,rev:1});nz(D,t,.12,{ft:'highpass',f:2500,v:.15});break;
@@ -4841,7 +4841,7 @@ function doMelee(i,step){const f=B.f[i];const o=target(i);if(!o)return;if(!step)
   const fin=step===3,st=breathStyle(f),el=f.m.el.n,R=f.m.special?3.6:3.1;f.combo=step;f.comboT=B.t;
   const ta=Math.atan2(o.x-f.x,o.z-f.z),dd=Math.atan2(Math.sin(ta-f.ang),Math.cos(ta-f.ang));const od=Math.hypot(o.x-f.x,o.z-f.z);if(od<6){f.ang+=dd;f.face=f.ang;}if(step>1&&od>1.6){const mv=(od-1.4)/od;f.vx+=(o.x-f.x)*mv*6;f.vz+=(o.z-f.z)*mv*6;}
   if(B.ctl.includes(i)||step===1){elSfx(el);if(fin)sfx('slash');}
-  const chain=v=>{if(v>0&&!o.dead&&step<3){f.cmb=1;o.stun=Math.max(o.stun,.6);popNum(o,(step+1)+' HIT','combo');sched(step===1?.22:.26,()=>doMelee(i,step+1));}else if(!fin)f.cmb=0;};
+  const chain=v=>{if(v>0&&!o.dead&&step<3){f.cmb=1;o.stun=Math.max(o.stun,.6);sched(step===1?.22:.26,()=>doMelee(i,step+1));}else if(!fin)f.cmb=0;};
   if(!fin){f.acd=step===1?.75:.32;f.lunge=.22;
     if(st.k==='claw'||st.k==='light'||step===2)slash(f,st.c[step===2?1:0],step===2);
     breath(f,.12,f.m.special?10:7,R,.55);
@@ -4849,7 +4849,7 @@ function doMelee(i,step){const f=B.f[i];const o=target(i);if(!o)return;if(!step)
   else{f.acd=1;f.lunge=.3;f.jump=.3;if(B.ctl.includes(i))shake(.15);
     slash(f,st.c[0],true);sched(.12,()=>slash(f,st.c[1],true));
     breath(f,.55,f.m.special?16:11,R+1.2,.7);
-    for(let k=0;k<4;k++)sched(.1+k*.13,()=>{if(k<3&&!o.dead)o.stun=Math.max(o.stun,.3);coneAll(f,R+1.2,.75,20,el,k===3?3.4:.3,k===3);if(k===3)for(const e of foes(f))if(e.hit>.25)addSt(e,'down');if(k===3){f.cmb=0;if(!o.dead&&o.hit>0)popNum(o,'3 HIT COMBO!','combo');}});}}
+    for(let k=0;k<4;k++)sched(.1+k*.13,()=>{if(k<3&&!o.dead)o.stun=Math.max(o.stun,.3);coneAll(f,R+1.2,.75,20,el,k===3?3.4:.3,k===3);if(k===3)for(const e of foes(f))if(e.hit>.25)addSt(e,'down');if(k===3){f.cmb=0;}});}}
 function shot(f,a,o){const SZ=o.size||.22,EL=o.el;const core={火:'#ffd27a',水:'#cfeeff',木:'#e0ffc8',光:'#ffffff',闇:'#000000'}[EL]||'#ffffff';
   const m=new THREE.Mesh(new THREE.SphereGeometry(SZ*(EL==='木'?.45:EL==='火'?.6:EL==='闇'?1.1:.8),16,12),new THREE.MeshBasicMaterial({color:core}));elSfx(EL);
   const gl=new THREE.Sprite(new THREE.SpriteMaterial({map:wtex('glow'),color:EL==='闇'?'#9a4aff':o.col,blending:THREE.AdditiveBlending,depthWrite:false,transparent:true}));gl.scale.setScalar(SZ*(EL==='闇'?10:8));m.add(gl);
@@ -5236,7 +5236,7 @@ setTimeout(()=>{try{giftFetch();}catch(e){}},6000);
 setTimeout(()=>{try{if(save.rkPend)rkLoseNow('前回のランクバトルは途中で終了したため負けになりました');}catch(e){}},3000);
 function quitBattle(force){{const o=document.getElementById('npOv');if(o)o.remove();}if(B&&B.rank&&save.rkPend&&!(force&&B.busy))rkLoseNow('ランクバトルから退出したため負けになりました');if(!force&&B&&B.busy)return;if(B&&B.net)netClose();try{if(B&&B.hand&&BT)BT.sc.remove(B.hand.o);if(BT&&BT.AG){BT.AG.position.y=0;BT.AG.rotation.x=BT.AG.rotation.z=0;}}catch(e){}B=null;closeMenu&&closeMenu();bgmPlay('room');$('#battle').classList.remove('on');$('#dmgs').innerHTML='';R.paused=false;setTimeout(fuseUnlockChk,1400);}
 </script>
-<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.61</div>
+<div id="verTag" style="position:fixed;right:6px;bottom:4px;z-index:9998;font:600 10px sans-serif;color:rgba(255,255,255,.35);pointer-events:none">v11.63</div>
 <div id="avJoy"><i></i></div><button id="doorBtn" onclick="openDoor()"><svg viewBox="0 0 24 24" fill="none" stroke="#f6e2a8" stroke-width="1.6"><path d="M6 21V8a6 6 0 0 1 12 0v13M4 21h16"/><circle cx="15" cy="13.5" r=".9" fill="#f6e2a8"/></svg>ドアを開ける</button>
 </body>
 </html>
