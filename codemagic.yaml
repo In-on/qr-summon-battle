@@ -18,10 +18,11 @@ workflows:
         XCODE_PROJECT: ios/QRSummon.xcodeproj
         XCODE_SCHEME: QRSummon
         # AdMob の本番ID（アプリID と リワード広告ユニットID）。
-        # スタミナ+5・携帯品BOX の両方で、同じリワード広告ユニットを使う。
-        # テスト広告に戻すとき：ADMOB_REWARDED_ID を ca-app-pub-3940256099942544/1712485313 にする
+        # ADMOB_REWARDED_ID … 「スタミナ+5」用 / ADMOB_REWARDED_BOX_ID … 「携帯品BOX」用
+        # テスト広告に戻すとき：2つとも ca-app-pub-3940256099942544/1712485313 にする
         ADMOB_APP_ID: ca-app-pub-1415958216072215~5391718938
         ADMOB_REWARDED_ID: ca-app-pub-1415958216072215/1997775540
+        ADMOB_REWARDED_BOX_ID: ca-app-pub-1415958216072215/1694523210
       # Xcode 27（iOS 27 SDK）でビルドする（ITMS-90725 対策）。
       # 「latest」だと Codemagic の既定（26.6）になることがあるため、正式版の 27.0 を指定。
       # 27.3 は「edge」（ベータ版）なので、App Store には出せない。新しい正式版が出たら数字を上げる。

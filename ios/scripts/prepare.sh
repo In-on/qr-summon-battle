@@ -13,6 +13,8 @@ export APP_VERSION="${APP_VERSION:-1.0.0}"
 # 未設定のときは Google 公式のテスト用ID（本番では必ず自分のIDを設定する）
 export ADMOB_APP_ID="${ADMOB_APP_ID:-ca-app-pub-3940256099942544~1458002511}"
 export ADMOB_REWARDED_ID="${ADMOB_REWARDED_ID:-ca-app-pub-3940256099942544/1712485313}"
+# 携帯品BOX 用（未設定なら スタミナ用と同じID）
+export ADMOB_REWARDED_BOX_ID="${ADMOB_REWARDED_BOX_ID:-$ADMOB_REWARDED_ID}"
 
 echo "BUNDLE_ID=$BUNDLE_ID  APP_VERSION=$APP_VERSION"
 case "$ADMOB_APP_ID" in ca-app-pub-3940256099942544*) echo "⚠️  AdMob はテスト用IDでビルドしています（審査用には本番IDを設定してください）";; esac

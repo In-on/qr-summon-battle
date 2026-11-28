@@ -4,7 +4,7 @@
    ゲームが使うもの:
      QRIAP.buy(商品ID) → Promise<boolean>（Apple の購入記録を確認できたら true）
      QRIAP.restore()   → Promise<number[]>（premium30d の有効な取引の購入日時ms。App Store と同期してから調べる）
-     QRAd.show()       → Promise<boolean>（最後まで見たら true）
+     QRAd.show()       → Promise<boolean>（最後まで見たら true。スタミナ+5 と 携帯品BOX で別の広告ユニット）
    起動時：Apple の購入記録から premium30d の購入日時を調べて window.QRPremRestore(一覧) を自動で呼ぶ。
 
    二重付与の防止:
@@ -125,9 +125,29 @@
     }
   };
 
+  /* ---- 広告：ボタンごとに別の広告ユニット（スタミナ+5 → "st"、携帯品BOX → "box"） ----
+     ゲームの adStamina() / adBox() を包んで、どちらから呼ばれたかを覚えておく（index.html は変更しない） */
+  var adKind = 'st';
+  (function wrapAds() {
+    var ok = true;
+    [['adStamina', 'st'], ['adBox', 'box']].forEach(function (p) {
+      var o = window[p[0]];
+      if (typeof o !== 'function') { ok = false; return; }
+      if (o.__qrWrapped) return;
+      var w = function () { adKind = p[1]; return o.apply(this, arguments); };
+      w.__qrWrapped = true;
+      window[p[0]] = w;
+    });
+    if (!ok) setTimeout(wrapAds, 1000);
+  })();
+
   window.QRAd = {
     native: true,
-    show: function () { return call('ad.show').then(function (r) { return !!r; }); }
+    show: function (kind) {
+      var k = kind === 'box' || kind === 'st' ? kind : adKind;
+      adKind = 'st';
+      return call('ad.show', { kind: k }).then(function (r) { return !!r; });
+    }
   };
 
   // 起動時①：プレミアムパスを自動で復元（機種変更・再インストール対策。ダイアログは出さない）

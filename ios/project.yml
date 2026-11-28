@@ -63,6 +63,7 @@ targets:
         NSUserTrackingUsageDescription: あなたに合った広告を表示するために使用します。許可しなくてもゲームはすべて遊べます。
         GADApplicationIdentifier: ${ADMOB_APP_ID}
         QRRewardedAdUnitID: ${ADMOB_REWARDED_ID}
+        QRRewardedBoxAdUnitID: ${ADMOB_REWARDED_BOX_ID}
         QRPremiumProductID: premium30d
         # Google と提携広告ネットワークの SKAdNetwork ID（Google公式一覧・50件・2026/1/30更新版）
         SKAdNetworkItems:

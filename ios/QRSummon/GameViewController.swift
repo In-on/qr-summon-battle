@@ -80,7 +80,7 @@ final class GameViewController: UIViewController, WKScriptMessageHandler, WKNavi
                 case "iap.restore":
                     result = await iap.premiumPurchaseDates(sync: args["sync"] as? Bool ?? false)
                 case "ad.show":
-                    result = await ads.showRewarded(from: self)
+                    result = await ads.showRewarded(kind: args["kind"] as? String ?? "st", from: self)
                 default:
                     result = NSNull()
                 }
